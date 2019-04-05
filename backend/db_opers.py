@@ -195,6 +195,7 @@ def db_get_my_invites(token):
                 and i.user_id = %s"""
 
         #order by i.invite_timestamp desc
+        #because it makes sense
 
         cur.execute(sql, (token,))
         db_invites = cur.fetchall()
