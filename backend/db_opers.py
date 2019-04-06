@@ -192,15 +192,12 @@ def db_get_my_invites(token):
         sql = """select q.group_name, q.group_desc, i.group_id, i.invite_timestamp
                 from invites i, quiz_groups q
                 where i.group_id = q.group_id
-                and i.user_id = %s"""
-
-        #order by i.invite_timestamp desc
-        #because it makes sense
+                and i.user_id = %s
+                order by i.invite_timestamp desc"""
 
         cur.execute(sql, (token,))
         db_invites = cur.fetchall()
         invites_size = cur.rowcount
-        print(token)
 
         json_keys = ['group_name', 'group_desc', 'group_id', 'timestamp']
         invites = convert_to_json(invites_size, json_keys, db_invites)

@@ -67,9 +67,9 @@ def get_users():
 # Need to capture errors
 @app.route("/api/group_creation", methods=["POST"])
 def create_group():
-    group_name = request.form.get('group-name')
+    group_name = request.get_json()['group-name']
+    group_desc = request.get_json()['group-desc']
     token = request.headers.get('Authorization')
-    group_desc = request.form.get('group-desc')
 
     create_group_status = db_create_group(group_name, token, group_desc)
 
@@ -79,8 +79,8 @@ def create_group():
 
 @app.route("/api/invitation", methods=["POST"])
 def send_invite():
-    user_email = request.form.get('user-email')
-    group_id = request.form.get('group-id')
+    user_email = request.get_json()['user-email']
+    group_id = request.get_json()['group-id']
     token = request.headers.get('Authorization')
 
     invite_status_code = db_send_invite(user_email, group_id, token)
@@ -105,7 +105,7 @@ def send_invite():
 
 @app.route("/api/request_membership", methods=["POST"])
 def send_request():
-    group_id = request.form.get('group-id')
+    group_id = request.get_json()['group-id']
     user_id = request.headers.get('Authorization')
 
     request_status_code = db_send_request(user_id, group_id)
@@ -157,8 +157,8 @@ def get_requests():
 
 @app.route("/api/accept_invite", methods=["POST"])
 def accept_invite():
+    group_id = request.get_json()['group-id']
     token = request.headers.get('Authorization')
-    group_id = request.form.get('group-id')
 
     accept_status = db_accept_invite(token, group_id)
 
@@ -167,8 +167,8 @@ def accept_invite():
 
 @app.route("/api/accept_request", methods=["POST"])
 def accept_request():
-    user_email = request.form.get('user-email')
-    group_id = request.form.get('group-id')
+    user_email = request.get_json()['user-email']
+    group_id = request.get_json()['group-id']
 
     accept_status = db_accept_request(user_email, group_id)
 
@@ -177,8 +177,8 @@ def accept_request():
 
 @app.route("/api/delete_invite", methods=["DELETE"])
 def delete_invite():
+    group_id = request.get_json()['group-id']
     token = request.headers.get('Authorization')
-    group_id = request.form.get('group-id')
 
     delete_status = db_delete_invite(token, group_id)
 
@@ -194,8 +194,8 @@ def delete_invite():
 
 @app.route("/api/delete_request", methods=["DELETE"])
 def delete_request():
-    email = request.form.get('email')
-    group_id = request.form.get('group-id')
+    email = request.get_json()['email']
+    group_id = request.get_json()['group-id']
 
     delete_status = db_delete_request(email, group_id)
 
