@@ -197,12 +197,11 @@ def db_get_my_invites(token):
 
         cur.execute(sql, (token,))
         db_invites = cur.fetchall()
-        invites_size = cur.rowcount
 
         json_keys = ['group_name', 'group_desc', 'group_id', 'timestamp']
-        invites = convert_to_json(invites_size, json_keys, db_invites)
+        invites = convert_to_json(json_keys, db_invites)
 
-        if invites_size != 0:
+        if len(invites) != 0:
             return invites
 
         else:
@@ -232,12 +231,11 @@ def db_get_my_group_requests(token):
 
         cur.execute(sql, (token,))
         db_requests = cur.fetchall()
-        requests_size = cur.rowcount
 
         json_keys = ['user_dname', 'user_email', 'timestamp', 'group_id', 'for_group']
-        requests = convert_to_json(requests_size, json_keys, db_requests)
+        requests = convert_to_json(json_keys, db_requests)
 
-        if requests_size != 0:
+        if len(requests) != 0:
             return requests
 
         return False
@@ -347,6 +345,42 @@ def db_delete_request(email, group_id):
         cur.close()
 
         return True
+
+    except(Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return error.pgcode
+
+    finally:
+        disconnect_db(conn)
+
+
+def db_get_my_groups(token):
+    conn = None
+    try:
+        conn = connect_to_db()
+        cur = conn.cursor()
+
+        sql_get_groups_ids = """select group_id
+                                from group_memberships
+                                where user_id = %s"""
+        cur.execute(sql_get_groups_ids, (token,))
+        db_group_ids = cur.fetchall()
+        group_ids = get_group_ids(db_group_ids)
+
+        sql = """select group_name, group_desc, group_admin from quiz_groups
+                where group_id = any(%s::int[])
+                or group_admin = %s"""
+        cur.execute(sql, (group_ids, token,))
+        db_rows = cur.fetchall()
+
+        json_keys = ['group_name', 'group_desc', 'is_admin']
+        groups = groups_convert_to_json(json_keys, db_rows, token)
+
+        if len(groups) != 0:
+            return groups
+
+        return False
+        cur.close()
 
     except(Exception, psycopg2.DatabaseError) as error:
         print(error)

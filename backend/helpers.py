@@ -49,13 +49,47 @@ def verify_user(db_row, password):
     return auth_status
 
 
-def convert_to_json(num_of_rows, json_keys, db_rows):
+def convert_to_json(json_keys, db_rows):
     json_data = []
 
-    for i in range(0, num_of_rows):
+    for i in range(0, len(db_rows)):
         temp = {}
         for j in range(0, len(json_keys)):
             temp[json_keys[j]] = db_rows[i][j]
+        json_data.append(temp)
+
+    return json_data
+
+
+def get_group_ids(db_group_ids):
+    group_ids = []
+    for i in db_group_ids:
+        group_ids.append(i[0])
+
+    s = '{'
+    for i in range(0, len(group_ids)):
+        if i == len(group_ids) - 1:
+            s = s + str(group_ids[i])
+        else:
+            s = s + str(group_ids[i]) + ','
+    s = s + '}'
+
+    return s
+
+
+def groups_convert_to_json(json_keys, db_rows, token):
+    json_data = []
+
+    for i in range(0, len(db_rows)):
+        temp = {}
+        for j in range(0, len(json_keys)):
+            if json_keys[j] == 'is_admin':
+                if db_rows[i][j] == token:
+                    temp[json_keys[j]] = True
+                else:
+                    temp[json_keys[j]] = False
+            else:
+                temp[json_keys[j]] = db_rows[i][j]
         json_data.append(temp)
 
     return json_data

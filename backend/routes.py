@@ -207,3 +207,20 @@ def delete_request():
             {'code: ': 000,
              'reason: ': 'This group request most likely does not exist.'}
         ), 400)
+
+
+@app.route("/api/groups", methods=["GET"])
+def get_my_groups():
+    token = request.headers.get('Authorization')
+
+    groups = db_get_my_groups(token)
+
+    if groups is False:
+        return make_response(jsonify(
+            {'code: ': 000,
+             'reason: ': 'No groups found.'
+             }
+        ), 404)
+
+    else:
+        return make_response(jsonify(groups), 200)
