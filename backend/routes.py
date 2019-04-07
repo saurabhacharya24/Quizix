@@ -7,6 +7,18 @@ app = Flask(__name__)
 CORS(app)
 
 
+# Only for testing cookies
+
+@app.route("/api/debug_cookie", methods=["GET"])
+def cookie():
+    resp = make_response(jsonify('Cookie!'), 200)
+    resp.set_cookie('Abc', '124', httponly=True)
+    resp.headers['Access-Control-Allow-Credentials'] = 'true'
+    return resp
+
+# Only for testing cookies
+
+
 @app.route("/api/registration", methods=["POST"])
 def register_user():
     display_name = request.form.get('display_name')
