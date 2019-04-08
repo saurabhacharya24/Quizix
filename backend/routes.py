@@ -9,12 +9,18 @@ CORS(app)
 
 # Only for testing cookies
 
-@app.route("/api/debug_cookie", methods=["GET"])
+@app.route("/api/debug/cookie", methods=["GET"])
 def cookie():
     resp = make_response(jsonify('Cookie!'), 200)
-    resp.set_cookie('Abc', '124', httponly=True)
+    resp.set_cookie('abc', '1234', httponly=True)
     resp.headers['Access-Control-Allow-Credentials'] = 'true'
     return resp
+
+
+@app.route("/api/debug/get_cookie", methods=["GET"])
+def get_cookie():
+    cookie = request.cookies.get('abc')
+    return make_response(jsonify('cookie name=abc, value=' + cookie), 200)
 
 # Only for testing cookies
 
