@@ -48,7 +48,7 @@ def register_user():
         ), 400)
 
     else:
-        resp = make_response('Success', 200)
+        resp = make_response(jsonify(True), 200)
         return resp
 
 
@@ -60,7 +60,7 @@ def login():
     auth_status = db_verify_user(email, password)
 
     if auth_status is False:
-        return make_response(jsonify('false'), 400)
+        return make_response(jsonify(False), 400)
 
     else:
         resp = make_response(jsonify('true'), 200)
@@ -94,7 +94,7 @@ def create_group():
     create_group_status = db_create_group(group_name, token, group_desc)
 
     if create_group_status is True:
-        return make_response("Success", 200)
+        return make_response(jsonify(True), 200)
 
 
 @app.route("/api/invitation", methods=["POST"])
@@ -120,7 +120,7 @@ def send_invite():
         ), 400)
 
     else:
-        return make_response("Success", 200)
+        return make_response(jsonify(True), 200)
 
 
 @app.route("/api/request_membership", methods=["POST"])
@@ -138,7 +138,7 @@ def send_request():
         ), 400)
 
     elif request_status_code is True:
-        return make_response("Success", 200)
+        return make_response(jsonify(True), 200)
 
 
 @app.route("/api/my_invites", methods=["GET"])
