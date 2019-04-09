@@ -367,13 +367,14 @@ def db_get_my_groups(token):
         db_group_ids = cur.fetchall()
         group_ids = get_group_ids(db_group_ids)
 
-        sql = """select group_name, group_desc, group_admin from quiz_groups
+        sql = """select group_name, group_desc, num_of_members, group_admin
+                from quiz_groups
                 where group_id = any(%s::int[])
                 or group_admin = %s"""
         cur.execute(sql, (group_ids, token,))
         db_rows = cur.fetchall()
 
-        json_keys = ['group_name', 'group_desc', 'is_admin']
+        json_keys = ['group_name', 'group_desc', 'num_of_members', 'is_admin']
         groups = groups_convert_to_json(json_keys, db_rows, token)
 
         if len(groups) != 0:
