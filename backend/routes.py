@@ -73,7 +73,8 @@ def login():
 def logout():
     token = request.cookies.get('token')
     db_logout_user(token)
-    resp = make_response('', 200)
+    resp = make_response(jsonify('true'), 200)
+    resp.set_cookie('token', '', httponly=True, expires=0)
     return resp
 
 
