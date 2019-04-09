@@ -7,24 +7,6 @@ app = Flask(__name__)
 CORS(app)
 
 
-# Only for testing cookies
-
-@app.route("/api/debug/cookie", methods=["GET"])
-def cookie():
-    resp = make_response(jsonify('Cookie!'), 200)
-    resp.set_cookie('abc', '1234', httponly=True)
-    resp.headers['Access-Control-Allow-Credentials'] = 'true'
-    return resp
-
-
-@app.route("/api/debug/get_cookie", methods=["GET"])
-def get_cookie():
-    cookie = request.cookies.get('abc')
-    return make_response(jsonify('cookie name=abc, value=' + cookie), 200)
-
-# Only for testing cookies
-
-
 @app.route("/api/registration", methods=["POST"])
 def register_user():
     display_name = request.form.get('display_name')
@@ -84,7 +66,6 @@ def get_users():
     return jsonify(users)
 
 
-# Need to capture errors
 @app.route("/api/group_creation", methods=["POST"])
 def create_group():
     group_name = request.get_json()['group_name']
@@ -95,6 +76,13 @@ def create_group():
 
     if create_group_status is True:
         return make_response(jsonify(True), 200)
+
+    else:
+        return make_response(jsonify(
+            {'code: ': 502,
+             'reason: ': 'Group name/group description cannot be empty.'
+             }
+        ), 400)
 
 
 @app.route("/api/invitation", methods=["POST"])
