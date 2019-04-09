@@ -9,9 +9,9 @@ CORS(app)
 
 @app.route("/api/registration", methods=["POST"])
 def register_user():
-    display_name = request.form.get('display_name')
-    email = request.form.get('email')
-    password = request.form.get('password')
+    display_name = request.get_json()['display_name']
+    email = request.get_json()['email']
+    password = request.get_json()['password']
 
     status = db_insert_user(display_name, email, password)
 
@@ -165,7 +165,7 @@ def get_requests():
 
 @app.route("/api/accept_invite", methods=["POST"])
 def accept_invite():
-    group_id = request.args.get('group_id')
+    group_id = request.get_json()['group_id']
     token = request.cookies.get('token')
 
     accept_status = db_accept_invite(token, group_id)
