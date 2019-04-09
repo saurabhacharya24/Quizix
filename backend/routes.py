@@ -60,17 +60,18 @@ def login():
     auth_status = db_verify_user(email, password)
 
     if auth_status is False:
-        return make_response(jsonify('False'), 400)
+        return make_response(jsonify('false'), 400)
 
     else:
-
-        resp = make_response(jsonify(auth_status), 200)
+        resp = make_response(jsonify('true'), 200)
+        resp.set_cookie('token', auth_status, httponly=True)
+        resp.headers['Access-Control-Allow-Credentials'] = 'true'
         return resp
 
 
 @app.route("/api/logout", methods=["DELETE"])
 def logout():
-    token = request.headers.get('Authorization')
+    token = request.cookies.get('token')
     db_logout_user(token)
     resp = make_response('', 200)
     return resp
@@ -87,7 +88,7 @@ def get_users():
 def create_group():
     group_name = request.get_json()['group_name']
     group_desc = request.get_json()['group_desc']
-    token = request.headers.get('Authorization')
+    token = request.cookies.get('token')
 
     create_group_status = db_create_group(group_name, token, group_desc)
 
@@ -99,7 +100,7 @@ def create_group():
 def send_invite():
     user_email = request.get_json()['user_email']
     group_id = request.get_json()['group_id']
-    token = request.headers.get('Authorization')
+    token = request.cookies.get('token')
 
     invite_status_code = db_send_invite(user_email, group_id, token)
 
@@ -124,7 +125,7 @@ def send_invite():
 @app.route("/api/request_membership", methods=["POST"])
 def send_request():
     group_id = request.get_json()['group_id']
-    user_id = request.headers.get('Authorization')
+    user_id = request.cookies.get('token')
 
     request_status_code = db_send_request(user_id, group_id)
 
@@ -141,7 +142,7 @@ def send_request():
 
 @app.route("/api/my_invites", methods=["GET"])
 def get_invites():
-    token = request.headers.get('Authorization')
+    token = request.cookies.get('token')
 
     invites = db_get_my_invites(token)
 
@@ -158,7 +159,7 @@ def get_invites():
 
 @app.route("/api/my_requests", methods=["GET"])
 def get_requests():
-    token = request.headers.get('Authorization')
+    token = request.cookies.get('token')
 
     requests = db_get_my_group_requests(token)
 
@@ -176,7 +177,7 @@ def get_requests():
 @app.route("/api/accept_invite", methods=["POST"])
 def accept_invite():
     group_id = request.args.get('group_id')
-    token = request.headers.get('Authorization')
+    token = request.cookies.get('token')
 
     accept_status = db_accept_invite(token, group_id)
 
@@ -196,7 +197,7 @@ def accept_request():
 @app.route("/api/delete_invite", methods=["DELETE"])
 def delete_invite():
     group_id = request.args.get('group_id')
-    token = request.headers.get('Authorization')
+    token = request.cookies.get('token')
 
     delete_status = db_delete_invite(token, group_id)
 
@@ -229,7 +230,7 @@ def delete_request():
 
 @app.route("/api/groups", methods=["GET"])
 def get_my_groups():
-    token = request.headers.get('Authorization')
+    token = request.cookies.get('token')
 
     groups = db_get_my_groups(token)
 
