@@ -232,3 +232,30 @@ def get_my_groups():
 
     else:
         return make_response(jsonify(groups), 200)
+
+
+@app.route("/api/quiz", methods=["GET", "POST"])
+def quiz():
+    if request.method == "POST":
+        quiz_name = request.get_json()['quiz_name']
+        quiz_desc = request.get_json()['quiz_desc']
+        group_id = request.get_json()['group_id']
+        num_of_questions = request.get_json()['num_of_questions']
+        avlbl_from = request.get_json()['available_from']
+        avlbl_to = request.get_json()['available_to']
+        is_visible = request.get_json()['is_visible']
+
+        status = db_create_quiz(quiz_name, quiz_desc, group_id, num_of_questions, avlbl_from, avlbl_to, is_visible)
+
+        if status is True:
+            return make_response(jsonify(True), 200)
+
+        elif status == "23505":
+            return make_response(jsonify('A Quiz with that name already exists.'), 400)
+
+    elif request.method == "GET":
+        quiz_name = request.get_json()['quiz_name']
+        group_id = request.get_json()['group_id']
+
+        quiz = db_get_quiz(quiz_name, group_id)
+        return make_response(jsonify(quiz), 200)

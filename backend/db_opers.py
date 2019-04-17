@@ -53,11 +53,12 @@ def db_verify_user(email, password):
 
             sql = """insert into active_sessions values (%s, %s)"""
             cur.execute(sql, (user_id, time_now,))
+            cur.close()
             return user_id
 
         else:
+            cur.close()
             return False
-        cur.close()
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -102,8 +103,8 @@ def db_get_users_list():
         json_keys = ['display_name', 'email', 'last_login']
         users = convert_to_json(user_size, json_keys, db_users)
 
-        return users
         cur.close()
+        return users
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -201,12 +202,12 @@ def db_get_my_invites(token):
         json_keys = ['group_name', 'group_desc', 'group_id', 'timestamp']
         invites = convert_to_json(json_keys, db_invites)
 
+        cur.close()
         if len(invites) != 0:
             return invites
 
         else:
             return False
-        cur.close()
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -232,14 +233,15 @@ def db_get_my_group_requests(token):
         cur.execute(sql, (token,))
         db_requests = cur.fetchall()
 
-        json_keys = ['user_dname', 'user_email', 'timestamp', 'group_id', 'for_group']
+        json_keys = ['user_dname', 'user_email',
+                     'timestamp', 'group_id', 'for_group']
         requests = convert_to_json(json_keys, db_requests)
 
         if len(requests) != 0:
             return requests
 
-        return False
         cur.close()
+        return False
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -265,8 +267,8 @@ def db_accept_invite(token, group_id):
                                 and group_id = %s"""
         cur.execute(sql_remove_invite, (token, group_id,))
 
-        return True
         cur.close()
+        return True
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -296,8 +298,8 @@ def db_accept_request(user_email, group_id):
                                 and group_id = %s"""
         cur.execute(sql_remove_request, (user_id, group_id))
 
-        return True
         cur.close()
+        return True
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -382,8 +384,58 @@ def db_get_my_groups(token):
         if len(groups) != 0:
             return groups
 
-        return False
         cur.close()
+        return False
+
+    except(Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return error.pgcode
+
+    finally:
+        disconnect_db(conn)
+
+
+def db_create_quiz(quiz_name, quiz_desc, group_id, num_of_qs, avlbl_from, avlbl_to, is_visible):
+    conn = None
+    try:
+        conn = connect_to_db()
+        cur = conn.cursor()
+
+        sql_create_quiz = """insert into quizzes
+                        values(%s, %s, %s, %s, %s, %s, %s)"""
+
+        cur.execute(sql_create_quiz,
+                    (quiz_name, quiz_desc, group_id,
+                     num_of_qs, avlbl_from, avlbl_to, is_visible,))
+        cur.close()
+        return True
+
+    except(Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return error.pgcode
+
+    finally:
+        disconnect_db(conn)
+
+
+def db_get_quiz(quiz_name, group_id):
+    conn = None
+    try:
+        conn = connect_to_db()
+        cur = conn.cursor()
+
+        sql_get_quiz = """select quiz_name, quiz_description, num_of_questions, available_to, quiz_id
+                            from quizzes
+                            where quiz_name = %s
+                            and group_id = %s"""
+        cur.execute(sql_get_quiz, (quiz_name, group_id,))
+        db_rows = cur.fetchall()
+        json_keys = ['quiz_name', 'quiz_desc', 'num_of_questions', 'available_to', 'quiz_id']
+
+        quiz = convert_to_json(json_keys, db_rows)
+
+        cur.close()
+        return quiz
 
     except(Exception, psycopg2.DatabaseError) as error:
         print(error)
