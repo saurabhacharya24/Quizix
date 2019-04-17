@@ -249,6 +249,8 @@ def db_get_my_group_requests(token):
         disconnect_db(conn)
 
 
+# Delete from invites and requests both
+
 def db_accept_invite(token, group_id):
     conn = None
     try:
