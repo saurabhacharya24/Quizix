@@ -1,4 +1,5 @@
 import psycopg2
+from os import urandom
 from helpers import *
 
 
@@ -13,7 +14,8 @@ def db_insert_user(display_name, email, password):
 
         sql = """insert into users values(%s, %s, %s, %s, %s, %s)"""
 
-        p_hash = generate_p_hash(password)
+        p_salt = urandom(32)
+        p_hash = generate_p_hash(password, p_salt)
         user_id = generate_user_id()
 
         cur.execute(sql, (display_name, email, p_salt, p_hash, None, user_id))
@@ -98,10 +100,8 @@ def db_get_users_list():
         cur.execute(sql)
         db_users = cur.fetchall()
 
-        user_size = cur.rowcount
-
         json_keys = ['display_name', 'email', 'last_login']
-        users = convert_to_json(user_size, json_keys, db_users)
+        users = convert_to_json(json_keys, db_users)
 
         cur.close()
         return users
