@@ -1,11 +1,9 @@
 
-let button = document.getElementById('enter')
-let get = document.getElementById('get')
+let button = document.getElementById('button')
 
-button.addEventListener('click', doSomething)
-get.addEventListener('click', doElse)
+button.addEventListener('click', login)
 
-function doSomething(){
+function login(){
     let email = document.getElementById('email').value
     let password = document.getElementById('password').value
 
@@ -21,21 +19,21 @@ function doSomething(){
         return resp.json()
     })
     .then(data => {
-        localStorage.setItem('token', data)
+        alert(data)
     })
 }
 
-function doElse(){
-    payload = {
-        methods: 'GET',
-        headers: {'Authorization': localStorage.getItem('token')}
-    }
+// function doElse(){
+//     payload = {
+//         methods: 'GET',
+//         headers: {'Authorization': localStorage.getItem('token')}
+//     }
 
-    fetch("http://127.0.0.1:8080/api/my_invites", payload)
-    .then(resp => {
-        return resp.json()
-    })
-    .then(data => {
-        console.log(data)
-    })
-}
+//     fetch("http://127.0.0.1:8080/api/my_invites", payload)
+//     .then(resp => {
+//         return resp.json()
+//     })
+//     .then(data => {
+//         alert(data)
+//     })
+// }

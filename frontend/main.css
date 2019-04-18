@@ -1,0 +1,32 @@
+#email {
+  margin-top: 100px;
+  margin-left: 520px;
+  padding: 10px;
+  border-radius: 2px;
+  border: solid #b1aeae 1px;
+}
+
+#password {
+  padding: 10px;
+  border-radius: 2px;
+  border: solid #b1aeae 1px;
+}
+
+#enter {
+  margin-top: 20px;
+  margin-left: 650px;
+  color: white;
+  background-color: green;
+  border: solid green 1px;
+  border-radius: 5px;
+  padding: 10px;
+  width: 70px;
+}
+#enter:hover {
+  cursor: pointer;
+  background-color: white;
+  border: solid green 1px;
+  color: green;
+}
+
+/*# sourceMappingURL=main.css.map */
