@@ -1,4 +1,5 @@
 import psycopg2
+import json
 from os import urandom
 from helpers import *
 
@@ -95,12 +96,12 @@ def db_get_users_list():
         conn = connect_to_db()
         cur = conn.cursor()
 
-        sql = """select display_name, email, last_login from users"""
+        sql = """select display_name, email from users"""
 
         cur.execute(sql)
         db_users = cur.fetchall()
 
-        json_keys = ['display_name', 'email', 'last_login']
+        json_keys = ['display_name', 'email']
         users = convert_to_json(json_keys, db_users)
 
         cur.close()
@@ -401,12 +402,14 @@ def db_create_quiz(quiz_name, quiz_desc, group_id, num_of_qs, avlbl_from, avlbl_
         conn = connect_to_db()
         cur = conn.cursor()
 
+        quiz_id = quiz_name + ":" + str(group_id)
+
         sql_create_quiz = """insert into quizzes
-                        values(%s, %s, %s, %s, %s, %s, %s)"""
+                        values(%s, %s, %s, %s, %s, %s, %s, %s)"""
 
         cur.execute(sql_create_quiz,
                     (quiz_name, quiz_desc, group_id,
-                     num_of_qs, avlbl_from, avlbl_to, is_visible,))
+                     num_of_qs, avlbl_from, avlbl_to, is_visible, quiz_id,))
         cur.close()
         return True
 
@@ -436,6 +439,40 @@ def db_get_quiz(quiz_name, group_id):
 
         cur.close()
         return quiz
+
+    except(Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return error.pgcode
+
+    finally:
+        disconnect_db(conn)
+
+
+def db_create_questions(questions, quiz_name, group_id):
+    conn = None
+    try:
+        conn = connect_to_db()
+        cur = conn.cursor()
+
+        sql_get_quiz = """select quiz_id
+                            from quizzes
+                            where quiz_name = %s
+                            and group_id = %s"""
+        cur.execute(sql_get_quiz, (quiz_name, group_id,))
+        quiz_id = cur.fetchone()[0]
+
+        sql = """insert into questions
+                values (%s, %s, %s, %s, %s)"""
+
+        for q in questions:
+            q_text = q['question']
+            q_answers = q['answers']
+            correct_ans = q['correct_answer']
+            q_id = q_text + ":" + str(quiz_id)
+            cur.execute(sql, (q_text, quiz_id, json.dumps(q_answers), correct_ans, q_id,))
+
+        cur.close()
+        return True
 
     except(Exception, psycopg2.DatabaseError) as error:
         print(error)

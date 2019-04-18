@@ -248,7 +248,14 @@ def quiz():
         status = db_create_quiz(quiz_name, quiz_desc, group_id, num_of_questions, avlbl_from, avlbl_to, is_visible)
 
         if status is True:
-            return make_response(jsonify(True), 200)
+            questions = request.get_json()['question_list']
+            q_status = db_create_questions(questions, quiz_name, group_id)
+
+            if q_status is True:
+                return make_response(jsonify(True), 200)
+            else:
+                # Better error response please.
+                return make_response(jsonify("Error of some sort."), 400)
 
         elif status == "23505":
             return make_response(jsonify('A Quiz with that name already exists.'), 400)
