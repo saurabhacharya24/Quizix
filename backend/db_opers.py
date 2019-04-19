@@ -396,12 +396,21 @@ def db_get_my_groups(token):
         disconnect_db(conn)
 
 
-def db_create_quiz(quiz_name, quiz_desc, group_id, num_of_qs, avlbl_from, avlbl_to, is_visible):
+def db_create_quiz(quiz):
     conn = None
     try:
         conn = connect_to_db()
         cur = conn.cursor()
 
+        q = quiz[0]
+
+        quiz_name = q['quiz_name']
+        quiz_desc = q['quiz_desc']
+        group_id = q['group_id']
+        num_of_qs = q['num_of_questions']
+        avlbl_from = q['available_from']
+        avlbl_to = q['available_to']
+        is_visible = q['is_visible']
         quiz_id = quiz_name + ":" + str(group_id)
 
         sql_create_quiz = """insert into quizzes
