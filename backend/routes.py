@@ -250,6 +250,8 @@ def quiz():
             if q_status is True:
                 return make_response(jsonify(True), 200)
             elif q_status == "23505":
+                quiz_id = quiz[0]['quiz_name'] + ":" + str(quiz[0]['group_id'])
+                db_rollback_quiz_creation(quiz_id)
                 return make_response(jsonify('Question already exists.'), 400)
 
         elif status == "23505":

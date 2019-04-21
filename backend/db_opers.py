@@ -430,6 +430,22 @@ def db_create_quiz(quiz):
         disconnect_db(conn)
 
 
+def db_rollback_quiz_creation(quiz_id):
+    conn = None
+    try:
+        conn = connect_to_db()
+        cur = conn.cursor()
+
+        sql = """delete from questions where quiz_id = %s"""
+        cur.execute(sql, (quiz_id,))
+        sql = """delete from quizzes where quiz_id = %s"""
+        cur.execute(sql, (quiz_id,))
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return error.pgcode
+
+
 def db_get_quiz(quiz_name, group_id):
     conn = None
     try:
