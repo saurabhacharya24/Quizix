@@ -123,7 +123,7 @@ def send_request():
             {'code: ': 505,
              'reason: ': 'Already requested to be added to this group.'
              }
-        ), 400)
+        ), 200)
 
     elif request_status_code is True:
         return make_response(jsonify(True), 200)
@@ -140,7 +140,7 @@ def get_invites():
             {'code: ': 000,
              'reason: ': 'No invites found.'
              }
-        ), 404)
+        ), 200)
 
     else:
         return make_response(jsonify(invites), 200)
@@ -157,7 +157,7 @@ def get_requests():
             {'code: ': 000,
              'reason: ': 'No requests found.'
              }
-        ), 404)
+        ), 200)
 
     else:
         return make_response(jsonify(requests), 200)
@@ -197,7 +197,7 @@ def delete_invite():
         return make_response(jsonify(
             {'code: ': 000,
              'reason: ': 'This invite most likely does not exist.'}
-        ), 400)
+        ), 200)
 
 
 @app.route("/api/delete_request", methods=["DELETE"])
@@ -214,7 +214,7 @@ def delete_request():
         return make_response(jsonify(
             {'code: ': 000,
              'reason: ': 'This group request most likely does not exist.'}
-        ), 400)
+        ), 200)
 
 
 @app.route("/api/groups", methods=["GET"])
@@ -228,7 +228,7 @@ def get_my_groups():
             {'code: ': 000,
              'reason: ': 'No groups found.'
              }
-        ), 404)
+        ), 200)
 
     else:
         return make_response(jsonify(groups), 200)
@@ -263,3 +263,20 @@ def quiz():
 
         quiz = db_get_quiz(quiz_name, group_id)
         return make_response(jsonify(quiz), 200)
+
+
+@app.route("/api/quiz_list", methods=["GET"])
+def quiz_list():
+    user_id = request.cookies.get('token')
+
+    quiz_list = db_quiz_list(user_id)
+
+    if len(quiz_list) != 0:
+        return make_response(jsonify(quiz_list), 200)
+
+    else:
+        return make_response(jsonify(
+            {'code: ': 000,
+             'reason: ': 'No groups found.'
+             }
+        ), 200)

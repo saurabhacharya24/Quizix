@@ -430,6 +430,40 @@ def db_create_quiz(quiz):
         disconnect_db(conn)
 
 
+def db_create_questions(questions, quiz_name, group_id):
+    conn = None
+    try:
+        conn = connect_to_db()
+        cur = conn.cursor()
+
+        sql_get_quiz = """select quiz_id
+                            from quizzes
+                            where quiz_name = %s
+                            and group_id = %s"""
+        cur.execute(sql_get_quiz, (quiz_name, group_id,))
+        quiz_id = cur.fetchone()[0]
+
+        sql = """insert into questions
+                values (%s, %s, %s, %s, %s)"""
+
+        for q in questions:
+            q_text = q['question']
+            q_answers = q['answers']
+            correct_ans = q['correct_answer']
+            q_id = q_text + ":" + str(quiz_id)
+            cur.execute(sql, (q_text, quiz_id, json.dumps(q_answers), correct_ans, q_id,))
+
+        cur.close()
+        return True
+
+    except(Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return error.pgcode
+
+    finally:
+        disconnect_db(conn)
+
+
 def db_rollback_quiz_creation(quiz_id):
     conn = None
     try:
@@ -473,31 +507,27 @@ def db_get_quiz(quiz_name, group_id):
         disconnect_db(conn)
 
 
-def db_create_questions(questions, quiz_name, group_id):
+def db_quiz_list(user_id):
     conn = None
     try:
         conn = connect_to_db()
         cur = conn.cursor()
 
-        sql_get_quiz = """select quiz_id
-                            from quizzes
-                            where quiz_name = %s
-                            and group_id = %s"""
-        cur.execute(sql_get_quiz, (quiz_name, group_id,))
-        quiz_id = cur.fetchone()[0]
+        time_now = get_current_time_object()
+        sql_quiz_list = """select q.quiz_name, g.group_name, q.available_to
+                            from quizzes q, quiz_groups g
+                            where q.group_id in (select group_id from group_memberships where user_id = %s)
+                            and q.group_id = g.group_id
+                            and q.is_visible = true
+                            and timestamp %s > q.available_from"""
+        cur.execute(sql_quiz_list, (user_id, time_now,))
+        quiz_list = cur.fetchall()
 
-        sql = """insert into questions
-                values (%s, %s, %s, %s, %s)"""
-
-        for q in questions:
-            q_text = q['question']
-            q_answers = q['answers']
-            correct_ans = q['correct_answer']
-            q_id = q_text + ":" + str(quiz_id)
-            cur.execute(sql, (q_text, quiz_id, json.dumps(q_answers), correct_ans, q_id,))
+        json_keys = ['quiz_name', 'group_name', 'available_to']
+        quiz_list = convert_to_json(json_keys, quiz_list)
+        return quiz_list
 
         cur.close()
-        return True
 
     except(Exception, psycopg2.DatabaseError) as error:
         print(error)

@@ -27,6 +27,11 @@ def get_current_time():
     return time_now
 
 
+def get_current_time_object():
+    tz = pytz.timezone('Australia/Sydney')
+    return datetime.now(tz)
+
+
 def generate_p_hash(password, p_salt):
     p_hash = pbkdf2_sha256.using(salt=p_salt).hash(password)
     return p_hash
