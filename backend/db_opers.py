@@ -525,11 +525,37 @@ def db_quiz_list(user_id):
 
         json_keys = ['quiz_name', 'group_name', 'available_to']
         quiz_list = convert_to_json(json_keys, quiz_list)
-        return quiz_list
 
         cur.close()
+        return quiz_list
 
     except(Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return error.pgcode
+
+    finally:
+        disconnect_db(conn)
+
+
+def db_get_questions(quiz_id):
+    conn = None
+    try:
+        conn = connect_to_db()
+        cur = conn.cursor()
+
+        sql = """select question, answers_list
+                from questions
+                where quiz_id = %s"""
+        cur.execute(sql, (quiz_id,))
+        db_questions = cur.fetchall()
+
+        json_keys = ['question', 'answers_list']
+        questions = convert_to_json(json_keys, db_questions)
+
+        return questions
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
         print(error)
         return error.pgcode
 

@@ -280,3 +280,20 @@ def quiz_list():
              'reason: ': 'No groups found.'
              }
         ), 200)
+
+
+@app.route("/api/questions", methods=["GET"])
+def questions():
+    quiz_id = request.get_json()['quiz_id']
+
+    questions = db_get_questions(quiz_id)
+
+    if len(questions) != 0:
+        return make_response(jsonify(questions), 200)
+
+    else:
+        return make_response(jsonify(
+            {'code: ': 000,
+             'reason: ': 'No questions found.'
+             }
+        ), 200)
