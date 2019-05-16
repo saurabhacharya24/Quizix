@@ -372,14 +372,14 @@ def db_get_my_groups(token):
         db_group_ids = cur.fetchall()
         group_ids = get_group_ids(db_group_ids)
 
-        sql = """select group_name, group_desc, num_of_members, group_admin
+        sql = """select group_id, group_name, group_desc, num_of_members, group_admin
                 from quiz_groups
                 where group_id = any(%s::int[])
                 or group_admin = %s"""
         cur.execute(sql, (group_ids, token,))
         db_rows = cur.fetchall()
 
-        json_keys = ['group_name', 'group_desc', 'num_of_members', 'is_admin']
+        json_keys = ['group_id', 'group_name', 'group_desc', 'num_of_members', 'is_admin']
         groups = groups_convert_to_json(json_keys, db_rows, token)
 
         if len(groups) != 0:
@@ -412,13 +412,14 @@ def db_create_quiz(quiz):
         avlbl_to = q['available_to']
         is_visible = q['is_visible']
         quiz_id = quiz_name + ":" + str(group_id)
+        review_date = q['review_date']
 
         sql_create_quiz = """insert into quizzes
-                        values(%s, %s, %s, %s, %s, %s, %s, %s)"""
+                        values(%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
 
         cur.execute(sql_create_quiz,
                     (quiz_name, quiz_desc, group_id,
-                     num_of_qs, avlbl_from, avlbl_to, is_visible, quiz_id,))
+                     num_of_qs, avlbl_from, avlbl_to, is_visible, quiz_id, review_date,))
         cur.close()
         return True
 
@@ -486,13 +487,13 @@ def db_get_quiz(quiz_name, group_id):
         conn = connect_to_db()
         cur = conn.cursor()
 
-        sql_get_quiz = """select quiz_name, quiz_description, num_of_questions, available_to, quiz_id
+        sql_get_quiz = """select quiz_name, quiz_description, num_of_questions, available_to, quiz_id, review_date
                             from quizzes
                             where quiz_name = %s
                             and group_id = %s"""
         cur.execute(sql_get_quiz, (quiz_name, group_id,))
         db_rows = cur.fetchall()
-        json_keys = ['quiz_name', 'quiz_desc', 'num_of_questions', 'available_to', 'quiz_id']
+        json_keys = ['quiz_name', 'quiz_desc', 'num_of_questions', 'available_to', 'quiz_id', 'review_date']
 
         quiz = convert_to_json(json_keys, db_rows)
 
@@ -519,8 +520,8 @@ def db_quiz_list(user_id):
                             where q.group_id in (select group_id from group_memberships where user_id = %s)
                             and q.group_id = g.group_id
                             and q.is_visible = true
-                            and timestamp %s > q.available_from"""
-        cur.execute(sql_quiz_list, (user_id, time_now,))
+                            and timestamp %s > q.available_from and timestamp %s < q.available_to"""
+        cur.execute(sql_quiz_list, (user_id, time_now, time_now,))
         quiz_list = cur.fetchall()
 
         json_keys = ['quiz_name', 'group_name', 'available_to']
@@ -553,6 +554,40 @@ def db_get_questions(quiz_id):
         questions = convert_to_json(json_keys, db_questions)
 
         return questions
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return error.pgcode
+
+    finally:
+        disconnect_db(conn)
+
+
+def db_submit_quiz(user_id, quiz_id, user_answers, review_date):
+    conn = None
+    try:
+        conn = connect_to_db()
+        cur = conn.cursor()
+
+        sql = """select correct_answer from questions where quiz_id = %s"""
+        cur.execute(sql, (quiz_id,))
+        correct_answers = cur.fetchall()
+
+        marks = 0
+        answer_correctness = {}
+
+        for i in range(0, len(correct_answers)):
+            if user_answers[i]['answer'] == correct_answers[i][0]:
+                marks += 1
+                answer_correctness['a' + str(i + 1)] = True
+            else:
+                answer_correctness['a' + str(i + 1)] = False
+
+        marks = str(marks) + '/' + str(len(correct_answers))
+
+        sql = """insert into user_marks values(%s,%s,%s,%s,%s)"""
+        cur.execute(sql, (user_id, quiz_id, json.dumps(answer_correctness), marks, review_date))
         cur.close()
 
     except (Exception, psycopg2.DatabaseError) as error:

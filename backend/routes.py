@@ -277,7 +277,7 @@ def quiz_list():
     else:
         return make_response(jsonify(
             {'code: ': 000,
-             'reason: ': 'No groups found.'
+             'reason: ': 'No quizzes found.'
              }
         ), 200)
 
@@ -297,3 +297,15 @@ def questions():
              'reason: ': 'No questions found.'
              }
         ), 200)
+
+
+@app.route("/api/submit_quiz", methods=["POST"])
+def submit_quiz():
+    user_id = request.cookies.get('token')
+    quiz_id = request.get_json()['quiz_id']
+    review_date = request.get_json()['review_date']
+    user_answers = request.get_json()['user_answers']
+
+    db_submit_quiz(user_id, quiz_id, user_answers, review_date)
+
+    return make_response(jsonify('True'), 200)
