@@ -515,16 +515,17 @@ def db_quiz_list(user_id):
         cur = conn.cursor()
 
         time_now = get_current_time_object()
-        sql_quiz_list = """select q.quiz_name, g.group_name, q.available_to
+        sql_quiz_list = """select q.quiz_name, q.quiz_id, g.group_name, q.available_to
                             from quizzes q, quiz_groups g
                             where q.group_id in (select group_id from group_memberships where user_id = %s)
+                            and q.quiz_id not in (select quiz_id from completed_quizzes where user_id = %s)
                             and q.group_id = g.group_id
                             and q.is_visible = true
                             and timestamp %s > q.available_from and timestamp %s < q.available_to"""
-        cur.execute(sql_quiz_list, (user_id, time_now, time_now,))
+        cur.execute(sql_quiz_list, (user_id, user_id, time_now, time_now,))
         quiz_list = cur.fetchall()
 
-        json_keys = ['quiz_name', 'group_name', 'available_to']
+        json_keys = ['quiz_name', 'quiz_id', 'group_name', 'available_to']
         quiz_list = convert_to_json(json_keys, quiz_list)
 
         cur.close()
@@ -588,6 +589,38 @@ def db_submit_quiz(user_id, quiz_id, user_answers, review_date):
 
         sql = """insert into user_marks values(%s,%s,%s,%s,%s)"""
         cur.execute(sql, (user_id, quiz_id, json.dumps(answer_correctness), marks, review_date))
+
+        sql = """insert into completed_quizzes values(%s,%s)"""
+        cur.execute(sql, (user_id, quiz_id,))
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return error.pgcode
+
+    finally:
+        disconnect_db(conn)
+
+
+def db_completed_quizzes(user_id):
+    conn = None
+    try:
+        conn = connect_to_db()
+        cur = conn.cursor()
+
+        sql = """select q.quiz_name, q.quiz_id, g.group_name, u.marks, q.review_date
+                from quizzes q, quiz_groups g, user_marks u
+                where q.quiz_id in (select quiz_id
+                                    from completed_quizzes
+                                    where user_id = %s)
+                and q.quiz_id = u.quiz_id
+                and q.group_id = g.group_id"""
+        cur.execute(sql, (user_id,))
+        completed_quizzes = cur.fetchall()
+
+        json_keys = ['quiz_name', 'quiz_id', 'group_name', 'marks', 'review_date']
+        json_quizzes = convert_to_json(json_keys, completed_quizzes)
+        return json_quizzes
         cur.close()
 
     except (Exception, psycopg2.DatabaseError) as error:

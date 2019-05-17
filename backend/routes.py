@@ -309,3 +309,12 @@ def submit_quiz():
     db_submit_quiz(user_id, quiz_id, user_answers, review_date)
 
     return make_response(jsonify('True'), 200)
+
+
+@app.route("/api/completed_quizzes", methods=["GET"])
+def get_completed_quizzes():
+    user_id = request.cookies.get('token')
+
+    completed_quizzes = db_completed_quizzes(user_id)
+
+    return make_response(jsonify(completed_quizzes), 200)
