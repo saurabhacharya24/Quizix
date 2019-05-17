@@ -554,8 +554,8 @@ def db_get_questions(quiz_id):
         json_keys = ['question', 'answers_list']
         questions = convert_to_json(json_keys, db_questions)
 
-        return questions
         cur.close()
+        return questions
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -620,8 +620,36 @@ def db_completed_quizzes(user_id):
 
         json_keys = ['quiz_name', 'quiz_id', 'group_name', 'marks', 'review_date']
         json_quizzes = convert_to_json(json_keys, completed_quizzes)
-        return json_quizzes
+
         cur.close()
+        return json_quizzes
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return error.pgcode
+
+    finally:
+        disconnect_db(conn)
+
+
+def db_review_quiz(user_id, quiz_id):
+    conn = None
+    try:
+        conn = connect_to_db()
+        cur = conn.cursor()
+
+        sql = """select answer_correctness
+                from user_marks
+                where user_id = %s
+                and quiz_id = %s"""
+        cur.execute(sql, (user_id, quiz_id,))
+        quiz_info = cur.fetchall()
+
+        json_keys = ['answer_correctness']
+        json_quiz_info = convert_to_json(json_keys, quiz_info)
+
+        cur.close()
+        return json_quiz_info
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)

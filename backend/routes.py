@@ -317,4 +317,21 @@ def get_completed_quizzes():
 
     completed_quizzes = db_completed_quizzes(user_id)
 
-    return make_response(jsonify(completed_quizzes), 200)
+    if len(completed_quizzes) == 0:
+        return make_response(jsonify(
+            {'code: ': 000,
+             'reason: ': 'No completed quizzes found.'
+             }
+        ), 200)
+    else:
+        return make_response(jsonify(completed_quizzes), 200)
+
+
+@app.route("/api/review_quiz", methods=["GET"])
+def review_quiz():
+    user_id = request.cookies.get('token')
+    quiz_id = request.get_json()['quiz_id']
+
+    quiz_info = db_review_quiz(user_id, quiz_id)
+
+    return make_response(jsonify(quiz_info), 200)
