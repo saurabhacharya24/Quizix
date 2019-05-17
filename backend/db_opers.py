@@ -658,3 +658,35 @@ def db_review_quiz(user_id, quiz_id):
     finally:
         disconnect_db(conn)
 
+
+def db_get_groups_list(user_id):
+    conn = None
+    try:
+        conn = connect_to_db()
+        cur = conn.cursor()
+
+        sql = """select distinct g.group_name, g.group_desc, g.group_id
+                from quiz_groups g, group_memberships m
+                where g.group_id not in ((select group_id
+                                        from quiz_groups
+                                        where group_admin = %s)
+                                        union
+                                        (select group_id
+                                        from group_memberships
+                                        where user_id = %s))"""
+
+        cur.execute(sql, (user_id, user_id,))
+        groups = cur.fetchall()
+
+        json_keys = ['group_name', 'group_desc', 'group_id']
+        json_groups = convert_to_json(json_keys, groups)
+
+        return json_groups
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return error.pgcode
+
+    finally:
+        disconnect_db(conn)

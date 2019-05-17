@@ -67,6 +67,14 @@ def get_users():
     return make_response(jsonify(users), 200)
 
 
+@app.route("/api/search_groups", methods=["GET"])
+def groups():
+    user_id = request.cookies.get('token')
+    groups = db_get_groups_list(user_id)
+
+    return make_response(jsonify(groups), 200)
+
+
 @app.route("/api/group_creation", methods=["POST"])
 def create_group():
     group_name = request.get_json()['group_name']
