@@ -90,15 +90,15 @@ def db_logout_user(token):
         disconnect_db(conn)
 
 
-def db_get_users_list():
+def db_get_users_list(user_id):
     conn = None
     try:
         conn = connect_to_db()
         cur = conn.cursor()
 
-        sql = """select display_name, email from users"""
+        sql = """select display_name, email from users where user_id != %s"""
 
-        cur.execute(sql)
+        cur.execute(sql, (user_id,))
         db_users = cur.fetchall()
 
         json_keys = ['display_name', 'email']
@@ -657,3 +657,4 @@ def db_review_quiz(user_id, quiz_id):
 
     finally:
         disconnect_db(conn)
+

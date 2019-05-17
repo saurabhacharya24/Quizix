@@ -62,8 +62,9 @@ def logout():
 
 @app.route("/api/users", methods=["GET"])
 def get_users():
-    users = db_get_users_list()
-    return jsonify(users)
+    user_id = request.cookies.get('token')
+    users = db_get_users_list(user_id)
+    return make_response(jsonify(users), 200)
 
 
 @app.route("/api/group_creation", methods=["POST"])
