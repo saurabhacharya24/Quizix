@@ -132,7 +132,7 @@ def send_request():
             {'code: ': 505,
              'reason: ': 'Already requested to be added to this group.'
              }
-        ), 200)
+        ), 400)
 
     elif request_status_code is True:
         return make_response(jsonify(True), 200)
@@ -149,7 +149,7 @@ def get_invites():
             {'code: ': 000,
              'reason: ': 'No invites found.'
              }
-        ), 200)
+        ), 400)
 
     else:
         return make_response(jsonify(invites), 200)
@@ -166,7 +166,7 @@ def get_requests():
             {'code: ': 000,
              'reason: ': 'No requests found.'
              }
-        ), 200)
+        ), 400)
 
     else:
         return make_response(jsonify(requests), 200)
@@ -206,7 +206,7 @@ def delete_invite():
         return make_response(jsonify(
             {'code: ': 000,
              'reason: ': 'This invite most likely does not exist.'}
-        ), 200)
+        ), 400)
 
 
 @app.route("/api/delete_request", methods=["DELETE"])
@@ -223,7 +223,7 @@ def delete_request():
         return make_response(jsonify(
             {'code: ': 000,
              'reason: ': 'This group request most likely does not exist.'}
-        ), 200)
+        ), 400)
 
 
 @app.route("/api/groups", methods=["GET"])
@@ -237,7 +237,7 @@ def get_my_groups():
             {'code: ': 000,
              'reason: ': 'No groups found.'
              }
-        ), 200)
+        ), 400)
 
     else:
         return make_response(jsonify(groups), 200)
@@ -288,7 +288,7 @@ def quiz_list():
             {'code: ': 000,
              'reason: ': 'No quizzes found.'
              }
-        ), 200)
+        ), 400)
 
 
 @app.route("/api/questions", methods=["GET"])
@@ -305,7 +305,7 @@ def questions():
             {'code: ': 000,
              'reason: ': 'No questions found.'
              }
-        ), 200)
+        ), 400)
 
 
 @app.route("/api/submit_quiz", methods=["POST"])
@@ -331,7 +331,7 @@ def get_completed_quizzes():
             {'code: ': 000,
              'reason: ': 'No completed quizzes found.'
              }
-        ), 200)
+        ), 400)
     else:
         return make_response(jsonify(completed_quizzes), 200)
 
