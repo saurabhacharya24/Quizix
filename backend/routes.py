@@ -267,8 +267,8 @@ def quiz():
             return make_response(jsonify('A Quiz with that name already exists.'), 400)
 
     elif request.method == "GET":
-        quiz_name = request.get_json()['quiz_name']
-        group_id = request.get_json()['group_id']
+        quiz_name = request.args.get('quiz_name')
+        group_id = request.args.get('group_id')
 
         quiz = db_get_quiz(quiz_name, group_id)
         return make_response(jsonify(quiz), 200)
@@ -293,7 +293,7 @@ def quiz_list():
 
 @app.route("/api/questions", methods=["GET"])
 def questions():
-    quiz_id = request.get_json()['quiz_id']
+    quiz_id = request.args.get('quiz_id')
 
     questions = db_get_questions(quiz_id)
 
@@ -339,7 +339,7 @@ def get_completed_quizzes():
 @app.route("/api/review_quiz", methods=["GET"])
 def review_quiz():
     user_id = request.cookies.get('token')
-    quiz_id = request.get_json()['quiz_id']
+    quiz_id = request.args.get('quiz_id')
 
     quiz_info = db_review_quiz(user_id, quiz_id)
 
