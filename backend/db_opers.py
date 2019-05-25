@@ -71,7 +71,7 @@ def db_verify_user(email, password):
         disconnect_db(conn)
 
 
-def db_logout_user(token):
+def db_logout_user(user_id):
     conn = None
     try:
         conn = connect_to_db()
@@ -79,7 +79,7 @@ def db_logout_user(token):
 
         sql = """delete from active_sessions
                 where user_id = %s"""
-        cur.execute(sql, (token,))
+        cur.execute(sql, (user_id,))
         cur.close()
 
     except (Exception, psycopg2.DatabaseError) as error:
@@ -138,7 +138,7 @@ def db_create_group(group_name, group_admin, description):
         disconnect_db(conn)
 
 
-def db_send_invite(user_email, group_id, token):
+def db_send_invite(user_email, group_id, user_id):
     conn = None
     try:
         conn = connect_to_db()
@@ -147,7 +147,7 @@ def db_send_invite(user_email, group_id, token):
         sql_get_user_id = """select u.user_id from users u
                             where u.email = %s
                             and u.user_id != %s"""
-        cur.execute(sql_get_user_id, (user_email, token,))
+        cur.execute(sql_get_user_id, (user_email, user_id,))
         user_id = cur.fetchone()
         time_now = get_current_time()
 
@@ -185,7 +185,7 @@ def db_send_request(user_id, group_id):
         disconnect_db(conn)
 
 
-def db_get_my_invites(token):
+def db_get_my_invites(user_id):
     conn = None
     try:
         conn = connect_to_db()
@@ -197,7 +197,7 @@ def db_get_my_invites(token):
                 and i.user_id = %s
                 order by i.invite_timestamp desc"""
 
-        cur.execute(sql, (token,))
+        cur.execute(sql, (user_id,))
         db_invites = cur.fetchall()
 
         json_keys = ['group_name', 'group_desc', 'group_id', 'timestamp']
@@ -218,7 +218,7 @@ def db_get_my_invites(token):
         disconnect_db(conn)
 
 
-def db_get_my_group_requests(token):
+def db_get_my_group_requests(user_id):
     conn = None
     try:
         conn = connect_to_db()
@@ -231,7 +231,7 @@ def db_get_my_group_requests(token):
                 and u.user_id = r.user_id
                 and q.group_id = r.group_id"""
 
-        cur.execute(sql, (token,))
+        cur.execute(sql, (user_id,))
         db_requests = cur.fetchall()
 
         json_keys = ['user_dname', 'user_email',
@@ -254,19 +254,19 @@ def db_get_my_group_requests(token):
 
 # Delete from invites and requests both
 
-def db_accept_invite(token, group_id):
+def db_accept_invite(user_id, group_id):
     conn = None
     try:
         conn = connect_to_db()
         cur = conn.cursor()
 
         sql_add_user = """insert into group_memberships values (%s, %s)"""
-        cur.execute(sql_add_user, (token, group_id,))
+        cur.execute(sql_add_user, (user_id, group_id,))
 
         sql_remove_invite = """delete from invites
                                 where user_id = %s
                                 and group_id = %s"""
-        cur.execute(sql_remove_invite, (token, group_id,))
+        cur.execute(sql_remove_invite, (user_id, group_id,))
 
         cur.close()
         return True
@@ -310,7 +310,7 @@ def db_accept_request(user_email, group_id):
         disconnect_db(conn)
 
 
-def db_delete_invite(token, group_id):
+def db_delete_invite(user_id, group_id):
     conn = None
     try:
         conn = connect_to_db()
@@ -319,7 +319,7 @@ def db_delete_invite(token, group_id):
         sql = """delete from invites
                 where user_id = %s
                 and group_id = %s"""
-        cur.execute(sql, (token, group_id,))
+        cur.execute(sql, (user_id, group_id,))
         cur.close()
 
         return True
@@ -359,7 +359,7 @@ def db_delete_request(email, group_id):
         disconnect_db(conn)
 
 
-def db_get_my_groups(token):
+def db_get_my_groups(user_id):
     conn = None
     try:
         conn = connect_to_db()
@@ -368,7 +368,7 @@ def db_get_my_groups(token):
         sql_get_groups_ids = """select group_id
                                 from group_memberships
                                 where user_id = %s"""
-        cur.execute(sql_get_groups_ids, (token,))
+        cur.execute(sql_get_groups_ids, (user_id,))
         db_group_ids = cur.fetchall()
         group_ids = get_group_ids(db_group_ids)
 
@@ -376,11 +376,11 @@ def db_get_my_groups(token):
                 from quiz_groups
                 where group_id = any(%s::int[])
                 or group_admin = %s"""
-        cur.execute(sql, (group_ids, token,))
+        cur.execute(sql, (group_ids, user_id,))
         db_rows = cur.fetchall()
 
         json_keys = ['group_id', 'group_name', 'group_desc', 'num_of_members', 'is_admin']
-        groups = groups_convert_to_json(json_keys, db_rows, token)
+        groups = groups_convert_to_json(json_keys, db_rows, user_id)
 
         if len(groups) != 0:
             return groups

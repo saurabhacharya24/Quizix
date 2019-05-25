@@ -7,6 +7,10 @@ app = Flask(__name__)
 CORS(app)
 
 
+def unauth_access():
+    return make_response(jsonify("Unauthorized access."), 401)
+
+
 @app.route("/api/registration", methods=["POST"])
 def register_user():
     display_name = request.get_json()['display_name']
@@ -46,32 +50,39 @@ def login():
 
     else:
         resp = make_response(jsonify('true'), 200)
-        resp.set_cookie('token', auth_status, httponly=True)
+        resp.set_cookie('user_id', auth_status, httponly=True)
         resp.headers['Access-Control-Allow-Credentials'] = 'true'
         return resp
 
 
 @app.route("/api/logout", methods=["DELETE"])
 def logout():
-    token = request.cookies.get('token')
-    db_logout_user(token)
+    user_id = request.cookies.get('user_id')
+    db_logout_user(user_id)
     resp = make_response(jsonify('true'), 200)
-    resp.set_cookie('token', '', httponly=True, expires=0)
+    resp.set_cookie('user_id', '', httponly=True, expires=0)
     return resp
 
 
 @app.route("/api/users", methods=["GET"])
 def get_users():
-    user_id = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
+
+    if user_id is None:
+        return unauth_access()
+
     users = db_get_users_list(user_id)
     return make_response(jsonify(users), 200)
 
 
 @app.route("/api/search_groups", methods=["GET"])
 def groups():
-    user_id = request.cookies.get('token')
-    groups = db_get_groups_list(user_id)
+    user_id = request.cookies.get('user_id')
 
+    if user_id is None:
+        return unauth_access()
+
+    groups = db_get_groups_list(user_id)
     return make_response(jsonify(groups), 200)
 
 
@@ -79,9 +90,12 @@ def groups():
 def create_group():
     group_name = request.get_json()['group_name']
     group_desc = request.get_json()['group_desc']
-    token = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
 
-    create_group_status = db_create_group(group_name, token, group_desc)
+    if user_id is None:
+        return unauth_access()
+
+    create_group_status = db_create_group(group_name, user_id, group_desc)
 
     if create_group_status is True:
         return make_response(jsonify(True), 200)
@@ -98,9 +112,12 @@ def create_group():
 def send_invite():
     user_email = request.get_json()['user_email']
     group_id = request.get_json()['group_id']
-    token = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
 
-    invite_status_code = db_send_invite(user_email, group_id, token)
+    if user_id is None:
+        return unauth_access()
+
+    invite_status_code = db_send_invite(user_email, group_id, user_id)
 
     if invite_status_code == "23502":
         return make_response(jsonify(
@@ -123,7 +140,10 @@ def send_invite():
 @app.route("/api/request_membership", methods=["POST"])
 def send_request():
     group_id = request.get_json()['group_id']
-    user_id = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
+
+    if user_id is None:
+        return unauth_access()
 
     request_status_code = db_send_request(user_id, group_id)
 
@@ -140,9 +160,12 @@ def send_request():
 
 @app.route("/api/my_invites", methods=["GET"])
 def get_invites():
-    token = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
 
-    invites = db_get_my_invites(token)
+    if user_id is None:
+        return unauth_access()
+
+    invites = db_get_my_invites(user_id)
 
     if invites is False:
         return make_response(jsonify(
@@ -157,9 +180,12 @@ def get_invites():
 
 @app.route("/api/my_requests", methods=["GET"])
 def get_requests():
-    token = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
 
-    requests = db_get_my_group_requests(token)
+    if user_id is None:
+        return unauth_access()
+
+    requests = db_get_my_group_requests(user_id)
 
     if requests is False:
         return make_response(jsonify(
@@ -175,9 +201,12 @@ def get_requests():
 @app.route("/api/accept_invite", methods=["POST"])
 def accept_invite():
     group_id = request.get_json()['group_id']
-    token = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
 
-    accept_status = db_accept_invite(token, group_id)
+    if user_id is None:
+        return unauth_access()
+
+    accept_status = db_accept_invite(user_id, group_id)
 
     return make_response(jsonify(accept_status), 200)
 
@@ -195,9 +224,12 @@ def accept_request():
 @app.route("/api/delete_invite", methods=["DELETE"])
 def delete_invite():
     group_id = request.args.get('group_id')
-    token = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
 
-    delete_status = db_delete_invite(token, group_id)
+    if user_id is None:
+        return unauth_access()
+
+    delete_status = db_delete_invite(user_id, group_id)
 
     if delete_status is True:
         return make_response(jsonify(delete_status), 200)
@@ -228,9 +260,12 @@ def delete_request():
 
 @app.route("/api/groups", methods=["GET"])
 def get_my_groups():
-    token = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
 
-    groups = db_get_my_groups(token)
+    if user_id is None:
+        return unauth_access()
+
+    groups = db_get_my_groups(user_id)
 
     if groups is False:
         return make_response(jsonify(
@@ -276,7 +311,10 @@ def quiz():
 
 @app.route("/api/quiz_list", methods=["GET"])
 def quiz_list():
-    user_id = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
+
+    if user_id is None:
+        return unauth_access()
 
     quiz_list = db_quiz_list(user_id)
 
@@ -310,10 +348,13 @@ def questions():
 
 @app.route("/api/submit_quiz", methods=["POST"])
 def submit_quiz():
-    user_id = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
     quiz_id = request.get_json()['quiz_id']
     review_date = request.get_json()['review_date']
     user_answers = request.get_json()['user_answers']
+
+    if user_id is None:
+        return unauth_access()
 
     db_submit_quiz(user_id, quiz_id, user_answers, review_date)
 
@@ -322,7 +363,10 @@ def submit_quiz():
 
 @app.route("/api/completed_quizzes", methods=["GET"])
 def get_completed_quizzes():
-    user_id = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
+
+    if user_id is None:
+        return unauth_access()
 
     completed_quizzes = db_completed_quizzes(user_id)
 
@@ -338,7 +382,11 @@ def get_completed_quizzes():
 
 @app.route("/api/review_quiz", methods=["GET"])
 def review_quiz():
-    user_id = request.cookies.get('token')
+    user_id = request.cookies.get('user_id')
+
+    if user_id is None:
+        return unauth_access()
+
     quiz_id = request.args.get('quiz_id')
 
     quiz_info = db_review_quiz(user_id, quiz_id)
