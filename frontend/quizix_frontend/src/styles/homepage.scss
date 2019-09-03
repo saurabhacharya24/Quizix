@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+  }
+
+.homepage--main-image {
+    margin: 0;
+    max-width: 100%;
+    background-image: url('images/desk-coffee.jpg');
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 100%;  
+    width: 100%;
+    height: 850px;
+  }
