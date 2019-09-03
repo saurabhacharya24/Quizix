@@ -521,7 +521,8 @@ def db_quiz_list(user_id):
                             and q.quiz_id not in (select quiz_id from completed_quizzes where user_id = %s)
                             and q.group_id = g.group_id
                             and q.is_visible = true
-                            and timestamp %s > q.available_from and timestamp %s < q.available_to"""
+                            and timestamp %s > q.available_from and timestamp %s < q.available_to
+                            order by q.available_to"""
         cur.execute(sql_quiz_list, (user_id, user_id, time_now, time_now,))
         quiz_list = cur.fetchall()
 
