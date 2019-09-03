@@ -1,3 +1,12 @@
+.login-box .password-input, .login-box .email-input {
+  margin-left: 8%;
+  font-size: 14pt;
+  padding: 8px;
+  width: 80%;
+  border: 1px solid #afafaf;
+  border-radius: 3px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -6,12 +15,100 @@ body {
 .homepage--main-image {
   margin: 0;
   max-width: 100%;
-  background-image: url("images/desk-coffee.jpg");
+  background-image: url("images/desk-coffee-blur.jpg");
+  background: blur(4px);
   position: absolute;
   background-repeat: no-repeat;
   background-size: 100%;
   width: 100%;
-  height: 850px;
+  height: 750px;
+}
+
+.slogan-main {
+  margin-top: 10%;
+  width: 27%;
+  font-size: 48pt;
+  color: white;
+  margin-left: 10%;
+  position: absolute;
+}
+
+.slogan-para {
+  margin-top: 24%;
+  width: 35%;
+  font-size: 16pt;
+  color: white;
+  margin-left: 10%;
+  position: absolute;
+}
+
+.login-box {
+  background-color: rgba(255, 255, 255, 0.85);
+  position: absolute;
+  margin-top: 8%;
+  margin-left: 57%;
+  width: 425px;
+  height: 500px;
+  border: 1px solid #afafaf;
+  border-radius: 5px;
+}
+.login-box .login-logo {
+  margin-left: 42%;
+  margin-top: -10%;
+  background-image: url("images/logo2.png");
+  background-repeat: no-repeat;
+  background-size: 80%;
+  width: 95px;
+  height: 95px;
+  position: relative;
+}
+.login-box .email-text {
+  margin-left: 8%;
+  margin-bottom: 3%;
+  font-size: 16pt;
+}
+.login-box .password-text {
+  margin-top: 10%;
+  margin-left: 8%;
+  margin-bottom: 3%;
+  font-size: 16pt;
+}
+.login-box .login-button {
+  margin-left: 40%;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  margin-top: 10%;
+  font-size: 16pt;
+  color: white;
+  background-color: #14AB19;
+  border: 1px solid #14AB19;
+  border-radius: 3px;
+  transition: background-color 0.1s, color 0.1s;
+}
+.login-box .login-button:hover {
+  cursor: pointer;
+  color: #14AB19;
+  background-color: white;
+  border: 1px solid #14AB19;
+  border-radius: 3px;
+}
+.login-box .if-register-text {
+  font-size: 12pt;
+  width: 40%;
+  margin-top: 12%;
+  margin-left: 31%;
+  text-align: center;
+}
+.login-box .if-register-text .register-toggle {
+  font-size: 12pt;
+  color: #4151E1;
+  display: inline;
+}
+.login-box .if-register-text .register-toggle:hover {
+  cursor: pointer;
+  color: blue;
 }
 
 /*# sourceMappingURL=index.css.map */
