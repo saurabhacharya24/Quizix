@@ -1,10 +1,23 @@
-.login-box .password-input, .login-box .email-input {
+.login-register-box .username-register-input, .login-register-box .password-register-input, .login-register-box .password-input, .login-register-box .email-input, .login-register-box .email-register-input {
   margin-left: 8%;
   font-size: 14pt;
   padding: 8px;
   width: 80%;
   border: 1px solid #afafaf;
   border-radius: 3px;
+}
+
+.login-register-box .register-button, .login-register-box .login-button {
+  margin-left: 40%;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  margin-top: 10%;
+  font-size: 16pt;
+  color: white;
+  border-radius: 3px;
+  transition: background-color 0.1s, color 0.1s;
 }
 
 body {
@@ -42,7 +55,7 @@ body {
   position: absolute;
 }
 
-.login-box {
+.login-register-box {
   background-color: rgba(255, 255, 255, 0.85);
   position: absolute;
   margin-top: 8%;
@@ -52,8 +65,8 @@ body {
   border: 1px solid #afafaf;
   border-radius: 5px;
 }
-.login-box .login-logo {
-  margin-left: 42%;
+.login-register-box .login-logo {
+  margin-left: 41%;
   margin-top: -10%;
   background-image: url("images/logo2.png");
   background-repeat: no-repeat;
@@ -62,53 +75,97 @@ body {
   height: 95px;
   position: relative;
 }
-.login-box .email-text {
+.login-register-box .email-text {
   margin-left: 8%;
-  margin-bottom: 3%;
+  margin-bottom: 6%;
   font-size: 16pt;
 }
-.login-box .password-text {
+.login-register-box .email-register-text {
+  margin-left: 8%;
+  font-size: 16pt;
+  margin-top: -2%;
+}
+.login-register-box .email-register-text {
+  margin-top: -2%;
+  margin-left: 8%;
+  font-size: 16pt;
+}
+.login-register-box .email-input, .login-register-box .email-register-input {
+  margin-top: -3%;
+}
+.login-register-box .password-text {
   margin-top: 10%;
   margin-left: 8%;
   margin-bottom: 3%;
   font-size: 16pt;
 }
-.login-box .login-button {
-  margin-left: 40%;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 8px;
-  padding-bottom: 10px;
-  margin-top: 10%;
+.login-register-box .password-register-text {
+  margin-top: 6%;
+  margin-left: 8%;
+  margin-bottom: 3%;
   font-size: 16pt;
-  color: white;
+}
+.login-register-box .username-register-text {
+  margin-top: 6%;
+  margin-left: 8%;
+  margin-bottom: 3%;
+  font-size: 16pt;
+}
+.login-register-box .username-register-text .username-rule-text {
+  margin-top: -0.5%;
+  font-size: 10pt;
+}
+.login-register-box .login-button {
   background-color: #14AB19;
   border: 1px solid #14AB19;
-  border-radius: 3px;
-  transition: background-color 0.1s, color 0.1s;
 }
-.login-box .login-button:hover {
+.login-register-box .login-button:hover {
   cursor: pointer;
   color: #14AB19;
   background-color: white;
   border: 1px solid #14AB19;
   border-radius: 3px;
 }
-.login-box .if-register-text {
+.login-register-box .register-button {
+  margin-top: 7%;
+  margin-left: 38%;
+  transition: background-color 0.1s, color 0.1s;
+  background-color: #4151E1;
+  border: 1px solid #4151E1;
+}
+.login-register-box .register-button:hover {
+  cursor: pointer;
+  color: #4151E1;
+  background-color: white;
+  border: 1px solid #4151E1;
+  border-radius: 3px;
+}
+.login-register-box .if-register-text {
   font-size: 12pt;
   width: 40%;
   margin-top: 12%;
   margin-left: 31%;
   text-align: center;
 }
-.login-box .if-register-text .register-toggle {
+.login-register-box .if-register-text .register-toggle {
   font-size: 12pt;
   color: #4151E1;
   display: inline;
 }
-.login-box .if-register-text .register-toggle:hover {
+.login-register-box .if-register-text .register-toggle:hover {
   cursor: pointer;
-  color: blue;
+  color: #0000bb;
+}
+.login-register-box .login-toggle {
+  font-size: 12pt;
+  color: #14AB19;
+  margin-top: 10%;
+  margin-left: 41%;
+  width: 25%;
+}
+.login-register-box .login-toggle:hover {
+  cursor: pointer;
+  color: #047407;
 }
 
 /*# sourceMappingURL=index.css.map */
