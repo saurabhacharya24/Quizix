@@ -75,8 +75,13 @@ class LoginAndRegister extends React.Component<Props, State> {
             }
         }
 
-        let response = await axios.post(API_URL+"login", body, config);
-        console.log(response.data);
+        // Use try-catch block everywhere
+        try {
+            let response = await axios.post(API_URL+"login", body, config);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error.response.data)
+        }
     }
  
     toggleView() {

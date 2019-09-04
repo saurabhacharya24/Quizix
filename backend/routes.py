@@ -24,14 +24,14 @@ def register_user():
             {'code: ': 514,
              'reason: ': 'Display name must be > 5 characters.'
              },
-        ), 200)
+        ), 400)
 
     elif status == "23505":
         return make_response(jsonify(
             {'code: ': 505,
              'reason: ': 'Email already exists.'
              },
-        ), 200)
+        ), 400)
 
     else:
         resp = make_response(jsonify(True), 200)
@@ -46,7 +46,7 @@ def login():
     auth_status = db_verify_user(email, password)
 
     if auth_status is False:
-        return make_response(jsonify(False), 200)
+        return make_response(jsonify(False), 400)
 
     else:
         resp = make_response(jsonify('true'), 200)
@@ -105,7 +105,7 @@ def create_group():
             {'code: ': 502,
              'reason: ': 'Group name/group description cannot be empty.'
              }
-        ), 200)
+        ), 400)
 
 
 @app.route("/api/invitation", methods=["POST"])
@@ -124,14 +124,14 @@ def send_invite():
             {'code: ': 502,
              'reason: ': 'Cannot invite group admin into his own group.'
              }
-        ), 200)
+        ), 400)
 
     elif invite_status_code == "23505":
         return make_response(jsonify(
             {'code: ': 505,
              'reason: ': 'Already invited user to this group.'
              }
-        ), 200)
+        ), 400)
 
     else:
         return make_response(jsonify(True), 200)
@@ -152,7 +152,7 @@ def send_request():
             {'code: ': 505,
              'reason: ': 'Already requested to be added to this group.'
              }
-        ), 200)
+        ), 400)
 
     elif request_status_code is True:
         return make_response(jsonify(True), 200)
@@ -172,7 +172,7 @@ def get_invites():
             {'code: ': 000,
              'reason: ': 'No invites found.'
              }
-        ), 200)
+        ), 400)
 
     else:
         return make_response(jsonify(invites), 200)
@@ -192,7 +192,7 @@ def get_requests():
             {'code: ': 000,
              'reason: ': 'No requests found.'
              }
-        ), 200)
+        ), 400)
 
     else:
         return make_response(jsonify(requests), 200)
@@ -238,7 +238,7 @@ def delete_invite():
         return make_response(jsonify(
             {'code: ': 000,
              'reason: ': 'This invite most likely does not exist.'}
-        ), 200)
+        ), 400)
 
 
 @app.route("/api/delete_request", methods=["DELETE"])
@@ -255,7 +255,7 @@ def delete_request():
         return make_response(jsonify(
             {'code: ': 000,
              'reason: ': 'This group request most likely does not exist.'}
-        ), 200)
+        ), 400)
 
 
 @app.route("/api/groups", methods=["GET"])
@@ -272,7 +272,7 @@ def get_my_groups():
             {'code: ': 000,
              'reason: ': 'No groups found.'
              }
-        ), 200)
+        ), 400)
 
     else:
         return make_response(jsonify(groups), 200)
@@ -296,10 +296,10 @@ def quiz():
             elif q_status == "23505":
                 quiz_id = quiz[0]['quiz_name'] + ":" + str(quiz[0]['group_id'])
                 db_rollback_quiz_creation(quiz_id)
-                return make_response(jsonify('Question already exists.'), 200)
+                return make_response(jsonify('Question already exists.'), 400)
 
         elif status == "23505":
-            return make_response(jsonify('A Quiz with that name already exists.'), 200)
+            return make_response(jsonify('A Quiz with that name already exists.'), 400)
 
     elif request.method == "GET":
         quiz_name = request.args.get('quiz_name')
@@ -326,7 +326,7 @@ def quiz_list():
             {'code: ': 000,
              'reason: ': 'No quizzes found.'
              }
-        ), 200)
+        ), 400)
 
 
 @app.route("/api/questions", methods=["GET"])
@@ -343,7 +343,7 @@ def questions():
             {'code: ': 000,
              'reason: ': 'No questions found.'
              }
-        ), 200)
+        ), 400)
 
 
 @app.route("/api/submit_quiz", methods=["POST"])
@@ -375,7 +375,7 @@ def get_completed_quizzes():
             {'code: ': 000,
              'reason: ': 'No completed quizzes found.'
              }
-        ), 200)
+        ), 400)
     else:
         return make_response(jsonify(completed_quizzes), 200)
 
