@@ -21,15 +21,15 @@ def register_user():
 
     if status == "23514":
         return make_response(jsonify(
-            {'code: ': 514,
-             'reason: ': 'Display name must be > 5 characters.'
+            {'code': 514,
+             'reason': 'Display name must be > 5 characters.'
              },
         ), 400)
 
     elif status == "23505":
         return make_response(jsonify(
-            {'code: ': 505,
-             'reason: ': 'Email already exists.'
+            {'code': 505,
+             'reason': 'Email already exists.'
              },
         ), 400)
 
@@ -49,24 +49,24 @@ def login():
         return make_response(jsonify(False), 400)
 
     else:
-        resp = make_response(jsonify('true'), 200)
-        resp.set_cookie('user_id', auth_status, httponly=True)
-        resp.headers['Access-Control-Allow-Credentials'] = 'true'
+        resp = make_response(jsonify(
+            {'user_id': auth_status}), 200)
+        # resp.set_cookie('user_id', value=auth_status, domain='127.0.')
         return resp
 
 
 @app.route("/api/logout", methods=["DELETE"])
 def logout():
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
     db_logout_user(user_id)
     resp = make_response(jsonify('true'), 200)
-    resp.set_cookie('user_id', '', httponly=True, expires=0)
+    # resp.set_cookie('user_id', '', expires=0)
     return resp
 
 
 @app.route("/api/users", methods=["GET"])
 def get_users():
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -77,7 +77,7 @@ def get_users():
 
 @app.route("/api/search_groups", methods=["GET"])
 def groups():
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -90,7 +90,7 @@ def groups():
 def create_group():
     group_name = request.get_json()['group_name']
     group_desc = request.get_json()['group_desc']
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -102,8 +102,8 @@ def create_group():
 
     else:
         return make_response(jsonify(
-            {'code: ': 502,
-             'reason: ': 'Group name/group description cannot be empty.'
+            {'code': 502,
+             'reason': 'Group name/group description cannot be empty.'
              }
         ), 400)
 
@@ -112,7 +112,7 @@ def create_group():
 def send_invite():
     user_email = request.get_json()['user_email']
     group_id = request.get_json()['group_id']
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -121,15 +121,15 @@ def send_invite():
 
     if invite_status_code == "23502":
         return make_response(jsonify(
-            {'code: ': 502,
-             'reason: ': 'Cannot invite group admin into his own group.'
+            {'code': 502,
+             'reason': 'Cannot invite group admin into his own group.'
              }
         ), 400)
 
     elif invite_status_code == "23505":
         return make_response(jsonify(
-            {'code: ': 505,
-             'reason: ': 'Already invited user to this group.'
+            {'code': 505,
+             'reason': 'Already invited user to this group.'
              }
         ), 400)
 
@@ -140,7 +140,7 @@ def send_invite():
 @app.route("/api/request_membership", methods=["POST"])
 def send_request():
     group_id = request.get_json()['group_id']
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -149,8 +149,8 @@ def send_request():
 
     if request_status_code == "23505":
         return make_response(jsonify(
-            {'code: ': 505,
-             'reason: ': 'Already requested to be added to this group.'
+            {'code': 505,
+             'reason': 'Already requested to be added to this group.'
              }
         ), 400)
 
@@ -160,7 +160,7 @@ def send_request():
 
 @app.route("/api/my_invites", methods=["GET"])
 def get_invites():
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -169,8 +169,8 @@ def get_invites():
 
     if invites is False:
         return make_response(jsonify(
-            {'code: ': 000,
-             'reason: ': 'No invites found.'
+            {'code': 000,
+             'reason': 'No invites found.'
              }
         ), 400)
 
@@ -180,7 +180,7 @@ def get_invites():
 
 @app.route("/api/my_requests", methods=["GET"])
 def get_requests():
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -189,8 +189,8 @@ def get_requests():
 
     if requests is False:
         return make_response(jsonify(
-            {'code: ': 000,
-             'reason: ': 'No requests found.'
+            {'code': 000,
+             'reason': 'No requests found.'
              }
         ), 400)
 
@@ -201,7 +201,7 @@ def get_requests():
 @app.route("/api/accept_invite", methods=["POST"])
 def accept_invite():
     group_id = request.get_json()['group_id']
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -224,7 +224,7 @@ def accept_request():
 @app.route("/api/delete_invite", methods=["DELETE"])
 def delete_invite():
     group_id = request.args.get('group_id')
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -236,8 +236,8 @@ def delete_invite():
 
     else:
         return make_response(jsonify(
-            {'code: ': 000,
-             'reason: ': 'This invite most likely does not exist.'}
+            {'code': 000,
+             'reason': 'This invite most likely does not exist.'}
         ), 400)
 
 
@@ -253,14 +253,14 @@ def delete_request():
 
     else:
         return make_response(jsonify(
-            {'code: ': 000,
-             'reason: ': 'This group request most likely does not exist.'}
+            {'code': 000,
+             'reason': 'This group request most likely does not exist.'}
         ), 400)
 
 
 @app.route("/api/groups", methods=["GET"])
 def get_my_groups():
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -269,8 +269,8 @@ def get_my_groups():
 
     if groups is False:
         return make_response(jsonify(
-            {'code: ': 000,
-             'reason: ': 'No groups found.'
+            {'code': 000,
+             'reason': 'No groups found.'
              }
         ), 400)
 
@@ -311,7 +311,7 @@ def quiz():
 
 @app.route("/api/quiz_list", methods=["GET"])
 def quiz_list():
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -323,8 +323,8 @@ def quiz_list():
 
     else:
         return make_response(jsonify(
-            {'code: ': 000,
-             'reason: ': 'No quizzes found.'
+            {'code': 000,
+             'reason': 'No quizzes found.'
              }
         ), 400)
 
@@ -340,15 +340,15 @@ def questions():
 
     else:
         return make_response(jsonify(
-            {'code: ': 000,
-             'reason: ': 'No questions found.'
+            {'code': 000,
+             'reason': 'No questions found.'
              }
         ), 400)
 
 
 @app.route("/api/submit_quiz", methods=["POST"])
 def submit_quiz():
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
     quiz_id = request.get_json()['quiz_id']
     review_date = request.get_json()['review_date']
     user_answers = request.get_json()['user_answers']
@@ -363,7 +363,7 @@ def submit_quiz():
 
 @app.route("/api/completed_quizzes", methods=["GET"])
 def get_completed_quizzes():
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
@@ -372,8 +372,8 @@ def get_completed_quizzes():
 
     if len(completed_quizzes) == 0:
         return make_response(jsonify(
-            {'code: ': 000,
-             'reason: ': 'No completed quizzes found.'
+            {'code': 000,
+             'reason': 'No completed quizzes found.'
              }
         ), 400)
     else:
@@ -382,7 +382,7 @@ def get_completed_quizzes():
 
 @app.route("/api/review_quiz", methods=["GET"])
 def review_quiz():
-    user_id = request.cookies.get('user_id')
+    user_id = request.args.get('user_id')
 
     if user_id is None:
         return unauth_access()
