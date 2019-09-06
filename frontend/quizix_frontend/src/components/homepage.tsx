@@ -1,5 +1,7 @@
-import React from 'react';
-import LoginAndRegister from './login';
+import React from 'react'
+import LoginAndRegister from './login'
+import Dashboard from './dashboard'
+import getUserId from '../helpers/cookies'
 // import ReactDOM from 'react-dom';
 
 interface State {}
@@ -7,7 +9,13 @@ interface Props {}
 
 class Homepage extends React.Component<Props, State> {
 
-    render() {
+    renderDashboard() {
+        return (
+            <Dashboard />
+        )
+    }
+
+    renderHomepage() {
         return (
             <div className="homepage">
                 <div className="homepage--main-image" title="Quizix homepage image"/>
@@ -20,6 +28,20 @@ class Homepage extends React.Component<Props, State> {
                     et dolore magna aliqua. Ut enim ad minim veniam, 
                     quis nostrud exercitation ullamco laboris nisi ut aliquip.
                 </p>
+            </div>
+        )
+    }
+
+    render() {
+        let userId = getUserId()
+        return (
+            userId.length > 0 ?
+            <div>
+                {this.renderDashboard()}
+            </div>
+            :
+            <div>
+                {this.renderHomepage()}
             </div>
         )
     }

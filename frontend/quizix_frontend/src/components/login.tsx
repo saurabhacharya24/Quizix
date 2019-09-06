@@ -1,15 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 // import ReactDOM from 'react-dom';
-const API_URL = "http://127.0.0.1:8080/api/";
+const API_URL = "http://127.0.0.1:8080/api";
+const headerConfig = {
+    headers: {
+        'Content-Type': 'application/json',
+        withCredentials: 'true'
+    }
+}
 
 interface State {
-    email: string;
-    password: string;
-    registerEmail: string;
-    registerUsername: string;
+    email: string
+    password: string
+    registerEmail: string
+    registerUsername: string
     registerPassword: string
-    whichView: string;
+    invalidLoginTextClass: string 
+    whichView: string
 }
 interface Props {}
 
@@ -24,6 +31,7 @@ class LoginAndRegister extends React.Component<Props, State> {
             registerEmail: "",
             registerUsername: "",
             registerPassword: "",
+            invalidLoginTextClass: "invalid-login-text--hidden",
             whichView: "login"
         }
 
@@ -69,23 +77,29 @@ class LoginAndRegister extends React.Component<Props, State> {
             password: password 
         }
 
-        let config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-
         // Use try-catch block everywhere
         try {
-            let response = await axios.post(API_URL+"login", body, config);
-            console.log(response.data);
+            let response = await axios.post(API_URL+"/login", body, headerConfig)
+            let userId = response.data['user_id']
+
+            document.cookie = "user_id=" + userId
+            window.location.reload()
+
+            this.setState({ invalidLoginTextClass: "invalid-login-text--hidden" })
+            
         } catch (error) {
-            console.log(error.response.data)
+            this.setState({ invalidLoginTextClass: "invalid-login-text" })
+            let state = this
+
+            setTimeout(function() {
+                state.setState({ invalidLoginTextClass: "invalid-login-text--hidden"})
+            }, 2000)
         }
     }
- 
+
     toggleView() {
-        let { whichView } = this.state;
+        let { whichView } = this.state
+
         this.setState({ 
             whichView: whichView === "login" ? "register" : "login",
             email: "",
@@ -114,6 +128,7 @@ class LoginAndRegister extends React.Component<Props, State> {
                 <p className="password-text"> Password </p>
                 <input id="js-pass" className="password-input" type="password" onChange={ this.changePasswordState }/>
                 <button className="login-button" type="submit" onClick={ this.loginUser }> Login </button>
+                <p className={this.state.invalidLoginTextClass}> Incorrect email/password </p>
                 <p className="if-register-text"> Don't have an account? 
                     <p className="register-toggle" onClick={ this.toggleView }> Click here </p> to register.</p>
             </div>
@@ -130,7 +145,7 @@ class LoginAndRegister extends React.Component<Props, State> {
                 <input id="js-username" className="username-register-input" onChange={ this.changeRegisterUsernameState } />
                 <p className="password-register-text"> Password </p>
                 <input id="js-pass"className="password-register-input" type="password" onChange={ this.changeRegisterPasswordState }/>
-                <button className="register-button" type="submit" > Register </button>
+                <button className="register-button" type="submit"> Register </button>
                 <p className="login-toggle" onClick={ this.toggleView }> Back to Login </p>
             </div>
         ) 

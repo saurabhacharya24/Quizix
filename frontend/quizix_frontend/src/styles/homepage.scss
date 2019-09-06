@@ -175,7 +175,7 @@ body {
 		font-size: 12pt;
 		width: 40%;
 		margin-top: 12%;
-		margin-left: 31%;
+		margin-left: 32%;
 		text-align: center;
 
 		.register-toggle {
@@ -203,4 +203,21 @@ body {
 		}
 	}
 
+	.invalid-login-text {
+		color: rgb(219, 0, 0);
+		position: absolute;
+		margin-left: 30%;
+		animation: fadeOut 2s ease-in;
+	}
+
+	.invalid-login-text--hidden {
+		position: absolute;
+		visibility: hidden;
+	}
+}
+
+@keyframes fadeOut {
+	0% {opacity: 1}
+	90% {opacity: 1}
+	100% {opacity: 0}
 }

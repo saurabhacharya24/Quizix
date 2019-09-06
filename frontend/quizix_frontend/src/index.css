@@ -144,7 +144,7 @@ body {
   font-size: 12pt;
   width: 40%;
   margin-top: 12%;
-  margin-left: 31%;
+  margin-left: 32%;
   text-align: center;
 }
 .login-register-box .if-register-text .register-toggle {
@@ -166,6 +166,28 @@ body {
 .login-register-box .login-toggle:hover {
   cursor: pointer;
   color: #047407;
+}
+.login-register-box .invalid-login-text {
+  color: #db0000;
+  position: absolute;
+  margin-left: 30%;
+  animation: fadeOut 2s ease-in;
+}
+.login-register-box .invalid-login-text--hidden {
+  position: absolute;
+  visibility: hidden;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */
