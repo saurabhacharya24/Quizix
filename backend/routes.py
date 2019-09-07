@@ -19,7 +19,7 @@ def register_user():
 
     status = db_insert_user(display_name, email, password)
 
-    if status == "23514":
+    if len(display_name) <= 5:
         return make_response(jsonify(
             {'code': 514,
              'reason': 'Display name must be > 5 characters.'
@@ -33,9 +33,15 @@ def register_user():
              },
         ), 400)
 
-    else:
-        resp = make_response(jsonify(True), 200)
+    elif status:
+        user_id = db_verify_user(email, password)
+        resp = make_response(jsonify(
+            {'user_id': user_id}), 200)
         return resp
+
+    # else:
+    #     resp = make_response(jsonify("Server Error"), 400)
+    #     return resp
 
 
 @app.route("/api/login", methods=["POST"])

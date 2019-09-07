@@ -13,13 +13,13 @@ def db_insert_user(display_name, email, password):
         conn = connect_to_db()
         cur = conn.cursor()
 
-        sql = """insert into users values(%s, %s, %s, %s, %s, %s)"""
+        sql = """insert into users values(%s, %s, %s, %s, %s)"""
 
         p_salt = urandom(32)
         p_hash = generate_p_hash(password, p_salt)
         user_id = generate_user_id()
 
-        cur.execute(sql, (display_name, email, p_salt, p_hash, None, user_id))
+        cur.execute(sql, (display_name, email, p_salt, p_hash, user_id))
         cur.close()
         return True
 
