@@ -39,7 +39,7 @@ class LoginAndRegister extends React.Component<Props, State> {
 
         this.changeEmailState = this.changeEmailState.bind(this)
         this.changePasswordState = this.changePasswordState.bind(this)
-        this.changeRegisterEmailState = this.changeEmailState.bind(this)
+        this.changeRegisterEmailState = this.changeRegisterEmailState.bind(this)
         this.changeRegisterUsernameState = this.changeRegisterUsernameState.bind(this)
         this.changeRegisterPasswordState = this.changeRegisterPasswordState.bind(this)
         this.loginUser = this.loginUser.bind(this)
@@ -117,6 +117,7 @@ class LoginAndRegister extends React.Component<Props, State> {
             window.location.reload()
 
         } catch (error) {
+            console.log(error.response.data)
             this.setState({ invalidRegTextClass: "invalid-reg-text" })
             let state = this
 
