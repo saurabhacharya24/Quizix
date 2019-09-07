@@ -15,7 +15,8 @@ interface State {
     registerEmail: string
     registerUsername: string
     registerPassword: string
-    invalidLoginTextClass: string 
+    invalidLoginTextClass: string
+    invalidRegTextClass: string
     whichView: string
 }
 interface Props {}
@@ -32,16 +33,18 @@ class LoginAndRegister extends React.Component<Props, State> {
             registerUsername: "",
             registerPassword: "",
             invalidLoginTextClass: "invalid-login-text--hidden",
+            invalidRegTextClass: "invalid-reg-text--hidden",
             whichView: "login"
         }
 
-        this.changeEmailState = this.changeEmailState.bind(this);
-        this.changePasswordState = this.changePasswordState.bind(this);
-        this.changeRegisterEmailState = this.changeEmailState.bind(this);
-        this.changeRegisterUsernameState = this.changeRegisterUsernameState.bind(this);
-        this.changeRegisterPasswordState = this.changeRegisterPasswordState.bind(this);
-        this.loginUser = this.loginUser.bind(this);
-        this.toggleView = this.toggleView.bind(this);
+        this.changeEmailState = this.changeEmailState.bind(this)
+        this.changePasswordState = this.changePasswordState.bind(this)
+        this.changeRegisterEmailState = this.changeEmailState.bind(this)
+        this.changeRegisterUsernameState = this.changeRegisterUsernameState.bind(this)
+        this.changeRegisterPasswordState = this.changeRegisterPasswordState.bind(this)
+        this.loginUser = this.loginUser.bind(this)
+        this.registerUser = this.registerUser.bind(this)
+        this.toggleView = this.toggleView.bind(this)
     }
 
     changeEmailState(evt: any) {
@@ -77,7 +80,6 @@ class LoginAndRegister extends React.Component<Props, State> {
             password: password 
         }
 
-        // Use try-catch block everywhere
         try {
             let response = await axios.post(API_URL+"/login", body, headerConfig)
             let userId = response.data['user_id']
@@ -97,17 +99,40 @@ class LoginAndRegister extends React.Component<Props, State> {
         }
     }
 
+    async registerUser() {
+        let { registerEmail, registerUsername, registerPassword } = this.state
+
+        let body = {
+            email: registerEmail,
+            password: registerPassword,
+            display_name: registerUsername
+        }
+
+        try {
+            let response = await axios.post(API_URL+"/registration", body, headerConfig)
+            let userId = response.data['user_id']
+            console.log(response.data)
+
+            document.cookie = "user_id=" + userId
+            window.location.reload()
+
+        } catch (error) {
+            this.setState({ invalidRegTextClass: "invalid-reg-text" })
+            let state = this
+
+            setTimeout(function() {
+                state.setState({ invalidRegTextClass: "invalid-reg-text--hidden"})
+            }, 2000)
+        }
+    }
+
     toggleView() {
         let { whichView } = this.state
 
         this.setState({ 
             whichView: whichView === "login" ? "register" : "login",
-            email: "",
-            password: "",
-            registerEmail: "",
-            registerUsername: "",
-            registerPassword: ""
-        });
+        })
+        this.clearState()
 
         let emailField = (document.getElementById('js-email') as HTMLInputElement)
         let passwordField = (document.getElementById('js-pass') as HTMLInputElement);
@@ -117,6 +142,16 @@ class LoginAndRegister extends React.Component<Props, State> {
         passwordField.value = '';
         if (usernameField != null) usernameField.value = '';
         
+    }
+
+    clearState(){
+        this.setState({ 
+            email: "",
+            password: "",
+            registerEmail: "",
+            registerUsername: "",
+            registerPassword: ""
+        })
     }
 
     renderLoginOnly() {
@@ -145,7 +180,8 @@ class LoginAndRegister extends React.Component<Props, State> {
                 <input id="js-username" className="username-register-input" onChange={ this.changeRegisterUsernameState } />
                 <p className="password-register-text"> Password </p>
                 <input id="js-pass"className="password-register-input" type="password" onChange={ this.changeRegisterPasswordState }/>
-                <button className="register-button" type="submit"> Register </button>
+                <button className="register-button" type="submit" onClick={ this.registerUser }> Register </button>
+                <p className={this.state.invalidRegTextClass}> Couldn't register, please try again </p>
                 <p className="login-toggle" onClick={ this.toggleView }> Back to Login </p>
             </div>
         ) 

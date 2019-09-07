@@ -210,7 +210,14 @@ body {
 		animation: fadeOut 2s ease-in;
 	}
 
-	.invalid-login-text--hidden {
+	.invalid-reg-text {
+		color: rgb(219, 0, 0);
+		position: absolute;
+		margin-left: 25%;
+		animation: fadeOut 2s ease-in;
+	}
+
+	.invalid-login-text--hidden, .invalid-reg-text--hidden {
 		position: absolute;
 		visibility: hidden;
 	}

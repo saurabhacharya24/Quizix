@@ -173,7 +173,13 @@ body {
   margin-left: 30%;
   animation: fadeOut 2s ease-in;
 }
-.login-register-box .invalid-login-text--hidden {
+.login-register-box .invalid-reg-text {
+  color: #db0000;
+  position: absolute;
+  margin-left: 25%;
+  animation: fadeOut 2s ease-in;
+}
+.login-register-box .invalid-login-text--hidden, .login-register-box .invalid-reg-text--hidden {
   position: absolute;
   visibility: hidden;
 }
