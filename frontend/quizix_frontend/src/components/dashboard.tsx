@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Quizzes from './quizzes'
 import getUserId from '../helpers/cookies'
 
 const API_URL = "http://127.0.0.1:8080/api";
@@ -117,6 +118,7 @@ class Dashboard extends React.Component<Props, State> {
             <div className="dashboard">
                 <p className="dashboard-title"> My Dashboard </p>
                 {this.renderMenu()}
+                <Quizzes />
                 {this.renderLogout()}
             </div>
         )
