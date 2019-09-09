@@ -1,0 +1,141 @@
+%menu-text {
+    text-align: center;
+    font-size: 14pt;
+    margin-top: 6px;
+}
+
+.dashboard-title {
+    font-size: 24pt;
+    // margin-left: 42%;
+    text-align: center;
+}
+
+.menu {
+    margin-top: -10px;
+    width: 65%;
+    margin-left: 18%;
+    height: 40px;
+    display: inline-grid;
+    grid-template-columns: 33% 33% 33%;
+
+    .quiz-menu {
+        height: 40px;
+        background-color: #F5F5F5;
+        transition: background-color 0.1s, color 0.1s;
+
+        .quiz-menu-text {
+            @extend %menu-text;
+        }
+    }
+
+    .quiz-menu--selected {
+        cursor: pointer;
+        height: 40px;
+        background-color: #3340FF;
+        color: white;
+        transition: background-color 0.1s, color 0.1s;
+
+        .quiz-menu-text {
+            @extend %menu-text;
+        }
+    }
+
+    .groups-menu {
+        height: 40px;
+        background-color: #F5F5F5;
+        transition: background-color 0.1s, color 0.1s;
+
+        .groups-menu-text {
+            @extend %menu-text;
+        }
+    }
+
+    .groups-menu--selected {
+        cursor: pointer;
+        height: 40px;
+        background-color: #3340FF;
+        color: white;
+        transition: background-color 0.1s, color 0.1s;
+
+        .groups-menu-text {
+            @extend %menu-text;
+        }
+    }
+
+    .messages-menu {
+        height: 40px;
+        background-color: #F5F5F5;
+        transition: background-color 0.1s, color 0.1s;
+
+        .messages-menu-text {
+            @extend %menu-text;
+        }
+    }
+
+    .messages-menu--selected {
+        cursor: pointer;
+        height: 40px;
+        background-color: #3340FF;
+        color: white;
+        transition: background-color 0.1s, color 0.1s;
+
+        .messages-menu-text {
+            @extend %menu-text;
+        }
+    }
+
+    .quiz-menu:hover, .groups-menu:hover, .messages-menu:hover {
+        cursor: pointer;
+        background-color: #3340FF;
+        color: white;
+    }
+}
+
+.logout {
+    cursor: pointer;
+    position: fixed;
+    right: 25px;
+    bottom: 8%;
+    width: 9%;
+    height: 40px;
+    border-radius: 4px;
+    display: inline-grid;
+    grid-template-columns: 5% 95%;
+    transition: background-image 0.1s, color 0.1s, background-color 0.1s;
+
+    .logout-image {
+        background-image: url('images/onoff.png');
+        background-repeat: no-repeat;
+        background-size: 100%;
+        margin-top: 5px;
+        margin-left: 5px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .logout-text {
+        color: #E34141;
+        font-size: 15pt;
+        text-align: center;
+        margin-top: 5px;
+        margin-left: 15%;
+    }
+}
+
+.logout:hover {
+    background-color: #E34141;
+}
+
+.logout:hover .logout-image {
+    background-image: url('images/onoff-white.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+.logout:hover .logout-text {
+    color: white;
+}

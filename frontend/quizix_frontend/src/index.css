@@ -195,5 +195,112 @@ body {
     opacity: 0;
   }
 }
+.menu .messages-menu--selected .messages-menu-text, .menu .messages-menu .messages-menu-text, .menu .groups-menu--selected .groups-menu-text, .menu .groups-menu .groups-menu-text, .menu .quiz-menu--selected .quiz-menu-text, .menu .quiz-menu .quiz-menu-text {
+  text-align: center;
+  font-size: 14pt;
+  margin-top: 6px;
+}
+
+.dashboard-title {
+  font-size: 24pt;
+  text-align: center;
+}
+
+.menu {
+  margin-top: -10px;
+  width: 65%;
+  margin-left: 18%;
+  height: 40px;
+  display: inline-grid;
+  grid-template-columns: 33% 33% 33%;
+}
+.menu .quiz-menu {
+  height: 40px;
+  background-color: #F5F5F5;
+  transition: background-color 0.1s, color 0.1s;
+}
+.menu .quiz-menu--selected {
+  cursor: pointer;
+  height: 40px;
+  background-color: #3340FF;
+  color: white;
+  transition: background-color 0.1s, color 0.1s;
+}
+.menu .groups-menu {
+  height: 40px;
+  background-color: #F5F5F5;
+  transition: background-color 0.1s, color 0.1s;
+}
+.menu .groups-menu--selected {
+  cursor: pointer;
+  height: 40px;
+  background-color: #3340FF;
+  color: white;
+  transition: background-color 0.1s, color 0.1s;
+}
+.menu .messages-menu {
+  height: 40px;
+  background-color: #F5F5F5;
+  transition: background-color 0.1s, color 0.1s;
+}
+.menu .messages-menu--selected {
+  cursor: pointer;
+  height: 40px;
+  background-color: #3340FF;
+  color: white;
+  transition: background-color 0.1s, color 0.1s;
+}
+.menu .quiz-menu:hover, .menu .groups-menu:hover, .menu .messages-menu:hover {
+  cursor: pointer;
+  background-color: #3340FF;
+  color: white;
+}
+
+.logout {
+  cursor: pointer;
+  position: fixed;
+  right: 25px;
+  bottom: 8%;
+  width: 9%;
+  height: 40px;
+  border-radius: 4px;
+  display: inline-grid;
+  grid-template-columns: 5% 95%;
+  transition: background-image 0.1s, color 0.1s, background-color 0.1s;
+}
+.logout .logout-image {
+  background-image: url("images/onoff.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-top: 5px;
+  margin-left: 5px;
+  width: 30px;
+  height: 30px;
+}
+.logout .logout-text {
+  color: #E34141;
+  font-size: 15pt;
+  text-align: center;
+  margin-top: 5px;
+  margin-left: 15%;
+}
+
+.logout:hover {
+  background-color: #E34141;
+}
+
+.logout:hover .logout-image {
+  background-image: url("images/onoff-white.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-top: 5px;
+  margin-left: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.logout:hover .logout-text {
+  color: white;
+}
 
 /*# sourceMappingURL=index.css.map */
