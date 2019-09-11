@@ -114,14 +114,38 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     render() {
-        return (
-            <div className="dashboard">
-                <p className="dashboard-title"> My Dashboard </p>
-                {this.renderMenu()}
-                <Quizzes />
-                {this.renderLogout()}
-            </div>
-        )
+        let { whichView } = this.state
+
+        if (whichView === 1) {
+            return (
+                <div className="dashboard">
+                    <p className="dashboard-title"> My Dashboard </p>
+                    {this.renderMenu()}
+                    <Quizzes />
+                    {this.renderLogout()}
+                </div>
+            )
+        }
+        else if (whichView === 2) {
+            return (
+                <div className="dashboard">
+                    <p className="dashboard-title"> My Dashboard </p>
+                    {this.renderMenu()}
+        
+                    {this.renderLogout()}
+                </div>
+            )
+        }
+        else if (whichView === 3) {
+            return (
+                <div className="dashboard">
+                    <p className="dashboard-title"> My Dashboard </p>
+                    {this.renderMenu()}
+            
+                    {this.renderLogout()}
+                </div>
+            )
+        }
     }
 }
 

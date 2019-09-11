@@ -4,3 +4,11 @@ export interface IQuizzes {
     quiz_id: string
     quiz_name: string
 }
+
+export interface ICompleted {
+    group_name: string
+    marks: string
+    quiz_id: string
+    quiz_name: string
+    review_date: string
+}
