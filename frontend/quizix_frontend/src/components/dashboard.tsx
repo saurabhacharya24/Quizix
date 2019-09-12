@@ -1,15 +1,10 @@
 import React from 'react'
 import axios from 'axios'
 import Quizzes from './quizzes'
+import Groups from './groups'
 import getUserId from '../helpers/cookies'
+import { API_URL, headerConfig } from '../helpers/apiConsts'
 
-const API_URL = "http://127.0.0.1:8080/api";
-const headerConfig = {
-    headers: {
-        'Content-Type': 'application/json',
-        withCredentials: 'true'
-    }
-}
 
 interface State {
     whichView: number
@@ -131,7 +126,7 @@ class Dashboard extends React.Component<Props, State> {
                 <div className="dashboard">
                     <p className="dashboard-title"> My Dashboard </p>
                     {this.renderMenu()}
-        
+                    <Groups />
                     {this.renderLogout()}
                 </div>
             )

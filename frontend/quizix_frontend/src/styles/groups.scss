@@ -1,0 +1,121 @@
+.groups > :first-child {
+    margin-top: 0 !important;
+}
+
+html, body {
+    height: 100%;
+}
+
+.groups {
+    // min-height: 20vh;
+    width: 65%;
+    height: 40vh;
+    max-height: 70vh;
+    margin-top: 1%;
+    margin-left: 18%;
+    color: white;
+    overflow-y: auto;
+    animation: fadeIn 0.2s;
+
+    .group-card-info {
+        top: 0;
+        width: 99%;
+        height: 80px;
+        margin-top: 10px;
+        background-color: rgb(79, 120, 196);
+        border: 1px solid rgb(79, 120, 196);
+        font-size: 15pt;
+
+        .group-name {
+            width: 25%;
+            margin-top: 8px;
+            margin-left: 1%;
+            display: inline-block;
+        }
+
+        .group-desc {
+            margin-top: -1%;
+            font-size: 12pt;
+            margin-left: 1%;
+            max-width: 60%;
+        }
+
+        
+        .admin-controls {
+            margin-right: 2%;
+            margin-top: 2%;
+            height: 40px;
+            float: right;
+            width: 35%;
+
+            .invite-user {
+                height: 40px;
+                margin-right: 2%;
+                color: orange;
+                background-color: white;
+                border: 1px solid orange;
+                border-radius: 3px;
+                font-size: 14pt;
+                transition: background-color 0.1s, color 0.1s;
+
+                &:hover {
+                    cursor: pointer;
+                    border: 1px solid white;
+                    background-color: orange;
+                    color: white;
+                }
+            }
+
+            .create-quiz {
+                height: 40px;
+                margin-right: 2%;
+                color: #1DB500;
+                background-color: white;
+                border: 1px solid #1DB500;
+                border-radius: 3px;
+                font-size: 14pt;
+
+                &:hover {
+                    cursor: pointer;
+                    border: 1px solid white;
+                    background-color: #1DB500;
+                    color: white;
+                }
+            }
+
+        }
+        // &:hover {
+        //     cursor: pointer;
+        //     color: #1DB500;
+        //     background-color: white;
+        // }
+    }
+
+    .no-info-card {
+        top: 0;
+        width: 99%;
+        height: 45px;
+        margin-top: 10px;
+        background-color: rgb(228, 136, 15);
+        border: 1px solid rgb(228, 136, 15);
+        font-size: 18pt;
+    
+        .info-message {
+            margin-top: 5px;
+            color: white;
+            text-align: center;
+        }
+    }
+}
+
+.groups-text {
+    margin-left: 18%;
+    font-size: 20pt;
+    margin-bottom: 5px;
+}
+
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}

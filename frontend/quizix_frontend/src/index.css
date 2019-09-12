@@ -316,7 +316,7 @@ html, body {
 }
 
 .quizzes {
-  min-height: 5vh;
+  min-height: 10vh;
   width: 65%;
   max-height: 30vh;
   margin-top: 1%;
@@ -448,6 +448,112 @@ html, body {
 }
 
 .upcoming-quizzes-text, .completed-quizzes-text {
+  margin-left: 18%;
+  font-size: 20pt;
+  margin-bottom: 5px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.groups > :first-child {
+  margin-top: 0 !important;
+}
+
+html, body {
+  height: 100%;
+}
+
+.groups {
+  width: 65%;
+  height: 40vh;
+  max-height: 70vh;
+  margin-top: 1%;
+  margin-left: 18%;
+  color: white;
+  overflow-y: auto;
+  animation: fadeIn 0.2s;
+}
+.groups .group-card-info {
+  top: 0;
+  width: 99%;
+  height: 80px;
+  margin-top: 10px;
+  background-color: #4f78c4;
+  border: 1px solid #4f78c4;
+  font-size: 15pt;
+}
+.groups .group-card-info .group-name {
+  width: 25%;
+  margin-top: 8px;
+  margin-left: 1%;
+  display: inline-block;
+}
+.groups .group-card-info .group-desc {
+  margin-top: -1%;
+  font-size: 12pt;
+  margin-left: 1%;
+  max-width: 60%;
+}
+.groups .group-card-info .admin-controls {
+  margin-right: 2%;
+  margin-top: 2%;
+  height: 40px;
+  float: right;
+  width: 35%;
+}
+.groups .group-card-info .admin-controls .invite-user {
+  height: 40px;
+  margin-right: 2%;
+  color: orange;
+  background-color: white;
+  border: 1px solid orange;
+  border-radius: 3px;
+  font-size: 14pt;
+  transition: background-color 0.1s, color 0.1s;
+}
+.groups .group-card-info .admin-controls .invite-user:hover {
+  cursor: pointer;
+  border: 1px solid white;
+  background-color: orange;
+  color: white;
+}
+.groups .group-card-info .admin-controls .create-quiz {
+  height: 40px;
+  margin-right: 2%;
+  color: #1DB500;
+  background-color: white;
+  border: 1px solid #1DB500;
+  border-radius: 3px;
+  font-size: 14pt;
+}
+.groups .group-card-info .admin-controls .create-quiz:hover {
+  cursor: pointer;
+  border: 1px solid white;
+  background-color: #1DB500;
+  color: white;
+}
+.groups .no-info-card {
+  top: 0;
+  width: 99%;
+  height: 45px;
+  margin-top: 10px;
+  background-color: #e4880f;
+  border: 1px solid #e4880f;
+  font-size: 18pt;
+}
+.groups .no-info-card .info-message {
+  margin-top: 5px;
+  color: white;
+  text-align: center;
+}
+
+.groups-text {
   margin-left: 18%;
   font-size: 20pt;
   margin-bottom: 5px;
