@@ -6,14 +6,7 @@ import getUserId from '../helpers/cookies'
 import QuizCard from './quizCard';
 import CompletedCard from './completedCard'
 import NoInfoCard from './noInfoCard'
-
-const API_URL = "http://127.0.0.1:8080/api";
-const headerConfig = {
-    headers: {
-        'Content-Type': 'application/json',
-        withCredentials: 'true'
-    }
-}
+import { API_URL, headerConfig } from '../helpers/apiConsts'
 
 interface State {
     quizzes: Array<IQuizzes>

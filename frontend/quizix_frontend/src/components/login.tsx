@@ -1,13 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 // import ReactDOM from 'react-dom';
-const API_URL = "http://127.0.0.1:8080/api";
-const headerConfig = {
-    headers: {
-        'Content-Type': 'application/json',
-        withCredentials: 'true'
-    }
-}
+import { API_URL, headerConfig } from '../helpers/apiConsts'
 
 interface State {
     email: string
