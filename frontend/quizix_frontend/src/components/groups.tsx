@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import GroupCard from './groupCard'
+import InviteModal from './inviteModal'
 import { IGroups } from '../interfaces/groups'
 import getUserId from '../helpers/cookies'
 import { API_URL, headerConfig } from '../helpers/apiConsts'
@@ -9,6 +10,7 @@ import { API_URL, headerConfig } from '../helpers/apiConsts'
 interface State {
     groups: Array<IGroups>
     groupsLoaded: boolean
+    inviteModalShow: boolean
 }
 
 interface Props {}
@@ -20,7 +22,8 @@ class Groups extends React.Component<Props, State> {
 
         this.state = {
             groups: [],
-            groupsLoaded: false
+            groupsLoaded: false,
+            inviteModalShow: false
         }
     }
 
@@ -36,8 +39,13 @@ class Groups extends React.Component<Props, State> {
         }
     }
 
+    toggleInviteModalState() {
+        let ims = this.state.inviteModalShow
+        this.setState({ inviteModalShow: ims ? false : true })
+    }
+
     render() {
-        let { groups, groupsLoaded } = this.state
+        let { groups, groupsLoaded, inviteModalShow } = this.state
 
         return (
             groupsLoaded ?
@@ -52,6 +60,7 @@ class Groups extends React.Component<Props, State> {
                             isAdmin={group.is_admin}
                             numOfMembers={group.num_of_members}
                         />)}
+                        {/* <InviteModal showState={inviteModalShow} /> */}
                 </div>
             </div>
             :
