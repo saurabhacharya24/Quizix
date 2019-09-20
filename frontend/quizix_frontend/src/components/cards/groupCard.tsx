@@ -1,5 +1,5 @@
 import React from 'react'
-import InviteModal from './inviteModal'
+import InviteModal from '../modals/inviteModal'
 
 interface State {
     inviteShow: boolean

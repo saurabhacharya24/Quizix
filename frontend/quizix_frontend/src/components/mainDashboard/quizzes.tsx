@@ -1,12 +1,12 @@
 import React from 'react'
 import axios from 'axios'
 // import QuizCard from './quizCard'
-import { IQuizzes, ICompleted } from '../interfaces/quizzes'
-import getUserId from '../helpers/cookies'
-import QuizCard from './quizCard';
-import CompletedCard from './completedCard'
-import NoInfoCard from './noInfoCard'
-import { API_URL, headerConfig } from '../helpers/apiConsts'
+import { IQuizzes, ICompleted } from '../../interfaces/quizzes'
+import getUserId from '../../helpers/cookies'
+import QuizCard from '../cards/quizCard';
+import CompletedCard from '../cards/completedCard'
+import NoInfoCard from '../cards/noInfoCard'
+import { API_URL, headerConfig } from '../../helpers/apiConsts'
 
 interface State {
     quizzes: Array<IQuizzes>

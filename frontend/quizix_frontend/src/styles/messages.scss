@@ -1,0 +1,75 @@
+.invites > :first-child {
+    margin-top: 0 !important;
+}
+
+.requests > :first-child {
+    margin-top: 0 !important;
+}
+
+html, body {
+    height: 100%;
+}
+
+.invites {
+    width: 65%;
+    min-height: 10vh;
+    max-height: 30vh;
+    margin-top: 1%;
+    margin-left: 18%;
+    color: white;
+    overflow-y: auto;
+    animation: fadeIn 0.2s;
+
+
+
+    .no-info-card {
+        top: 0;
+        width: 99%;
+        height: 45px;
+        margin-top: 10px;
+        background-color: rgb(228, 136, 15);
+        border: 1px solid rgb(228, 136, 15);
+        font-size: 18pt;
+    
+        .info-message {
+            margin-top: 5px;
+            color: white;
+            text-align: center;
+        }
+    }
+}
+
+.requests {
+    width: 65%;
+    min-height: 10vh;
+    max-height: 30vh;
+    margin-top: 1%;
+    margin-left: 18%;
+    color: white;
+    overflow-y: auto;
+    animation: fadeIn 0.2s;
+
+
+
+    .no-info-card {
+        top: 0;
+        width: 99%;
+        height: 45px;
+        margin-top: 10px;
+        background-color: rgb(228, 136, 15);
+        border: 1px solid rgb(228, 136, 15);
+        font-size: 18pt;
+    
+        .info-message {
+            margin-top: 5px;
+            color: white;
+            text-align: center;
+        }
+    }
+}
+
+.invites-text, .requests-text {
+    margin-left: 18%;
+    font-size: 20pt;
+    margin-bottom: 5px;
+}

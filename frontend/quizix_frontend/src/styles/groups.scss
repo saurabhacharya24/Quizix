@@ -74,6 +74,7 @@ html, body {
                 border: 1px solid #1DB500;
                 border-radius: 3px;
                 font-size: 14pt;
+                transition: background-color 0.1s, color 0.1s;
 
                 &:hover {
                     cursor: pointer;
@@ -114,6 +115,25 @@ html, body {
     margin-bottom: 5px;
 }
 
+.create-group-button {
+    float: right;
+    margin-top: -3%;
+    margin-right: 17.5%;
+    height: 40px;
+    color: white;
+    background-color: #1DB500;
+    border: 1px solid #1DB500;
+    border-radius: 3px;
+    font-size: 14pt;
+    transition: background-color 0.1s, color 0.1s;
+
+    &:hover {
+        cursor: pointer;
+        border: 1px solid #1DB500;
+        background-color: white;
+        color: #1DB500;
+    }
+}
 
 @keyframes fadeIn {
     from {opacity: 0;}

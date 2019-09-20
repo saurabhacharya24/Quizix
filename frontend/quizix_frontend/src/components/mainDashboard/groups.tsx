@@ -1,16 +1,17 @@
 import React from 'react'
 import axios from 'axios'
-import GroupCard from './groupCard'
-import InviteModal from './inviteModal'
-import { IGroups } from '../interfaces/groups'
-import getUserId from '../helpers/cookies'
-import { API_URL, headerConfig } from '../helpers/apiConsts'
+import GroupCard from '../cards/groupCard'
+// import InviteModal from './inviteModal'
+import { IGroups } from '../../interfaces/groups'
+import getUserId from '../../helpers/cookies'
+import { API_URL, headerConfig } from '../../helpers/apiConsts'
+import GroupCreateModal from '../modals/groupCreateModal'
 
 
 interface State {
     groups: Array<IGroups>
     groupsLoaded: boolean
-    inviteModalShow: boolean
+    createGroupModalShow: boolean
 }
 
 interface Props {}
@@ -23,8 +24,10 @@ class Groups extends React.Component<Props, State> {
         this.state = {
             groups: [],
             groupsLoaded: false,
-            inviteModalShow: false
+            createGroupModalShow: false
         }
+
+        this.toggleCreateGroupModalState = this.toggleCreateGroupModalState.bind(this)
     }
 
     async componentDidMount() {
@@ -39,18 +42,19 @@ class Groups extends React.Component<Props, State> {
         }
     }
 
-    toggleInviteModalState() {
-        let ims = this.state.inviteModalShow
-        this.setState({ inviteModalShow: ims ? false : true })
+    toggleCreateGroupModalState() {
+        let showHide = this.state.createGroupModalShow
+        this.setState({ createGroupModalShow: showHide ? false : true })
     }
 
     render() {
-        let { groups, groupsLoaded, inviteModalShow } = this.state
+        let { groups, groupsLoaded, createGroupModalShow } = this.state
 
         return (
             groupsLoaded ?
             <div>
                 <p className="groups-text"> My Groups </p>
+                <button className="create-group-button" onClick={this.toggleCreateGroupModalState}> + Create Group </button>
                 <div className="groups">
                     {groups.map((group: IGroups) => 
                         <GroupCard
@@ -59,8 +63,12 @@ class Groups extends React.Component<Props, State> {
                             groupId={group.group_id}
                             isAdmin={group.is_admin}
                             numOfMembers={group.num_of_members}
-                        />)}
-                        {/* <InviteModal showState={inviteModalShow} /> */}
+                        />
+                    )}
+                    <GroupCreateModal 
+                        showState={createGroupModalShow}
+                        toggleShowState={this.toggleCreateGroupModalState}
+                        />
                 </div>
             </div>
             :

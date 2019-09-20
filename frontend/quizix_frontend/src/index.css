@@ -531,6 +531,7 @@ html, body {
   border: 1px solid #1DB500;
   border-radius: 3px;
   font-size: 14pt;
+  transition: background-color 0.1s, color 0.1s;
 }
 .groups .group-card-info .admin-controls .create-quiz:hover {
   cursor: pointer;
@@ -557,6 +558,25 @@ html, body {
   margin-left: 18%;
   font-size: 20pt;
   margin-bottom: 5px;
+}
+
+.create-group-button {
+  float: right;
+  margin-top: -3%;
+  margin-right: 17.5%;
+  height: 40px;
+  color: white;
+  background-color: #1DB500;
+  border: 1px solid #1DB500;
+  border-radius: 3px;
+  font-size: 14pt;
+  transition: background-color 0.1s, color 0.1s;
+}
+.create-group-button:hover {
+  cursor: pointer;
+  border: 1px solid #1DB500;
+  background-color: white;
+  color: #1DB500;
 }
 
 @keyframes fadeIn {
@@ -649,6 +669,88 @@ html, body {
 .modal .invite-user-box .close-modal:hover {
   color: black;
 }
+.modal .create-group-box {
+  display: block;
+  position: fixed;
+  text-align: center;
+  margin-left: 25%;
+  width: 50%;
+  max-width: 70%;
+  height: 200px;
+  background-color: #f8f8f8;
+  animation: zoomform 0.2s ease-in;
+  border-radius: 2px;
+}
+.modal .create-group-box .group-name-text {
+  float: left;
+  margin-top: 8%;
+  margin-left: 9.5%;
+  color: black;
+  font-size: 14pt;
+  margin-bottom: 0;
+}
+.modal .create-group-box .group-name-input {
+  width: 60%;
+  margin-top: 8.5%;
+  height: 20px;
+  border-radius: 0px 3px 3px 0px;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: 2px solid #4e4ed3;
+  padding-left: 1%;
+  font-size: 14pt;
+}
+.modal .create-group-box .group-desc-text {
+  float: left;
+  margin-top: 1%;
+  margin-left: 4%;
+  color: black;
+  font-size: 14pt;
+  text-align: left;
+}
+.modal .create-group-box .group-desc-input {
+  width: 60%;
+  max-width: 60%;
+  margin-top: 1.5%;
+  margin-left: -5.5%;
+  height: 20px;
+  border-radius: 0px 3px 3px 0px;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: 2px solid #4e4ed3;
+  padding-left: 1%;
+  font-size: 14pt;
+}
+.modal .create-group-box .create-group-submit-button {
+  width: 140px;
+  height: 40px;
+  margin-top: 2%;
+  margin-left: -25%;
+  color: orange;
+  background-color: white;
+  border: 1px solid orange;
+  border-radius: 3px;
+  font-size: 14pt;
+  transition: background-color 0.1s, color 0.1s;
+}
+.modal .create-group-box .create-group-submit-button:hover {
+  cursor: pointer;
+  border: 1px solid white;
+  background-color: orange;
+  color: white;
+}
+.modal .create-group-box .close-modal {
+  cursor: pointer;
+  float: right;
+  width: 30px;
+  font-size: 18pt;
+  color: grey;
+}
+.modal .create-group-box .close-modal:hover {
+  color: black;
+}
 
 @keyframes zoomform {
   from {
@@ -657,6 +759,73 @@ html, body {
   to {
     transform: scale(1);
   }
+}
+.invites > :first-child {
+  margin-top: 0 !important;
+}
+
+.requests > :first-child {
+  margin-top: 0 !important;
+}
+
+html, body {
+  height: 100%;
+}
+
+.invites {
+  width: 65%;
+  min-height: 10vh;
+  max-height: 30vh;
+  margin-top: 1%;
+  margin-left: 18%;
+  color: white;
+  overflow-y: auto;
+  animation: fadeIn 0.2s;
+}
+.invites .no-info-card {
+  top: 0;
+  width: 99%;
+  height: 45px;
+  margin-top: 10px;
+  background-color: #e4880f;
+  border: 1px solid #e4880f;
+  font-size: 18pt;
+}
+.invites .no-info-card .info-message {
+  margin-top: 5px;
+  color: white;
+  text-align: center;
+}
+
+.requests {
+  width: 65%;
+  min-height: 10vh;
+  max-height: 30vh;
+  margin-top: 1%;
+  margin-left: 18%;
+  color: white;
+  overflow-y: auto;
+  animation: fadeIn 0.2s;
+}
+.requests .no-info-card {
+  top: 0;
+  width: 99%;
+  height: 45px;
+  margin-top: 10px;
+  background-color: #e4880f;
+  border: 1px solid #e4880f;
+  font-size: 18pt;
+}
+.requests .no-info-card .info-message {
+  margin-top: 5px;
+  color: white;
+  text-align: center;
+}
+
+.invites-text, .requests-text {
+  margin-left: 18%;
+  font-size: 20pt;
+  margin-bottom: 5px;
 }
 
 /*# sourceMappingURL=index.css.map */

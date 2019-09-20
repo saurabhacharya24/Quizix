@@ -1,6 +1,6 @@
 import React from 'react'
 import LoginAndRegister from './login'
-import Dashboard from './dashboard'
+import Dashboard from './mainDashboard/dashboard'
 import getUserId from '../helpers/cookies'
 // import ReactDOM from 'react-dom';
 

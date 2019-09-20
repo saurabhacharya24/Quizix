@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-import { API_URL, headerConfig } from '../helpers/apiConsts'
-import getUserId from '../helpers/cookies'
+import { API_URL, headerConfig } from '../../helpers/apiConsts'
+import getUserId from '../../helpers/cookies'
 
 interface State {
     inviteButtonText: string

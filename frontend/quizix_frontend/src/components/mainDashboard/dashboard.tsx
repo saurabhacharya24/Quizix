@@ -2,8 +2,9 @@ import React from 'react'
 import axios from 'axios'
 import Quizzes from './quizzes'
 import Groups from './groups'
-import getUserId from '../helpers/cookies'
-import { API_URL, headerConfig } from '../helpers/apiConsts'
+import Messages from './messages'
+import getUserId from '../../helpers/cookies'
+import { API_URL, headerConfig } from '../../helpers/apiConsts'
 
 
 interface State {
@@ -36,36 +37,35 @@ class Dashboard extends React.Component<Props, State> {
         let previousView = this.state.whichView
         
         if (clickedMenu === "js-quiz-menu") {
-            this.toggleQuizMenuState()
-            this.setState({ whichView: 1 })   
+            if (previousView !== 1) {
+                this.setState({ 
+                    whichView: 1, 
+                    quizMenuClass: "quiz-menu--selected",
+                    groupsMenuClass: "groups-menu",
+                    messagesMenuClass: "messages-menu"
+                })   
+            }
         }
         if (clickedMenu === "js-groups-menu") {
-            this.toggleGroupsMenuState()   
-            this.setState({ whichView: 2 })
+            if (previousView !== 2) {
+                this.setState({ 
+                    whichView: 2, 
+                    quizMenuClass: "quiz-menu",
+                    groupsMenuClass: "groups-menu--selected",
+                    messagesMenuClass: "messages-menu"
+                })   
+            }
         }
         if (clickedMenu === "js-messages-menu") {
-            this.toggleMessagesMenuState()   
-            this.setState({ whichView: 3 })
+            if (previousView !== 3) {
+                this.setState({ 
+                    whichView: 3, 
+                    quizMenuClass: "quiz-menu",
+                    groupsMenuClass: "groups-menu",
+                    messagesMenuClass: "messages-menu--selected"
+                })
+            }
         }
-
-        if (previousView === 1) this.toggleQuizMenuState()
-        if (previousView === 2) this.toggleGroupsMenuState()
-        if (previousView === 3) this.toggleMessagesMenuState()
-    }
-
-    toggleQuizMenuState() {
-        let { quizMenuClass } = this.state
-        this.setState({ quizMenuClass: quizMenuClass === "quiz-menu" ? "quiz-menu--selected" : "quiz-menu" })
-    }
-
-    toggleGroupsMenuState() {
-        let { groupsMenuClass } = this.state
-        this.setState({ groupsMenuClass: groupsMenuClass === "groups-menu" ? "groups-menu--selected" : "groups-menu" })
-    }
-
-    toggleMessagesMenuState() {
-        let { messagesMenuClass } = this.state
-        this.setState({ messagesMenuClass: messagesMenuClass === "messages-menu" ? "messages-menu--selected" : "messages-menu" })
     }
 
     async logout() {
@@ -136,7 +136,7 @@ class Dashboard extends React.Component<Props, State> {
                 <div className="dashboard">
                     <p className="dashboard-title"> My Dashboard </p>
                     {this.renderMenu()}
-            
+                    <Messages />
                     {this.renderLogout()}
                 </div>
             )
