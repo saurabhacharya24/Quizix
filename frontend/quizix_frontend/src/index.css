@@ -195,6 +195,20 @@ body {
     opacity: 0;
   }
 }
+.menu .messages-menu, .menu .groups-menu, .menu .quiz-menu {
+  height: 40px;
+  background-color: #F5F5F5;
+  transition: background-color 0.1s, color 0.1s;
+}
+
+.menu .messages-menu--selected, .menu .groups-menu--selected, .menu .quiz-menu--selected {
+  cursor: pointer;
+  height: 40px;
+  background-color: #3340FF;
+  color: white;
+  transition: background-color 0.1s, color 0.1s;
+}
+
 .menu .messages-menu--selected .messages-menu-text, .menu .messages-menu .messages-menu-text, .menu .groups-menu--selected .groups-menu-text, .menu .groups-menu .groups-menu-text, .menu .quiz-menu--selected .quiz-menu-text, .menu .quiz-menu .quiz-menu-text {
   text-align: center;
   font-size: 14pt;
@@ -213,42 +227,6 @@ body {
   height: 40px;
   display: inline-grid;
   grid-template-columns: 33% 33% 33%;
-}
-.menu .quiz-menu {
-  height: 40px;
-  background-color: #F5F5F5;
-  transition: background-color 0.1s, color 0.1s;
-}
-.menu .quiz-menu--selected {
-  cursor: pointer;
-  height: 40px;
-  background-color: #3340FF;
-  color: white;
-  transition: background-color 0.1s, color 0.1s;
-}
-.menu .groups-menu {
-  height: 40px;
-  background-color: #F5F5F5;
-  transition: background-color 0.1s, color 0.1s;
-}
-.menu .groups-menu--selected {
-  cursor: pointer;
-  height: 40px;
-  background-color: #3340FF;
-  color: white;
-  transition: background-color 0.1s, color 0.1s;
-}
-.menu .messages-menu {
-  height: 40px;
-  background-color: #F5F5F5;
-  transition: background-color 0.1s, color 0.1s;
-}
-.menu .messages-menu--selected {
-  cursor: pointer;
-  height: 40px;
-  background-color: #3340FF;
-  color: white;
-  transition: background-color 0.1s, color 0.1s;
 }
 .menu .quiz-menu:hover, .menu .groups-menu:hover, .menu .messages-menu:hover {
   cursor: pointer;
@@ -461,6 +439,15 @@ html, body {
     opacity: 1;
   }
 }
+.groups .group-card-info .admin-controls .create-quiz, .groups .group-card-info .admin-controls .invite-user {
+  height: 40px;
+  margin-right: 2%;
+  background-color: white;
+  border-radius: 3px;
+  font-size: 14pt;
+  transition: background-color 0.1s, color 0.1s;
+}
+
 .groups > :first-child {
   margin-top: 0 !important;
 }
@@ -508,14 +495,8 @@ html, body {
   width: 35%;
 }
 .groups .group-card-info .admin-controls .invite-user {
-  height: 40px;
-  margin-right: 2%;
   color: orange;
-  background-color: white;
   border: 1px solid orange;
-  border-radius: 3px;
-  font-size: 14pt;
-  transition: background-color 0.1s, color 0.1s;
 }
 .groups .group-card-info .admin-controls .invite-user:hover {
   cursor: pointer;
@@ -524,14 +505,8 @@ html, body {
   color: white;
 }
 .groups .group-card-info .admin-controls .create-quiz {
-  height: 40px;
-  margin-right: 2%;
   color: #1DB500;
-  background-color: white;
   border: 1px solid #1DB500;
-  border-radius: 3px;
-  font-size: 14pt;
-  transition: background-color 0.1s, color 0.1s;
 }
 .groups .group-card-info .admin-controls .create-quiz:hover {
   cursor: pointer;
@@ -587,6 +562,16 @@ html, body {
     opacity: 1;
   }
 }
+.modal .create-group-box, .modal .invite-user-box {
+  display: block;
+  position: fixed;
+  text-align: center;
+  height: 200px;
+  background-color: #f8f8f8;
+  animation: zoomform 0.2s ease-in;
+  border-radius: 2px;
+}
+
 .modal {
   display: block;
   position: fixed;
@@ -600,15 +585,8 @@ html, body {
   height: 100%;
 }
 .modal .invite-user-box {
-  display: block;
-  position: fixed;
-  text-align: center;
   margin-left: 20%;
   width: 60%;
-  height: 200px;
-  background-color: #f8f8f8;
-  animation: zoomform 0.2s ease-in;
-  border-radius: 2px;
 }
 .modal .invite-user-box .invite-desc {
   margin-left: 3%;
@@ -670,16 +648,9 @@ html, body {
   color: black;
 }
 .modal .create-group-box {
-  display: block;
-  position: fixed;
-  text-align: center;
   margin-left: 25%;
   width: 50%;
   max-width: 70%;
-  height: 200px;
-  background-color: #f8f8f8;
-  animation: zoomform 0.2s ease-in;
-  border-radius: 2px;
 }
 .modal .create-group-box .group-name-text {
   float: left;
