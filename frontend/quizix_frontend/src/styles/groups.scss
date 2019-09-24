@@ -1,5 +1,7 @@
 %card-buttons {
     height: 40px;
+    max-width: 135px;
+    max-height: 40px;
     margin-right: 2%;
     background-color: white;
     border-radius: 3px;
@@ -16,11 +18,11 @@ html, body {
 }
 
 .groups {
-    width: 65%;
+    width: 75%;
     height: 40vh;
     max-height: 70vh;
     margin-top: 1%;
-    margin-left: 18%;
+    margin-left: 12%;
     color: white;
     overflow-y: auto;
     animation: fadeIn 0.2s;
@@ -50,7 +52,6 @@ html, body {
 
         
         .admin-controls {
-            margin-right: 2%;
             margin-top: 2%;
             height: 40px;
             float: right;
@@ -102,7 +103,7 @@ html, body {
 }
 
 .groups-text {
-    margin-left: 18%;
+    margin-left: 12%;
     font-size: 20pt;
     margin-bottom: 5px;
 }
@@ -110,7 +111,7 @@ html, body {
 .create-group-button {
     float: right;
     margin-top: -3%;
-    margin-right: 17.5%;
+    margin-right: 13.6%;
     height: 40px;
     color: white;
     background-color: #1DB500;
@@ -124,6 +125,25 @@ html, body {
         border: 1px solid #1DB500;
         background-color: white;
         color: #1DB500;
+    }
+}
+
+.search-groups-init-button {
+    margin-top: 3%;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: white;
+    color: rgb(41, 108, 235);
+    border: 2px solid rgb(41, 108, 235);
+    width: 180px;
+    height: 50px;
+    font-size: 14pt;
+    margin-left: 43%;
+    transition: 0.1s background-color, 0.1s color;
+
+    &:hover {
+        background-color: rgb(41, 108, 235);
+        color: white;
     }
 }
 

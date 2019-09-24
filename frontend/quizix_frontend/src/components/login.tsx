@@ -154,7 +154,7 @@ class LoginAndRegister extends React.Component<Props, State> {
             <div className="login-register-box">
                 <div className="login-logo" />
                 <p className="email-text"> Email </p>
-                <input id="js-email" className="email-input" onChange={ this.changeEmailState }/>
+                <input id="js-email" className="email-input" onChange={ this.changeEmailState } name="email"/>
                 <p className="password-text"> Password </p>
                 <input id="js-pass" className="password-input" type="password" onChange={ this.changePasswordState }/>
                 <button className="login-button" type="submit" onClick={ this.loginUser }> Login </button>

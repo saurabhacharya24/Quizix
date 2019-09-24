@@ -19,7 +19,7 @@ class CompletedCard extends React.Component<Props, State> {
         let { quizName, groupName, marks, quizId, reviewDate } = this.props
         quizName.length > 25 ? quizName = quizName.slice(0,25) + "..." : quizName = quizName
         groupName.length > 15 ? groupName = groupName.slice(0,15) + "..." : groupName = groupName
-        console.log(reviewDate)
+        // console.log(reviewDate)
 
         return (
             <div className="completed-card-info" id={quizId}>

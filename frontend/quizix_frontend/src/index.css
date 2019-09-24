@@ -196,14 +196,20 @@ body {
   }
 }
 .menu .messages-menu, .menu .groups-menu, .menu .quiz-menu {
-  height: 40px;
-  background-color: #F5F5F5;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  margin-top: auto;
+  height: 33px;
+  background-color: white;
   transition: background-color 0.1s, color 0.1s;
 }
 
 .menu .messages-menu--selected, .menu .groups-menu--selected, .menu .quiz-menu--selected {
   cursor: pointer;
-  height: 40px;
+  margin-top: auto;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  height: 33px;
   background-color: #3340FF;
   color: white;
   transition: background-color 0.1s, color 0.1s;
@@ -212,26 +218,37 @@ body {
 .menu .messages-menu--selected .messages-menu-text, .menu .messages-menu .messages-menu-text, .menu .groups-menu--selected .groups-menu-text, .menu .groups-menu .groups-menu-text, .menu .quiz-menu--selected .quiz-menu-text, .menu .quiz-menu .quiz-menu-text {
   text-align: center;
   font-size: 14pt;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .dashboard-title {
   font-size: 24pt;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-bottom: 2%;
+  padding-top: 2%;
+  background-color: #296ceb;
+  color: white;
   text-align: center;
 }
 
 .menu {
-  margin-top: -10px;
-  width: 65%;
-  margin-left: 18%;
+  width: 100%;
   height: 40px;
   display: inline-grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: 39% 19% 19%;
+  column-gap: 1%;
+  background-color: #f7f7f7;
+}
+.menu .quiz-menu {
+  margin-left: 55%;
+}
+.menu .quiz-menu--selected {
+  margin-left: 55%;
 }
 .menu .quiz-menu:hover, .menu .groups-menu:hover, .menu .messages-menu:hover {
   cursor: pointer;
-  background-color: #3340FF;
-  color: white;
+  background-color: #d3d4e9;
 }
 
 .logout {
@@ -281,6 +298,17 @@ body {
   color: white;
 }
 
+.completed-quizzes, .quizzes {
+  min-height: 10vh;
+  width: 75%;
+  max-height: 30vh;
+  margin-top: 1%;
+  margin-left: 12%;
+  color: white;
+  overflow-y: auto;
+  animation: fadeIn 0.2s;
+}
+
 .quizzes > :first-child {
   margin-top: 0 !important;
 }
@@ -293,16 +321,6 @@ html, body {
   height: 100%;
 }
 
-.quizzes {
-  min-height: 10vh;
-  width: 65%;
-  max-height: 30vh;
-  margin-top: 1%;
-  margin-left: 18%;
-  color: white;
-  overflow-y: auto;
-  animation: fadeIn 0.2s;
-}
 .quizzes .quiz-card-info {
   width: 99%;
   height: 45px;
@@ -351,16 +369,6 @@ html, body {
   text-align: center;
 }
 
-.completed-quizzes {
-  min-height: 10vh;
-  width: 65%;
-  max-height: 30vh;
-  margin-top: 1%;
-  margin-left: 18%;
-  color: white;
-  overflow-y: auto;
-  animation: fadeIn 0.2s;
-}
 .completed-quizzes .completed-card-info {
   top: 0;
   width: 99%;
@@ -426,7 +434,7 @@ html, body {
 }
 
 .upcoming-quizzes-text, .completed-quizzes-text {
-  margin-left: 18%;
+  margin-left: 12%;
   font-size: 20pt;
   margin-bottom: 5px;
 }
@@ -441,6 +449,8 @@ html, body {
 }
 .groups .group-card-info .admin-controls .create-quiz, .groups .group-card-info .admin-controls .invite-user {
   height: 40px;
+  max-width: 135px;
+  max-height: 40px;
   margin-right: 2%;
   background-color: white;
   border-radius: 3px;
@@ -457,11 +467,11 @@ html, body {
 }
 
 .groups {
-  width: 65%;
+  width: 75%;
   height: 40vh;
   max-height: 70vh;
   margin-top: 1%;
-  margin-left: 18%;
+  margin-left: 12%;
   color: white;
   overflow-y: auto;
   animation: fadeIn 0.2s;
@@ -488,7 +498,6 @@ html, body {
   max-width: 60%;
 }
 .groups .group-card-info .admin-controls {
-  margin-right: 2%;
   margin-top: 2%;
   height: 40px;
   float: right;
@@ -530,7 +539,7 @@ html, body {
 }
 
 .groups-text {
-  margin-left: 18%;
+  margin-left: 12%;
   font-size: 20pt;
   margin-bottom: 5px;
 }
@@ -538,7 +547,7 @@ html, body {
 .create-group-button {
   float: right;
   margin-top: -3%;
-  margin-right: 17.5%;
+  margin-right: 13.6%;
   height: 40px;
   color: white;
   background-color: #1DB500;
@@ -552,6 +561,24 @@ html, body {
   border: 1px solid #1DB500;
   background-color: white;
   color: #1DB500;
+}
+
+.search-groups-init-button {
+  margin-top: 3%;
+  cursor: pointer;
+  border-radius: 3px;
+  background-color: white;
+  color: #296ceb;
+  border: 2px solid #296ceb;
+  width: 180px;
+  height: 50px;
+  font-size: 14pt;
+  margin-left: 43%;
+  transition: 0.1s background-color, 0.1s color;
+}
+.search-groups-init-button:hover {
+  background-color: #296ceb;
+  color: white;
 }
 
 @keyframes fadeIn {
@@ -731,6 +758,36 @@ html, body {
     transform: scale(1);
   }
 }
+.requests .request-card-info .accept-request-button, .invites .invite-card-info .accept-invite-button {
+  height: 40px;
+  margin-right: 2%;
+  background-color: white;
+  border-radius: 3px;
+  font-size: 14pt;
+  cursor: pointer;
+  float: right;
+  width: 10%;
+  margin-top: 1%;
+  border: 1px solid #1DB500;
+  color: #1DB500;
+  transition: 0.1s background-color, 0.1s color;
+}
+
+.requests .request-card-info .decline-request-button, .invites .invite-card-info .decline-invite-button {
+  height: 40px;
+  margin-right: 2%;
+  background-color: white;
+  border-radius: 3px;
+  font-size: 14pt;
+  cursor: pointer;
+  float: right;
+  width: 10%;
+  margin-top: 1%;
+  border: 1px solid red;
+  color: red;
+  transition: 0.1s background-color, 0.1s color;
+}
+
 .invites > :first-child {
   margin-top: 0 !important;
 }
@@ -744,14 +801,49 @@ html, body {
 }
 
 .invites {
-  width: 65%;
-  min-height: 10vh;
-  max-height: 30vh;
+  width: 75%;
+  min-height: 15vh;
+  max-height: 35vh;
   margin-top: 1%;
-  margin-left: 18%;
+  margin-left: 12%;
   color: white;
   overflow-y: auto;
   animation: fadeIn 0.2s;
+}
+.invites .invite-card-info {
+  width: 99%;
+  height: 80px;
+  margin-top: 10px;
+  background-color: #db4646;
+  border: 1px solid #db4646;
+  font-size: 15pt;
+}
+.invites .invite-card-info .group-name {
+  width: 25%;
+  margin-top: 8px;
+  margin-left: 1%;
+  display: inline-block;
+}
+.invites .invite-card-info .group-desc {
+  margin-top: -1%;
+  font-size: 12pt;
+  margin-left: 1%;
+  max-width: 60%;
+}
+.invites .invite-card-info .timestamp {
+  margin-top: -2.5%;
+  font-size: 8pt;
+  float: right;
+  margin-right: 6%;
+  max-width: 50%;
+}
+.invites .invite-card-info .accept-invite-button:hover {
+  background-color: #1DB500;
+  color: white;
+}
+.invites .invite-card-info .decline-invite-button:hover {
+  background-color: red;
+  color: white;
 }
 .invites .no-info-card {
   top: 0;
@@ -769,14 +861,44 @@ html, body {
 }
 
 .requests {
-  width: 65%;
-  min-height: 10vh;
-  max-height: 30vh;
+  width: 75%;
+  min-height: 15vh;
+  max-height: 35vh;
   margin-top: 1%;
-  margin-left: 18%;
+  margin-left: 12%;
   color: white;
   overflow-y: auto;
   animation: fadeIn 0.2s;
+}
+.requests .request-card-info {
+  width: 99%;
+  height: 80px;
+  margin-top: 10px;
+  background-color: #db4646;
+  border: 1px solid #db4646;
+  font-size: 15pt;
+}
+.requests .request-card-info .requester-info {
+  width: 60%;
+  margin-top: 2.5%;
+  margin-left: 1%;
+  display: inline-block;
+  font-size: 14pt;
+}
+.requests .request-card-info .timestamp {
+  margin-top: -1%;
+  font-size: 8pt;
+  float: right;
+  margin-right: 6%;
+  max-width: 50%;
+}
+.requests .request-card-info .accept-request-button:hover {
+  background-color: #1DB500;
+  color: white;
+}
+.requests .request-card-info .decline-request-button:hover {
+  background-color: red;
+  color: white;
 }
 .requests .no-info-card {
   top: 0;
@@ -794,7 +916,7 @@ html, body {
 }
 
 .invites-text, .requests-text {
-  margin-left: 18%;
+  margin-left: 12%;
   font-size: 20pt;
   margin-bottom: 5px;
 }

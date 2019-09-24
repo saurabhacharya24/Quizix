@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import GroupCard from '../cards/groupCard'
 // import InviteModal from './inviteModal'
-import { IGroups } from '../../interfaces/groups'
+import { IGroups, ISearchGroups } from '../../interfaces/groups'
 import getUserId from '../../helpers/cookies'
 import { API_URL, headerConfig } from '../../helpers/apiConsts'
 import GroupCreateModal from '../modals/groupCreateModal'
@@ -10,6 +10,7 @@ import GroupCreateModal from '../modals/groupCreateModal'
 
 interface State {
     groups: Array<IGroups>
+    searchGroups: Array<ISearchGroups>
     groupsLoaded: boolean
     createGroupModalShow: boolean
 }
@@ -23,6 +24,7 @@ class Groups extends React.Component<Props, State> {
 
         this.state = {
             groups: [],
+            searchGroups: [],
             groupsLoaded: false,
             createGroupModalShow: false
         }
@@ -40,6 +42,14 @@ class Groups extends React.Component<Props, State> {
         } catch (error) {
             this.setState({ groups: [], groupsLoaded: true })
         }
+
+        try {
+            let response = await axios.get(API_URL+"/search_groups?user_id="+userId, headerConfig)
+            let data = await response.data
+            this.setState({ searchGroups: data})
+        } catch (error) {
+            this.setState({ searchGroups: [] })
+        }
     }
 
     toggleCreateGroupModalState() {
@@ -54,7 +64,7 @@ class Groups extends React.Component<Props, State> {
             groupsLoaded ?
             <div>
                 <p className="groups-text"> My Groups </p>
-                <button className="create-group-button" onClick={this.toggleCreateGroupModalState}> + Create Group </button>
+                <button className="create-group-button" onClick={this.toggleCreateGroupModalState}> Create Group </button>
                 <div className="groups">
                     {groups.map((group: IGroups) => 
                         <GroupCard
@@ -70,6 +80,7 @@ class Groups extends React.Component<Props, State> {
                         toggleShowState={this.toggleCreateGroupModalState}
                         />
                 </div>
+                <button className="search-groups-init-button"> Search for Groups! </button>
             </div>
             :
             null

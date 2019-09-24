@@ -4,6 +4,8 @@ import { API_URL, headerConfig } from '../../helpers/apiConsts'
 import { IInvites, IRequests } from '../../interfaces/messages'
 import NoInfoCard from '../cards/noInfoCard'
 import getUserId from '../../helpers/cookies'
+import InviteCard from '../cards/inviteCard'
+import RequestCard from '../cards/requestCard'
 
 interface State {
     invites: Array<IInvites>
@@ -60,16 +62,27 @@ class Messages extends React.Component<Props, State> {
                 <div className="invites">
                     {invites.length !== 0 ?
                         invites.map((invite: IInvites) => 
-                        <p> In Progress... </p>)
+                            <InviteCard 
+                                groupName={invite.group_name}
+                                groupDesc={invite.group_desc}
+                                groupId={invite.group_id}
+                                timestamp={invite.timestamp}
+                            />)
                     : 
-                    <NoInfoCard infoMessage="No Invites Found" />
+                        <NoInfoCard infoMessage="No Invites Found" />
                     }
                 </div>
                 <p className="requests-text"> Requests </p>
                 <div className="requests">
                     {requests.length !== 0 ?
                         requests.map((request: IRequests) => 
-                        <p> In Progress... </p>)
+                        <RequestCard
+                            forGroup={request.for_group}
+                            groupId={request.group_id}
+                            timestamp={request.timestamp}
+                            userDName={request.user_dname}
+                            userEmail={request.user_email}
+                        />)
                     :
                     <NoInfoCard infoMessage="No Requests Found" />
                     }
