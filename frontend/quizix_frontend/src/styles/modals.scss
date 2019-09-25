@@ -3,7 +3,7 @@
     position: fixed;
     text-align: center;
     height: 200px;
-    background-color: #f8f8f8;
+    background-color: white;
     animation: zoomform 0.2s ease-in;
     border-radius: 2px;
 }
@@ -52,7 +52,7 @@
         .invite-user-input {
             width: 90%;
             height: 20px;
-            border-radius: 0px 3px 3px 0px;
+            background-color: #f3f3f3;
             border-top: none;
             border-right: none;
             border-bottom: none;
@@ -112,7 +112,7 @@
             width: 60%;
             margin-top: 8.5%;
             height: 20px;
-            border-radius: 0px 3px 3px 0px;
+            background-color: #f3f3f3;
             border-top: none;
             border-right: none;
             border-bottom: none;
@@ -136,7 +136,7 @@
             margin-top: 1.5%;
             margin-left: -5.5%;
             height: 20px;
-            border-radius: 0px 3px 3px 0px;
+            background-color: #f3f3f3;
             border-top: none;
             border-right: none;
             border-bottom: none;
@@ -176,6 +176,47 @@
                 color: black;
             }
         }
+    }
+
+    .search-groups-box {
+        @extend %box-default;
+        margin-left: 25%;
+        width: 50%;
+        max-width: 70%;
+
+        .search-groups-input {
+            width: 70%;
+            max-width: 70%;
+            margin-top: 1.5%;
+            // margin-left: -4%;
+            height: 20px;
+            background-color: #f3f3f3;
+            border-top: none;
+            border-right: none;
+            border-bottom: none;
+            border-left: 2px solid rgb(78, 78, 211);
+            padding-left: 1%;
+            font-size: 14pt;
+        }
+
+        .close-modal {
+            cursor: pointer;
+            float: right;
+            width: 30px;
+            font-size: 18pt;
+            color: grey;
+
+            &:hover {
+                color: black;
+            }
+        }
+    }
+
+    .search-groups-result {
+        margin-top: 15%;
+        margin-left: 25%;
+        height: 30vh;
+        width: 50%;
     }
 }
 

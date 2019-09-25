@@ -6,6 +6,7 @@ import { IGroups, ISearchGroups } from '../../interfaces/groups'
 import getUserId from '../../helpers/cookies'
 import { API_URL, headerConfig } from '../../helpers/apiConsts'
 import GroupCreateModal from '../modals/groupCreateModal'
+import SearchGroupsModal from '../modals/searchGroupModal'
 
 
 interface State {
@@ -13,6 +14,7 @@ interface State {
     searchGroups: Array<ISearchGroups>
     groupsLoaded: boolean
     createGroupModalShow: boolean
+    searchGroupModalShow: boolean
 }
 
 interface Props {}
@@ -26,10 +28,12 @@ class Groups extends React.Component<Props, State> {
             groups: [],
             searchGroups: [],
             groupsLoaded: false,
-            createGroupModalShow: false
+            createGroupModalShow: false,
+            searchGroupModalShow: false
         }
 
         this.toggleCreateGroupModalState = this.toggleCreateGroupModalState.bind(this)
+        this.toggleSearchGroupsModalState = this.toggleSearchGroupsModalState.bind(this)
     }
 
     async componentDidMount() {
@@ -57,8 +61,13 @@ class Groups extends React.Component<Props, State> {
         this.setState({ createGroupModalShow: showHide ? false : true })
     }
 
+    toggleSearchGroupsModalState() {
+        let showHide = this.state.searchGroupModalShow
+        this.setState({ searchGroupModalShow: showHide ? false : true })
+    }
+
     render() {
-        let { groups, groupsLoaded, createGroupModalShow } = this.state
+        let { groups, searchGroups, groupsLoaded, createGroupModalShow, searchGroupModalShow } = this.state
 
         return (
             groupsLoaded ?
@@ -80,7 +89,12 @@ class Groups extends React.Component<Props, State> {
                         toggleShowState={this.toggleCreateGroupModalState}
                         />
                 </div>
-                <button className="search-groups-init-button"> Search for Groups! </button>
+                <button className="search-groups-init-button" onClick={this.toggleSearchGroupsModalState}> Search for Groups! </button>
+                <SearchGroupsModal 
+                    showState={searchGroupModalShow}
+                    searchGroups={searchGroups}
+                    toggleShowState={this.toggleSearchGroupsModalState}
+                />
             </div>
             :
             null

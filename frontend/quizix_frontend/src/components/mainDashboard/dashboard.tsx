@@ -114,6 +114,7 @@ class Dashboard extends React.Component<Props, State> {
         if (whichView === 1) {
             return (
                 <div className="dashboard">
+                    <div className="logo-beside-title" />
                     <p className="dashboard-title"> My Dashboard </p>
                     {this.renderMenu()}
                     <Quizzes />
@@ -124,6 +125,7 @@ class Dashboard extends React.Component<Props, State> {
         else if (whichView === 2) {
             return (
                 <div className="dashboard">
+                    <div className="logo-beside-title" />
                     <p className="dashboard-title"> My Dashboard </p>
                     {this.renderMenu()}
                     <Groups />
@@ -134,6 +136,7 @@ class Dashboard extends React.Component<Props, State> {
         else if (whichView === 3) {
             return (
                 <div className="dashboard">
+                    <div className="logo-beside-title" />
                     <p className="dashboard-title"> My Dashboard </p>
                     {this.renderMenu()}
                     <Messages />
