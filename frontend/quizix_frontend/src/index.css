@@ -499,9 +499,10 @@ html, body {
 }
 .groups .group-card-info .admin-controls {
   margin-top: 2%;
+  margin-right: 0;
   height: 40px;
   float: right;
-  width: 35%;
+  width: 25%;
 }
 .groups .group-card-info .admin-controls .invite-user {
   color: orange;

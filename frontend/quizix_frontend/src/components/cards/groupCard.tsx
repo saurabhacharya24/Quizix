@@ -27,23 +27,23 @@ class GroupCard extends React.Component<Props, State> {
     }
 
     render() {
-        let { groupName, groupDesc, groupId, isAdmin, numOfMembers } = this.props
+        let { groupName, groupDesc, groupId, isAdmin } = this.props
         let { inviteShow } = this.state
 
-        groupDesc.length > 55 ? groupDesc = groupDesc.slice(0,55) + "..." : groupDesc = groupDesc
+        let trimmedDesc = groupDesc.length > 55 ? groupDesc.slice(0,55) + "..." :groupDesc
 
         return (
             <div className="group-card-info" id={groupId.toString()}>
                 <p className="group-name">{ groupName }</p>
                 { isAdmin ?
                     <div className="admin-controls">
-                        <button className="invite-user" id={groupId} onClick={this.showHideInviteModal}> + Invite User </button>
-                        <button className="create-quiz"> + Create Quiz </button>
+                        <button className="invite-user" id={groupId} onClick={this.showHideInviteModal}> Invite User </button>
+                        <button className="create-quiz"> Create Quiz </button>
                     </div>
                     :
                     null
                 }
-                <p className="group-desc">{ groupDesc }</p>
+                <p className="group-desc">{ trimmedDesc }</p>
                 <InviteModal
                     showState={inviteShow} 
                     groupId={groupId}

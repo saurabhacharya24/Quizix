@@ -53,9 +53,10 @@ html, body {
         
         .admin-controls {
             margin-top: 2%;
+            margin-right: 0;
             height: 40px;
             float: right;
-            width: 35%;
+            width: 25%;
 
             .invite-user {
                 @extend %card-buttons;

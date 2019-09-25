@@ -41,9 +41,7 @@ class InviteCard extends React.Component<Props, State> {
         let { groupId } = this.props
 
         try {
-            await axios.delete(API_URL+"/delete_invite?group_id="
-                                                     +groupId+"&user_id="
-                                                     +userId, headerConfig)
+            await axios.delete(API_URL+"/delete_invite?group_id="+groupId+"&user_id="+userId, headerConfig)
             window.location.reload()
         } catch (error) {
             alert("Couldn't delete invite, please try again later.")
