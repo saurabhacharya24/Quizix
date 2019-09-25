@@ -24,6 +24,10 @@
     margin-top: 4px;
 }
 
+body {
+    background-color: #f1f1f1;
+}
+
 .logo-beside-title {
     background-image: url('images/logo2.png');
     background-size: 80%;
@@ -52,7 +56,7 @@
     display: inline-grid;
     grid-template-columns: 39% 19% 19%;
     column-gap: 1%;
-    background-color: rgb(247, 247, 247);
+    background-color: white;
 
     .quiz-menu {
         @extend %menu-deselected;

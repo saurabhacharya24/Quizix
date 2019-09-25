@@ -51,7 +51,7 @@
 
         .invite-user-input {
             width: 90%;
-            height: 20px;
+            height: 25px;
             background-color: #f3f3f3;
             border-top: none;
             border-right: none;
@@ -111,7 +111,7 @@
         .group-name-input {
             width: 60%;
             margin-top: 8.5%;
-            height: 20px;
+            height: 25px;
             background-color: #f3f3f3;
             border-top: none;
             border-right: none;
@@ -135,7 +135,7 @@
             max-width: 60%;
             margin-top: 1.5%;
             margin-left: -5.5%;
-            height: 20px;
+            height: 25px;
             background-color: #f3f3f3;
             border-top: none;
             border-right: none;
@@ -183,13 +183,14 @@
         margin-left: 25%;
         width: 50%;
         max-width: 70%;
+        height: 20vh;
 
         .search-groups-input {
             width: 70%;
             max-width: 70%;
             margin-top: 1.5%;
             // margin-left: -4%;
-            height: 20px;
+            height: 25px;
             background-color: #f3f3f3;
             border-top: none;
             border-right: none;
@@ -213,10 +214,59 @@
     }
 
     .search-groups-result {
-        margin-top: 15%;
+        margin-top: 10%;
         margin-left: 25%;
-        height: 30vh;
+        max-height: 55vh;
+        height: 50vh;
         width: 50%;
+        overflow-y: auto;
+
+        .search-group-card {
+            top: 0;
+            width: 99%;
+            height: 80px;
+            margin-top: 10px;
+            color: white;
+            background-color: rgb(54, 105, 201);
+            border: 1px solid rgb(54, 105, 201);
+            font-size: 15pt;
+
+            .group-name {
+                width: 60%;
+                margin-top: 8px;
+                margin-left: 1%;
+                display: inline-block;
+            }
+    
+            .group-desc {
+                margin-top: -1%;
+                font-size: 12pt;
+                margin-left: 1%;
+                max-width: 70%;
+            }
+
+            .join-group-button {
+                height: 40px;
+                width: 70px;
+                max-height: 40px;
+                margin-top: 2%;
+                margin-right: 2%;
+                float: right;
+                background-color: white;
+                border-radius: 3px;
+                font-size: 14pt;
+                transition: background-color 0.1s, color 0.1s;
+                color: #1DB500;
+                border: 1px solid #1DB500;
+
+                &:hover {
+                    cursor: pointer;
+                    border: 1px solid white;
+                    background-color: #1DB500;
+                    color: white;
+                }
+            }
+        }
     }
 }
 

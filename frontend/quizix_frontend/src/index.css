@@ -221,6 +221,10 @@ body {
   margin-top: 4px;
 }
 
+body {
+  background-color: #f1f1f1;
+}
+
 .logo-beside-title {
   background-image: url("images/logo2.png");
   background-size: 80%;
@@ -249,7 +253,7 @@ body {
   display: inline-grid;
   grid-template-columns: 39% 19% 19%;
   column-gap: 1%;
-  background-color: #f7f7f7;
+  background-color: white;
 }
 .menu .quiz-menu {
   margin-left: 55%;
@@ -650,7 +654,7 @@ html, body {
 }
 .modal .invite-user-box .invite-user-input {
   width: 90%;
-  height: 20px;
+  height: 25px;
   background-color: #f3f3f3;
   border-top: none;
   border-right: none;
@@ -702,7 +706,7 @@ html, body {
 .modal .create-group-box .group-name-input {
   width: 60%;
   margin-top: 8.5%;
-  height: 20px;
+  height: 25px;
   background-color: #f3f3f3;
   border-top: none;
   border-right: none;
@@ -724,7 +728,7 @@ html, body {
   max-width: 60%;
   margin-top: 1.5%;
   margin-left: -5.5%;
-  height: 20px;
+  height: 25px;
   background-color: #f3f3f3;
   border-top: none;
   border-right: none;
@@ -765,12 +769,13 @@ html, body {
   margin-left: 25%;
   width: 50%;
   max-width: 70%;
+  height: 20vh;
 }
 .modal .search-groups-box .search-groups-input {
   width: 70%;
   max-width: 70%;
   margin-top: 1.5%;
-  height: 20px;
+  height: 25px;
   background-color: #f3f3f3;
   border-top: none;
   border-right: none;
@@ -790,10 +795,54 @@ html, body {
   color: black;
 }
 .modal .search-groups-result {
-  margin-top: 15%;
+  margin-top: 10%;
   margin-left: 25%;
-  height: 30vh;
+  max-height: 55vh;
+  height: 50vh;
   width: 50%;
+  overflow-y: auto;
+}
+.modal .search-groups-result .search-group-card {
+  top: 0;
+  width: 99%;
+  height: 80px;
+  margin-top: 10px;
+  color: white;
+  background-color: #3669c9;
+  border: 1px solid #3669c9;
+  font-size: 15pt;
+}
+.modal .search-groups-result .search-group-card .group-name {
+  width: 60%;
+  margin-top: 8px;
+  margin-left: 1%;
+  display: inline-block;
+}
+.modal .search-groups-result .search-group-card .group-desc {
+  margin-top: -1%;
+  font-size: 12pt;
+  margin-left: 1%;
+  max-width: 70%;
+}
+.modal .search-groups-result .search-group-card .join-group-button {
+  height: 40px;
+  width: 70px;
+  max-height: 40px;
+  margin-top: 2%;
+  margin-right: 2%;
+  float: right;
+  background-color: white;
+  border-radius: 3px;
+  font-size: 14pt;
+  transition: background-color 0.1s, color 0.1s;
+  color: #1DB500;
+  border: 1px solid #1DB500;
+}
+.modal .search-groups-result .search-group-card .join-group-button:hover {
+  cursor: pointer;
+  border: 1px solid white;
+  background-color: #1DB500;
+  color: white;
 }
 
 @keyframes zoomform {
