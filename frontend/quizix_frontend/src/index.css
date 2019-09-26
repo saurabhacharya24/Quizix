@@ -419,19 +419,20 @@ html, body {
   vertical-align: top;
   margin-top: 8px;
   margin-right: 10px;
-  color: white;
+  color: #4cdd2f;
   height: 30px;
-  background-color: #4cdd2f;
-  border: 1px solid white;
+  background-color: white;
+  border: 1px solid #4cdd2f;
   border-radius: 2px;
   position: relative;
   font-size: 12pt;
   transition: background-color 0.15s, color 0.15s;
 }
 .completed-quizzes .completed-card-info .review-quiz:hover {
-  background-color: white;
+  background-color: #4cdd2f;
   border-radius: 2px;
-  color: #1DB500;
+  border: 1px solid white;
+  color: white;
 }
 .completed-quizzes .no-info-card {
   top: 0;

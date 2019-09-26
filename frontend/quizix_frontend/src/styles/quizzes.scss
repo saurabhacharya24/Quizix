@@ -120,20 +120,20 @@ html, body {
             vertical-align: top;
             margin-top: 8px;
             margin-right: 10px;
-            color: white;
+            color: rgb(76, 221, 47);
             height: 30px;
-            background-color: rgb(76, 221, 47);
-            border: 1px solid white;
+            background-color: white;
+            border: 1px solid rgb(76, 221, 47);
             border-radius: 2px;
             position: relative;
             font-size: 12pt;
             transition: background-color 0.15s, color 0.15s;
 
             &:hover {                
-                background-color: white;
+                background-color: rgb(76, 221, 47);
                 border-radius: 2px;
-                // border: 1px solid #1DB500;
-                color: #1DB500;
+                border: 1px solid white;
+                color: white;
             }
         }
     }
