@@ -674,9 +674,13 @@ def db_get_groups_list(user_id):
                                         union
                                         (select group_id
                                         from group_memberships
+                                        where user_id = %s)
+                                        union
+                                        (select group_id
+                                        from requests
                                         where user_id = %s))"""
 
-        cur.execute(sql, (user_id, user_id,))
+        cur.execute(sql, (user_id, user_id, user_id, ))
         groups = cur.fetchall()
 
         json_keys = ['group_name', 'group_desc', 'group_id']
