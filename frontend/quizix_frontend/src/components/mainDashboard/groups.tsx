@@ -47,6 +47,12 @@ class Groups extends React.Component<Props, State> {
             this.setState({ groups: [], groupsLoaded: true })
         }
 
+        this.getSearchGroups()
+    }
+
+    async getSearchGroups() {
+        let userId = getUserId()
+
         try {
             let response = await axios.get(API_URL+"/search_groups?user_id="+userId, headerConfig)
             let data = await response.data
@@ -62,6 +68,7 @@ class Groups extends React.Component<Props, State> {
     }
 
     toggleSearchGroupsModalState() {
+        this.getSearchGroups()
         let showHide = this.state.searchGroupModalShow
         this.setState({ searchGroupModalShow: showHide ? false : true })
     }
