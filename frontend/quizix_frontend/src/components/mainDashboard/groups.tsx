@@ -17,7 +17,9 @@ interface State {
     searchGroupModalShow: boolean
 }
 
-interface Props {}
+interface Props {
+    goToCreateQuiz(groupId: string): void
+}
 
 class Groups extends React.Component<Props, State> {
 
@@ -32,6 +34,7 @@ class Groups extends React.Component<Props, State> {
             searchGroupModalShow: false
         }
 
+        this.goToCreateQuiz = this.goToCreateQuiz.bind(this)
         this.toggleCreateGroupModalState = this.toggleCreateGroupModalState.bind(this)
         this.toggleSearchGroupsModalState = this.toggleSearchGroupsModalState.bind(this)
     }
@@ -62,6 +65,10 @@ class Groups extends React.Component<Props, State> {
         }
     }
 
+    goToCreateQuiz(groupId: string) {
+        this.props.goToCreateQuiz(groupId)
+    }
+
     toggleCreateGroupModalState() {
         let showHide = this.state.createGroupModalShow
         this.setState({ createGroupModalShow: showHide ? false : true })
@@ -89,6 +96,7 @@ class Groups extends React.Component<Props, State> {
                             groupId={group.group_id}
                             isAdmin={group.is_admin}
                             numOfMembers={group.num_of_members}
+                            goToCreateQuiz={this.goToCreateQuiz}
                         />
                     )}
                     <GroupCreateModal 

@@ -5,6 +5,7 @@ import Groups from './groups'
 import Messages from './messages'
 import getUserId from '../../helpers/cookies'
 import { API_URL, headerConfig } from '../../helpers/apiConsts'
+import CreateQuiz from '../quizPages/createQuiz'
 
 
 interface State {
@@ -12,6 +13,7 @@ interface State {
     quizMenuClass: string
     groupsMenuClass: string
     messagesMenuClass: string
+    createQuizGroupId: string
 }
 
 interface Props {}
@@ -25,10 +27,13 @@ class Dashboard extends React.Component<Props, State> {
             whichView: 1,
             quizMenuClass: "quiz-menu--selected",
             groupsMenuClass: "groups-menu",
-            messagesMenuClass: "messages-menu"
+            messagesMenuClass: "messages-menu",
+            createQuizGroupId: "0"
         };
 
         this.changeView = this.changeView.bind(this)
+        this.goToCreateQuiz = this.goToCreateQuiz.bind(this)
+        this.goToDashboard = this.goToDashboard.bind(this)
         this.logout = this.logout.bind(this)
     }
 
@@ -66,6 +71,18 @@ class Dashboard extends React.Component<Props, State> {
                 })
             }
         }
+    }
+
+    goToCreateQuiz(groupId: string) {
+        this.setState({
+            whichView: 4,
+            createQuizGroupId: groupId
+        })
+        console.log("Creating quiz for group " + groupId)
+    }
+
+    goToDashboard() {
+        this.setState({ whichView: 2 })
     }
 
     async logout() {
@@ -109,7 +126,7 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     render() {
-        let { whichView } = this.state
+        let { whichView, createQuizGroupId } = this.state
 
         if (whichView === 1) {
             return (
@@ -128,7 +145,7 @@ class Dashboard extends React.Component<Props, State> {
                     <div className="logo-beside-title" />
                     <p className="dashboard-title"> My Dashboard </p>
                     {this.renderMenu()}
-                    <Groups />
+                    <Groups goToCreateQuiz={this.goToCreateQuiz}/>
                     {this.renderLogout()}
                 </div>
             )
@@ -141,6 +158,17 @@ class Dashboard extends React.Component<Props, State> {
                     {this.renderMenu()}
                     <Messages />
                     {this.renderLogout()}
+                </div>
+            )
+        }
+
+        else if (whichView === 4) {
+            return (
+                <div className="create-quiz-page">
+                    <div className="logo-beside-title" />
+                    <p className="create-quiz-title"> Create Quiz </p>
+                    <CreateQuiz groupId={createQuizGroupId}/>
+                    <button className="back-to-dash-button" onClick={this.goToDashboard}> Back </button>
                 </div>
             )
         }

@@ -10,6 +10,7 @@ interface Props {
     groupId: string
     isAdmin: boolean
     numOfMembers: number
+    goToCreateQuiz(groupId: string): void
 }
 
 class GroupCard extends React.Component<Props, State> {
@@ -18,7 +19,13 @@ class GroupCard extends React.Component<Props, State> {
         super(props)
 
         this.state = { inviteShow: false }
+
+        this.goToCreateQuiz = this.goToCreateQuiz.bind(this)
         this.showHideInviteModal = this.showHideInviteModal.bind(this)
+    }
+
+    goToCreateQuiz(){
+        this.props.goToCreateQuiz(this.props.groupId)
     }
 
     showHideInviteModal() {
@@ -38,7 +45,7 @@ class GroupCard extends React.Component<Props, State> {
                 { isAdmin ?
                     <div className="admin-controls">
                         <button className="invite-user" id={groupId} onClick={this.showHideInviteModal}> Invite User </button>
-                        <button className="create-quiz"> Create Quiz </button>
+                        <button className="create-quiz" onClick={this.goToCreateQuiz}> Create Quiz </button>
                     </div>
                     :
                     null
