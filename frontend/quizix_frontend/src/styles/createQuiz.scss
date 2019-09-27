@@ -70,37 +70,35 @@
         .start-date {
             font-size: 16pt;
             display: inline;
-            margin-left: 26.6%;
+            margin-left: 19.8%;
         }
 
-        .start-date-input {
-            @extend %default-input-style;
-        }
-    }
+        .react-datepicker-wrapper {
+            width: 60%;
 
-    .start-time-box {
-        .start-time {
-            font-size: 16pt;
-            display: inline;
-            margin-left: 26.5%
-        }
-
-        .start-time-input {
-            @extend %default-input-style;
+            .start-date-input {
+                @extend %default-input-style;
+                width: 100%;
+            }
         }
     }
 
     .end-date-box {
-        margin-top: 2%;
+        // margin-top: 2%;
 
         .end-date {
             font-size: 16pt;
             display: inline;
-            margin-left: 27.3%;
+            margin-left: 20.4%;
         }
 
-        .end-date-input {
-            @extend %default-input-style;
+        .react-datepicker-wrapper {
+            width: 60%;
+
+            .end-date-input {
+                @extend %default-input-style;
+                width: 100%;
+            }
         }
     }
 

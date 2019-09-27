@@ -78,7 +78,6 @@ class Dashboard extends React.Component<Props, State> {
             whichView: 4,
             createQuizGroupId: groupId
         })
-        console.log("Creating quiz for group " + groupId)
     }
 
     goToDashboard() {
