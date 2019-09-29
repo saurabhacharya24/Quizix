@@ -1158,14 +1158,14 @@ html, body {
   font-size: 12pt;
   padding-left: 5px;
 }
-.create-quiz-main .question-box .choices-text {
+.create-quiz-main .question-box .answers-text {
   font-size: 14pt;
   margin-left: -40%;
 }
-.create-quiz-main .question-box .choices-box {
+.create-quiz-main .question-box .answers-box {
   width: 100%;
 }
-.create-quiz-main .question-box .choices-box .choice .choice-input {
+.create-quiz-main .question-box .answers-box .answer .answer-input {
   margin-bottom: 10px;
   width: 60%;
   height: 30px;
@@ -1173,14 +1173,14 @@ html, body {
   padding-left: 5px;
   border: none;
 }
-.create-quiz-main .question-box .choices-box .choice .remove-choice {
+.create-quiz-main .question-box .answers-box .answer .remove-answer {
   cursor: pointer;
   color: #e22626;
 }
-.create-quiz-main .question-box .choices-box .choice .remove-choice:hover {
+.create-quiz-main .question-box .answers-box .answer .remove-answer:hover {
   color: #c52424;
 }
-.create-quiz-main .question-box .increase-choices {
+.create-quiz-main .question-box .increase-answers {
   cursor: pointer;
   font-size: 10pt;
   margin-left: -49%;
@@ -1191,7 +1191,7 @@ html, body {
   background-color: #e6761b;
   border: 1px solid #e6761b;
 }
-.create-quiz-main .question-box .increase-choices:hover {
+.create-quiz-main .question-box .increase-answers:hover {
   background-color: #ca6818;
 }
 .create-quiz-main .question-box .remove-question {

@@ -2,8 +2,8 @@ import React from 'react'
 
 interface State {
     questionText: string
-    choices: Array<JSX.Element>
-    numChoices: number
+    answers: Array<JSX.Element>
+    numAnswers: number
 }
 
 interface Props {
@@ -18,17 +18,16 @@ class CreateQuestionCard extends React.Component<Props, State> {
 
         this.state = {
             questionText: "",
-            choices: [],
-            numChoices: 0
+            answers: [],
+            numAnswers: 0
         }
 
-        this.increaseChoices = this.increaseChoices.bind(this)
-        this.decreaseChoices = this.decreaseChoices.bind(this)
+        this.increaseAnswers = this.increaseAnswers.bind(this)
+        this.decreaseAnswers = this.decreaseAnswers.bind(this)
     }
 
     componentDidMount() {
-        this.increaseChoices()
-        // this.increaseChoices()
+        this.increaseAnswers()
     }
 
     changeQuestionTextState = (evt: any) => {
@@ -36,28 +35,28 @@ class CreateQuestionCard extends React.Component<Props, State> {
         this.setState({ questionText: question })
     }
     
-    increaseChoices() {
-        let { choices, numChoices } = this.state
-        choices.push(this.renderChoice(numChoices+1))
+    increaseAnswers() {
+        let { answers, numAnswers } = this.state
+        answers.push(this.renderAnswer(numAnswers+1))
 
         this.setState({
-            choices: choices,
-            numChoices: numChoices+1
+            answers: answers,
+            numAnswers: numAnswers+1
         })
     }
 
-    decreaseChoices(evt: any) {
-        let { choices, numChoices } = this.state
-        let choiceNum = evt.target.id
+    decreaseAnswers(evt: any) {
+        let { answers, numAnswers } = this.state
+        let answerNum = evt.target.id
         let count = 0;
 
         let arr1: Array<JSX.Element> = []
         let arr2: Array<JSX.Element> = []
         
-        choices.forEach(c => {
-            if (choiceNum === c.key) {
-                arr1 = choices.slice(0,count)
-                arr2 = choices.slice(count+1, choices.length)
+        answers.forEach(c => {
+            if (answerNum === c.key) {
+                arr1 = answers.slice(0,count)
+                arr2 = answers.slice(count+1, answers.length)
             }
             else {
                 count++
@@ -66,36 +65,36 @@ class CreateQuestionCard extends React.Component<Props, State> {
         
         let finalArr = arr1.concat(arr2)
         this.setState({
-            choices: finalArr,
-            numChoices: numChoices-1
+            answers: finalArr,
+            numAnswers: numAnswers-1
         })
     }
 
-    renderChoice(choiceNum: number): JSX.Element {
+    renderAnswer(answerNum: number): JSX.Element {
         return (
-            <div className="choice" key={choiceNum}>
-                <span className="remove-choice" onClick={this.decreaseChoices} id={choiceNum.toString()}> &times; </span>
-                <input className="choice-input" id={"choice"+choiceNum.toString()} placeholder="Enter choice..." />
+            <div className="answer" key={answerNum}>
+                <span className="remove-answer" onClick={this.decreaseAnswers} id={answerNum.toString()}> &times; </span>
+                <input className="answer-input" id={"answer"+answerNum.toString()} placeholder="Enter answer..." />
             </div>
         )
     }
 
     render() {
         let { qNum, removeQuestion } = this.props
-        let { choices } = this.state
+        let { answers } = this.state
 
         return (
             <div className="question-box">
                 <span className="remove-question" onClick={removeQuestion} id={qNum.toString()}> &times; </span> 
                 <p className="question-text"> Question: </p>
                 <textarea className="question" placeholder="Enter question..." onChange={this.changeQuestionTextState}/>
-                <p className="choices-text"> Choices (minimum 2): </p>
-                <div className="choices-box">
-                    {choices.map(choice => {
-                        return choice
+                <p className="answers-text"> Answers (minimum 2): </p>
+                <div className="answer-box">
+                    {answers.map(answer => {
+                        return answer
                     })}
                 </div>
-                <button className="increase-choices" onClick={this.increaseChoices}> Add Choice </button>
+                <button className="increase-answer" onClick={this.increaseAnswers}> Add Answer </button>
             </div>
         )
     }

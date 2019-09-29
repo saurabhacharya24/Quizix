@@ -174,17 +174,17 @@
             padding-left: 5px;
         }
 
-        .choices-text {
+        .answers-text {
             font-size: 14pt;
             margin-left: -40%;
         }
 
-        .choices-box {
+        .answers-box {
             width: 100%;
 
-            .choice {
+            .answer {
                 
-                .choice-input {
+                .answer-input {
                     margin-bottom: 10px;
                     width: 60%;
                     height: 30px;
@@ -193,7 +193,7 @@
                     border: none;
                 }
 
-                .remove-choice {
+                .remove-answer {
                     cursor: pointer;
                     color: rgb(226, 38, 38);
 
@@ -204,7 +204,7 @@
             }
         }
 
-        .increase-choices {
+        .increase-answers {
             cursor: pointer;
             font-size: 10pt;
             margin-left: -49%;
