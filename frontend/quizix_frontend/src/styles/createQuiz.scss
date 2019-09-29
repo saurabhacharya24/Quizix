@@ -70,7 +70,7 @@
         .start-date {
             font-size: 16pt;
             display: inline;
-            margin-left: 19.8%;
+            margin-left: 27.4%;
         }
 
         .react-datepicker-wrapper {
@@ -84,12 +84,11 @@
     }
 
     .end-date-box {
-        // margin-top: 2%;
 
         .end-date {
             font-size: 16pt;
             display: inline;
-            margin-left: 20.4%;
+            margin-left: 28%;
         }
 
         .react-datepicker-wrapper {
@@ -102,16 +101,130 @@
         }
     }
 
-    .end-time-box {
+    .review-date-box {
 
-        .end-time {
+        .review-date {
             font-size: 16pt;
             display: inline;
-            margin-left: 27.2%
+            margin-left: 18.5%
         }
 
-        .end-time-input {
-            @extend %default-input-style;
+        .react-datepicker-wrapper {
+            width: 60%;
+
+            .review-date-input {
+                @extend %default-input-style;
+                width: 100%;
+            }
+        }
+    }
+
+    .questions-main-title {
+        font-size: 22pt;
+        text-align: center;
+        margin-top: 3%;
+    }
+
+    .add-question {
+        cursor: pointer;
+        font-size: 12pt;
+        margin-left: 45.3%;
+        width: 130px;
+        height: 40px;
+        color: white;
+        background-color: rgb(41, 108, 235);
+        border: 1px solid rgb(41, 108, 235);
+
+        &:hover {
+            background-color: rgb(26, 84, 194);
+        }
+    }
+
+    .question-box {
+        margin-top: 3%;
+        margin-left: 17%;
+        width: 65%;
+        text-align: center;
+        border: 1px solid rgb(41, 108, 235);
+
+        .question-text {
+            font-size: 14pt;
+            margin-left: -49%;
+            // float: left;
+        }
+
+        .question {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+            'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+            sans-serif;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            margin-left: 1%;
+            width: 60%;
+            border: none;
+            max-width: 60%;
+            height: 40px;
+            min-height: 30px;
+            font-size: 12pt;
+            padding-left: 5px;
+        }
+
+        .choices-text {
+            font-size: 14pt;
+            margin-left: -40%;
+        }
+
+        .choices-box {
+            width: 100%;
+
+            .choice {
+                
+                .choice-input {
+                    margin-bottom: 10px;
+                    width: 60%;
+                    height: 30px;
+                    font-size: 12pt;
+                    padding-left: 5px;
+                    border: none;
+                }
+
+                .remove-choice {
+                    cursor: pointer;
+                    color: rgb(226, 38, 38);
+
+                    &:hover {
+                        color: rgb(197, 36, 36);
+                    }
+                }
+            }
+        }
+
+        .increase-choices {
+            cursor: pointer;
+            font-size: 10pt;
+            margin-left: -49%;
+            margin-bottom: 10px;
+            width: 90px;
+            height: 40px;
+            color: white;
+            background-color: rgb(230, 118, 27);
+            border: 1px solid rgb(230, 118, 27);
+
+            &:hover {
+                background-color: rgb(202, 104, 24);
+            }
+        }
+
+        .remove-question {
+            cursor: pointer;
+            color: rgb(165, 31, 31);
+            font-size: 16pt;
+            margin-right: 5px;
+            float: right;
+
+            &:hover {
+                color: rgb(236, 59, 59);
+            }
         }
     }
 }
@@ -133,6 +246,12 @@
         background-color: rgb(41, 108, 235);
         color: white;
     }
+}
+
+.submit-create-quiz {
+
+    margin-bottom: 25px;
+    margin-top: 30px;
 }
 
 @keyframes fadeIn {
