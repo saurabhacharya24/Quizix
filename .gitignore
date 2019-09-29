@@ -2,3 +2,5 @@
 *.ini
 .vscode/
 frontend/package-lock.json
+frontend/quizix_frontend/src/index.css.map
+frontend/quizix_frontend/src/index.css
