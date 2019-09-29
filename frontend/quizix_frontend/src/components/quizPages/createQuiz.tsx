@@ -153,6 +153,7 @@ class CreateQuiz extends React.Component<Props, State> {
 
     render() {
         let { questions } = this.state
+        let numQs = questions.length
 
         return (
             <div className="create-quiz-main">
@@ -161,11 +162,16 @@ class CreateQuiz extends React.Component<Props, State> {
                 {this.renderEndDatetime()}
                 {this.renderReviewDate()}
                 <p className="questions-main-title"> Questions </p>
+                <p className="num-of-questions-text"> You have {numQs} question(s) </p>
                 <button className="add-question" onClick={this.incQuestions}> + Add Question </button>
                 {questions.map(question => {
                     return question
                 })}
-                <button className="submit-create-quiz"> Create! </button>
+                {numQs > 0 ? 
+                    <button className="submit-create-quiz"> Create! </button>
+                    : 
+                    null
+                }
             </div>
         )
     }

@@ -1117,6 +1117,10 @@ html, body {
   text-align: center;
   margin-top: 3%;
 }
+.create-quiz-main .num-of-questions-text {
+  margin-top: -20px;
+  text-align: center;
+}
 .create-quiz-main .add-question {
   cursor: pointer;
   font-size: 12pt;
@@ -1207,7 +1211,7 @@ html, body {
   font-size: 14pt;
   color: #296ceb;
   left: 25px;
-  bottom: 5%;
+  bottom: 3.5%;
   width: 5%;
   height: 40px;
   border-radius: 4px;
@@ -1220,8 +1224,22 @@ html, body {
 }
 
 .submit-create-quiz {
+  cursor: pointer;
   margin-bottom: 25px;
   margin-top: 30px;
+  font-size: 12pt;
+  float: right;
+  margin-right: 17.8%;
+  width: 130px;
+  height: 40px;
+  color: #1DB500;
+  background-color: white;
+  border: 1px solid #1DB500;
+  transition: background-color 0.2s, color 0.2s;
+}
+.submit-create-quiz:hover {
+  color: white;
+  background-color: #1DB500;
 }
 
 @keyframes fadeIn {

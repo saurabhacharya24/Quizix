@@ -97,6 +97,7 @@ class Groups extends React.Component<Props, State> {
                             isAdmin={group.is_admin}
                             numOfMembers={group.num_of_members}
                             goToCreateQuiz={this.goToCreateQuiz}
+                            key={group.group_id}
                         />
                     )}
                     <GroupCreateModal 

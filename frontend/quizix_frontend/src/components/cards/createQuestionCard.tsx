@@ -28,7 +28,7 @@ class CreateQuestionCard extends React.Component<Props, State> {
 
     componentDidMount() {
         this.increaseChoices()
-        this.increaseChoices()
+        // this.increaseChoices()
     }
 
     changeQuestionTextState = (evt: any) => {
@@ -75,7 +75,7 @@ class CreateQuestionCard extends React.Component<Props, State> {
         return (
             <div className="choice" key={choiceNum}>
                 <span className="remove-choice" onClick={this.decreaseChoices} id={choiceNum.toString()}> &times; </span>
-                <input className="choice-input" placeholder="Enter choice..." />
+                <input className="choice-input" id={"choice"+choiceNum.toString()} placeholder="Enter choice..." />
             </div>
         )
     }
