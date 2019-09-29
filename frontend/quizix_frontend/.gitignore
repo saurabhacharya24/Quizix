@@ -35,3 +35,5 @@ robots.txt
 *.md
 App.css
 App.tsx
+index.css
+index.css.map
