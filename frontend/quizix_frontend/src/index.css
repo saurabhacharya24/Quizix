@@ -1160,13 +1160,14 @@ html, body {
 }
 .create-quiz-main .question-box .answers-text {
   font-size: 14pt;
-  margin-left: -40%;
+  margin-left: -39%;
 }
 .create-quiz-main .question-box .answers-box {
   width: 100%;
 }
 .create-quiz-main .question-box .answers-box .answer .answer-input {
   margin-bottom: 10px;
+  margin-left: 3%;
   width: 60%;
   height: 30px;
   font-size: 12pt;
@@ -1194,9 +1195,22 @@ html, body {
 .create-quiz-main .question-box .increase-answers:hover {
   background-color: #ca6818;
 }
+.create-quiz-main .question-box .correct-answers-list-text {
+  margin-left: 17.5%;
+  font-size: 14pt;
+  width: 20%;
+}
+.create-quiz-main .question-box .correct-answers-list {
+  width: 50px;
+  font-size: 12pt;
+  border: none;
+  margin-left: -20%;
+  margin-top: -4.6%;
+  vertical-align: top;
+}
 .create-quiz-main .question-box .remove-question {
   cursor: pointer;
-  color: #a51f1f;
+  color: #8d8d8d;
   font-size: 16pt;
   margin-right: 5px;
   float: right;

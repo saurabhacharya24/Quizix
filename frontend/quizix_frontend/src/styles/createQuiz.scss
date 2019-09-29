@@ -176,7 +176,7 @@
 
         .answers-text {
             font-size: 14pt;
-            margin-left: -40%;
+            margin-left: -39%;
         }
 
         .answers-box {
@@ -186,6 +186,7 @@
                 
                 .answer-input {
                     margin-bottom: 10px;
+                    margin-left: 3%;
                     width: 60%;
                     height: 30px;
                     font-size: 12pt;
@@ -220,9 +221,24 @@
             }
         }
 
+        .correct-answers-list-text {
+            margin-left: 17.5%;
+            font-size: 14pt;
+            width: 20%;
+        }
+
+        .correct-answers-list {
+            width: 50px;
+            font-size: 12pt;
+            border: none;
+            margin-left: -20%;
+            margin-top: -4.6%;
+            vertical-align: top;
+        }
+
         .remove-question {
             cursor: pointer;
-            color: rgb(165, 31, 31);
+            color: rgb(141, 141, 141);
             font-size: 16pt;
             margin-right: 5px;
             float: right;

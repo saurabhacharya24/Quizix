@@ -4,6 +4,7 @@ interface State {
     questionText: string
     answers: Array<JSX.Element>
     numAnswers: number
+    correctAnswer: number
 }
 
 interface Props {
@@ -19,11 +20,13 @@ class CreateQuestionCard extends React.Component<Props, State> {
         this.state = {
             questionText: "",
             answers: [],
-            numAnswers: 0
+            numAnswers: 0,
+            correctAnswer: 1
         }
 
         this.increaseAnswers = this.increaseAnswers.bind(this)
         this.decreaseAnswers = this.decreaseAnswers.bind(this)
+        this.changeCorrectAnswerState = this.changeCorrectAnswerState.bind(this)
     }
 
     componentDidMount() {
@@ -37,11 +40,12 @@ class CreateQuestionCard extends React.Component<Props, State> {
     
     increaseAnswers() {
         let { answers, numAnswers } = this.state
-        answers.push(this.renderAnswer(numAnswers+1))
+        let newNumAnswers = numAnswers+1
+        answers.push(this.renderAnswer(newNumAnswers))
 
         this.setState({
             answers: answers,
-            numAnswers: numAnswers+1
+            numAnswers: newNumAnswers
         })
     }
 
@@ -70,12 +74,37 @@ class CreateQuestionCard extends React.Component<Props, State> {
         })
     }
 
+    changeCorrectAnswerState(evt: any) {
+        let val = evt.target.value
+        this.setState({ correctAnswer: val })
+    }
+
     renderAnswer(answerNum: number): JSX.Element {
         return (
             <div className="answer" key={answerNum}>
-                <span className="remove-answer" onClick={this.decreaseAnswers} id={answerNum.toString()}> &times; </span>
+                {/* <span className="remove-answer" onClick={this.decreaseAnswers} id={answerNum.toString()}> &times; </span> */}
                 <input className="answer-input" id={"answer"+answerNum.toString()} placeholder="Enter answer..." />
+                <span className="remove-answer" onClick={this.decreaseAnswers} id={answerNum.toString()}> &times; </span>
             </div>
+        )
+    }
+
+    correctAnswersOptions() {
+        let answers = []
+        let { numAnswers } = this.state
+        
+        for (let i=1; i<=numAnswers; i++){
+            answers.push(<option key={i} value={i}> {i} </option>)
+        }
+
+        return answers
+    }
+
+    renderCorrectAnswerList() {
+        return (
+            <select className="correct-answers-list" onChange={this.changeCorrectAnswerState}>
+                {this.correctAnswersOptions()}
+            </select>
         )
     }
 
@@ -89,12 +118,14 @@ class CreateQuestionCard extends React.Component<Props, State> {
                 <p className="question-text"> Question: </p>
                 <textarea className="question" placeholder="Enter question..." onChange={this.changeQuestionTextState}/>
                 <p className="answers-text"> Answers (minimum 2): </p>
-                <div className="answer-box">
+                <div className="answers-box">
                     {answers.map(answer => {
                         return answer
                     })}
                 </div>
-                <button className="increase-answer" onClick={this.increaseAnswers}> Add Answer </button>
+                <button className="increase-answers" onClick={this.increaseAnswers}> Add Answer </button>
+                <p className="correct-answers-list-text"> Correct Answer: </p>
+                {this.renderCorrectAnswerList()}
             </div>
         )
     }
