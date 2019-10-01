@@ -12,7 +12,7 @@ const QuizCard = (props: Props) => {
 
     let { quizName, groupName, availableTo, quizId } = props
     let trimmedQuiz = quizName.length > 25 ? quizName.slice(0,25) + "..." : quizName
-    let trimmedGroup = groupName.length > 15 ? groupName.slice(0,15) + "..." : groupName
+    let trimmedGroup = groupName.length > 25 ? groupName.slice(0,15) + "..." : groupName
     let timeLeft = quizTimeRemaining(availableTo)
 
     return (
