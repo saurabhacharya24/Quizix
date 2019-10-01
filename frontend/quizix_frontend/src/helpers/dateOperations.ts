@@ -1,4 +1,4 @@
-export function quizTimeRemaining(availableTo: Date) {
+export function quizTimeRemaining(availableTo: Date): string {
 
     let currDays = new Date().getDate()
     let availDays = new Date(availableTo).getUTCDate()
@@ -54,6 +54,8 @@ export function quizTimeRemaining(availableTo: Date) {
             return minsDiff.toString() + " mins left!"
         }
     }
+
+    return "N/A"
 }
 
 export function formatDateTime(dateTime: Date): string {

@@ -15,8 +15,13 @@ const QuizCard = (props: Props) => {
     let trimmedGroup = groupName.length > 25 ? groupName.slice(0,15) + "..." : groupName
     let timeLeft = quizTimeRemaining(availableTo)
 
+    let quizClassName = "quiz-card-info"
+    if (timeLeft.includes("mins")) {
+        quizClassName = "quiz-card-info--urgent"
+    } 
+
     return (
-        <div className="quiz-card-info" id={quizId}>
+        <div className={quizClassName} id={quizId}>
             <p className="quiz-name">{ trimmedQuiz }</p>
             <p className="quiz-group">{ trimmedGroup }</p>
             <p className="quiz-available-to">{ timeLeft }</p>
