@@ -3,7 +3,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CreateQuestionCard from '../cards/createQuestionCard';
 import { IQuestion } from '../../interfaces/questions';
-// import axios from 'axios'
+import { formatDateTime, formatDate } from '../../helpers/dateOperations';
+import axios from 'axios'
+import { API_URL, headerConfig } from '../../helpers/apiConsts';
 
 interface State {
     quizName: string
@@ -45,7 +47,7 @@ class CreateQuiz extends React.Component<Props, State> {
         this.changeCorrectAnswerState = this.changeCorrectAnswerState.bind(this)
         this.incAnswers = this.incAnswers.bind(this)
         this.decAnswers = this.decAnswers.bind(this)
-        this.getSelfState = this.getSelfState.bind(this)
+        this.createQuiz = this.createQuiz.bind(this)
     }
 
     changeQuizNameState(evt: any) { this.setState({ quizName: evt.currentTarget.value }) }
@@ -205,15 +207,34 @@ class CreateQuiz extends React.Component<Props, State> {
         this.setState({ questions: questions })
     }
 
-    getSelfState() {
+    async createQuiz() {
         let { questions, quizName, quizDesc, startDate, endDate, reviewDate } = this.state
-        
-        let availableFromDate = startDate.getFullYear()+"-"+startDate.getMonth()+"-"+startDate.getUTCDate()
-        let availableFromTime = startDate.getHours()+":"+startDate.getMinutes()+":00"
-        let availableToDate = endDate.getFullYear()+"-"+endDate.getMonth()+"-"+endDate.getUTCDate()
-        let availableToTime = endDate.getHours()+":"+endDate.getMinutes()+":00"
-        let reviewDateTime = reviewDate.getFullYear()+"-"+reviewDate.getMonth()+"-"+reviewDate.getUTCDate()+" 00:00:00"
         let { groupId } = this.props
+
+        let availableFrom = formatDateTime(startDate)
+        let availableTo = formatDateTime(endDate)
+        let formattedReviewDate = formatDate(reviewDate)
+
+        let questionList: Array<any> = []
+
+        questions.forEach(q => {
+            let answersList: any = {}
+            let count = 1
+
+            q.answers.forEach(a => {
+                let id = "a"+count
+                answersList[id] = a.ans
+                count++
+            })
+
+            let qBody = {
+                question: q.question,
+                answers: answersList,
+                correct_answer: q.correctAnswer
+            }
+
+            questionList.push(qBody)
+        })
 
         let quizBody = {
             quiz: [
@@ -222,15 +243,21 @@ class CreateQuiz extends React.Component<Props, State> {
                     quiz_desc: quizDesc,
                     group_id: groupId,
                     num_of_questions: questions.length,
-                    available_from: availableFromDate+" "+availableFromTime,
-                    available_to: availableToDate+" "+availableToTime,
+                    available_from: availableFrom,
+                    available_to: availableTo,
                     is_visible: true,
-                    review_date: reviewDateTime,
+                    review_date: formattedReviewDate,
+                    question_list: questionList
                 }
             ]
         }
 
-        console.log(quizBody)
+        try {
+            axios.post(API_URL+"/quiz", quizBody, headerConfig)
+            alert("Success!")
+        } catch (error) {
+            alert(error)
+        }
     }
 
     renderQuizNameAndDesc() {
@@ -327,7 +354,7 @@ class CreateQuiz extends React.Component<Props, State> {
                     return question
                 })}
                 {numQs > 0 ? 
-                    <button className="submit-create-quiz" onClick={this.getSelfState}> Create! </button>
+                    <button className="submit-create-quiz" onClick={this.createQuiz}> Create! </button>
                     : 
                     null
                 }

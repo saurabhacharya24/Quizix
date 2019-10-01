@@ -5,7 +5,7 @@ export interface IQuestion {
     correctAnswer: string
 }
 
-interface IAnswer {
+export interface IAnswer {
     aId: string
     ans: string
 }

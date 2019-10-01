@@ -1,5 +1,5 @@
 import React from 'react'
-import quizTimeRemaining from '../../helpers/dateCompare'
+import { quizTimeRemaining } from '../../helpers/dateOperations'
 
 interface Props {
     availableTo: Date
