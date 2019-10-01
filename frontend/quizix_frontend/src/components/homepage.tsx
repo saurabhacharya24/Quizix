@@ -9,12 +9,6 @@ interface Props {}
 
 class Homepage extends React.Component<Props, State> {
 
-    renderDashboard() {
-        return (
-            <Dashboard />
-        )
-    }
-
     renderHomepage() {
         return (
             <div className="homepage">
@@ -37,7 +31,7 @@ class Homepage extends React.Component<Props, State> {
         return (
             userId.length > 0 ?
             <div>
-                {this.renderDashboard()}
+                <Dashboard />
             </div>
             :
             <div>

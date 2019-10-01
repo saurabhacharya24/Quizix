@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface State {
-    questionText: string
     answers: Array<JSX.Element>
+    answerId: number
     numAnswers: number
     correctAnswer: number
 }
@@ -10,6 +10,11 @@ interface State {
 interface Props {
     qNum: number
     removeQuestion(evt: any): void
+    changeQuestionText(qNum: number, qText: string): void
+    changeAnswerText(qNum: number, aId: string, answerText: string): void
+    changeCorrectAnswer(qNum: number, correctAnswer: string): void
+    increaseAnswers(qNum: number, ansId: number): void
+    decreaseAnswers(qNum: number, aId: string): void
 }
 
 class CreateQuestionCard extends React.Component<Props, State> {
@@ -18,8 +23,8 @@ class CreateQuestionCard extends React.Component<Props, State> {
         super(props)
 
         this.state = {
-            questionText: "",
             answers: [],
+            answerId: 0,
             numAnswers: 0,
             correctAnswer: 1
         }
@@ -30,35 +35,53 @@ class CreateQuestionCard extends React.Component<Props, State> {
     }
 
     componentDidMount() {
+        let { qNum } = this.props
         this.increaseAnswers()
+        // this.props.increaseAnswers(qNum)
+        this.props.changeCorrectAnswer(qNum, "a1")
     }
 
     changeQuestionTextState = (evt: any) => {
         let question: string = evt.target.value
-        this.setState({ questionText: question })
+        let { qNum } = this.props
+
+        this.props.changeQuestionText(qNum, question)
+    }
+
+    changeAnswerTextState = (evt: any) => {
+        let { qNum } = this.props
+        let ansText = evt.target.value
+        let aId = evt.target.id
+        this.props.changeAnswerText(qNum, aId, ansText)
     }
     
     increaseAnswers() {
-        let { answers, numAnswers } = this.state
+        let { answers, answerId, numAnswers } = this.state
+        let { qNum } = this.props
+
         let newNumAnswers = numAnswers+1
-        answers.push(this.renderAnswer(newNumAnswers))
+        answers.push(this.renderAnswer(answerId+1))
 
         this.setState({
             answers: answers,
+            answerId: answerId+1,
             numAnswers: newNumAnswers
         })
+
+        this.props.increaseAnswers(qNum, answerId+1)
     }
 
     decreaseAnswers(evt: any) {
         let { answers, numAnswers } = this.state
+        let { qNum } = this.props
         let answerNum = evt.target.id
         let count = 0;
 
         let arr1: Array<JSX.Element> = []
         let arr2: Array<JSX.Element> = []
         
-        answers.forEach(c => {
-            if (answerNum === c.key) {
+        answers.forEach(a => {
+            if (answerNum === a.key) {
                 arr1 = answers.slice(0,count)
                 arr2 = answers.slice(count+1, answers.length)
             }
@@ -70,20 +93,28 @@ class CreateQuestionCard extends React.Component<Props, State> {
         let finalArr = arr1.concat(arr2)
         this.setState({
             answers: finalArr,
-            numAnswers: numAnswers-1
+            numAnswers: numAnswers-1,
+            correctAnswer: 1
         })
+
+        this.props.changeCorrectAnswer(qNum, "a1")
+        this.props.decreaseAnswers(qNum, answerNum)
     }
 
     changeCorrectAnswerState(evt: any) {
         let val = evt.target.value
+        let { qNum } = this.props 
+
         this.setState({ correctAnswer: val })
+        this.props.changeCorrectAnswer(qNum, "a"+val)
     }
 
     renderAnswer(answerNum: number): JSX.Element {
+        let aId = answerNum.toString()
+
         return (
             <div className="answer" key={answerNum}>
-                {/* <span className="remove-answer" onClick={this.decreaseAnswers} id={answerNum.toString()}> &times; </span> */}
-                <input className="answer-input" id={"answer"+answerNum.toString()} placeholder="Enter answer..." />
+                <input className="answer-input" id={aId} placeholder="Enter answer..." onChange={this.changeAnswerTextState}/>
                 <span className="remove-answer" onClick={this.decreaseAnswers} id={answerNum.toString()}> &times; </span>
             </div>
         )
