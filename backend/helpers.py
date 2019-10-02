@@ -97,3 +97,9 @@ def groups_convert_to_json(json_keys, db_rows, token):
         json_data.append(temp)
 
     return json_data
+
+
+def wrap_object(key, obj):
+    temp = {}
+    temp[key] = obj
+    return temp

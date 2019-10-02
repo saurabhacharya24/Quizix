@@ -577,14 +577,15 @@ def db_submit_quiz(user_id, quiz_id, user_answers, review_date):
         correct_answers = cur.fetchall()
 
         marks = 0
-        answer_correctness = {}
+        answer_correctness = []
 
         for i in range(0, len(correct_answers)):
             if user_answers[i]['answer'] == correct_answers[i][0]:
                 marks += 1
-                answer_correctness['a' + str(i + 1)] = True
+                answer_correctness.append(user_answers[i]['answer'])
+            #     answer_correctness['ans' + str(i + 1)] = True
             else:
-                answer_correctness['a' + str(i + 1)] = False
+                answer_correctness.append(user_answers[i]['answer'])
 
         marks = str(marks) + '/' + str(len(correct_answers))
 
@@ -639,18 +640,30 @@ def db_review_quiz(user_id, quiz_id):
         conn = connect_to_db()
         cur = conn.cursor()
 
-        sql = """select answer_correctness
-                from user_marks
-                where user_id = %s
-                and quiz_id = %s"""
-        cur.execute(sql, (user_id, quiz_id,))
+        sql = """select question, answers_list, correct_answer
+                from questions
+                where quiz_id = %s"""
+        cur.execute(sql, (quiz_id,))
         quiz_info = cur.fetchall()
 
-        json_keys = ['answer_correctness']
+        json_keys = ['ques', 'answers', 'correct_answer']
         json_quiz_info = convert_to_json(json_keys, quiz_info)
 
+        ans_sql = """select answer_correctness
+                    from user_marks
+                    where user_id = %s
+                    and quiz_id = %s"""
+        cur.execute(ans_sql, (user_id, quiz_id,))
+        ans_info = cur.fetchall()
+
+        final_info = wrap_object('quiz', json_quiz_info)
+
+        ans_keys = ['user_answers']
+        json_ans_info = convert_to_json(ans_keys, ans_info)
+        final_info['user_answers'] = json_ans_info
+
         cur.close()
-        return json_quiz_info
+        return final_info
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
