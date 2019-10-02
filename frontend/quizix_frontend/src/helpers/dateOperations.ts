@@ -1,58 +1,23 @@
 export function quizTimeRemaining(availableTo: Date): string {
 
-    let currDays = new Date().getDate()
-    let availDays = new Date(availableTo).getUTCDate()
-    let currHours = new Date().getHours()
-    let availHours = new Date(availableTo).getUTCHours()
-    let currMins = new Date().getMinutes()
-    let availMins = new Date(availableTo).getUTCMinutes()
-    
-    let daysDiff = availDays - currDays
-    let hoursDiffDifferentDay = 24 - (currHours - availHours)
-    let hoursDiffSameDay = availHours - currHours
+    let availTime = new Date(availableTo).getTime()
+    let currTime = new Date().getTime()
 
-    if (daysDiff > 1) {
-        let cDate = new Date().getTime()
-        let aDate = new Date(availableTo).getTime()
-        let daysD = Math.floor(Math.abs(cDate - aDate) / (1000 * 60 * 60 * 24))
-        
-        return daysD.toString() + " days left"
+    let minsLeft = Math.floor(Math.abs((availTime - currTime) / 60000) - 600)
+    let hours = Math.floor(Math.abs(availTime - currTime) / 36e5 - 10)
+
+    if (hours >= 24) {
+        let days = Math.floor(hours / 24)
+        let daysText = days === 1 ? " day " : " days "
+        return days.toString() + daysText + "left"
     }
-
-    if (daysDiff >= 1 && hoursDiffDifferentDay >= 24) {
-        return daysDiff === 1 ? "1 day left" : daysDiff.toString() + " days left"
+    else if (hours < 24 && hours >= 1) {
+        let hourText = hours === 1 ? " hour " : " hours "
+        return hours.toString() + hourText + "left"
     }
-    
-    if (daysDiff === 1 && hoursDiffDifferentDay < 24) {
-        if (hoursDiffDifferentDay > 1) {
-            return hoursDiffDifferentDay.toString() + " hours left"
-        }
-        else {
-            let minsDiff = 24 - (currMins - availMins)
-            return minsDiff.toString() + " mins left!"
-        }
-    }
-
-    if (daysDiff < 1) {
-        if (hoursDiffSameDay > 1) {
-            return hoursDiffSameDay.toString() + " hours left"
-        }
-        else if (hoursDiffSameDay === 1) {
-            let minsDiff = 60 - currMins + availMins
-            if (availMins >= currMins) {
-                return "1 hour left"
-            }
-            else {
-                return minsDiff.toString() + " mins left!"
-            }
-        }
-
-        else {
-            let mins = availMins === 0 ? 60 : availMins
-            let mins2 = currMins === 0 ? 60 : currMins
-            let minsDiff = mins - mins2
-            return minsDiff.toString() + " mins left!"
-        }
+    else if (hours < 1) {
+        let minsText = minsLeft === 1 ? " min " : " mins "
+        return minsLeft.toString() + minsText + "left!" 
     }
 
     return "N/A"
