@@ -10,5 +10,5 @@ export interface ICompleted {
     marks: string
     quiz_id: string
     quiz_name: string
-    review_date: string
+    review_date: Date
 }

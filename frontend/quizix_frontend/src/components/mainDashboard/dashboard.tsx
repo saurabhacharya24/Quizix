@@ -6,14 +6,16 @@ import Messages from './messages'
 import getUserId from '../../helpers/cookies'
 import { API_URL, headerConfig } from '../../helpers/apiConsts'
 import CreateQuiz from '../quizPages/createQuiz'
+import ReviewQuiz from '../quizPages/reviewQuiz'
 
 
 interface State {
-    whichView: number
+    whichView: string
     quizMenuClass: string
     groupsMenuClass: string
     messagesMenuClass: string
     createQuizGroupId: string
+    reviewQuizId: string
 }
 
 interface Props {}
@@ -24,16 +26,19 @@ class Dashboard extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            whichView: 1,
+            whichView: "quizzes",
             quizMenuClass: "quiz-menu--selected",
             groupsMenuClass: "groups-menu",
             messagesMenuClass: "messages-menu",
-            createQuizGroupId: "0"
+            createQuizGroupId: "0",
+            reviewQuizId: "0"
         };
 
         this.changeView = this.changeView.bind(this)
+        this.goToReview = this.goToReview.bind(this)
         this.goToCreateQuiz = this.goToCreateQuiz.bind(this)
-        this.goToDashboard = this.goToDashboard.bind(this)
+        this.goToDashboardGroups = this.goToDashboardGroups.bind(this)
+        this.goToDashboardQuizzes = this.goToDashboardQuizzes.bind(this)
         this.logout = this.logout.bind(this)
     }
 
@@ -42,9 +47,9 @@ class Dashboard extends React.Component<Props, State> {
         let previousView = this.state.whichView
         
         if (clickedMenu === "js-quiz-menu") {
-            if (previousView !== 1) {
+            if (previousView !== "quizzes") {
                 this.setState({ 
-                    whichView: 1, 
+                    whichView: "quizzes", 
                     quizMenuClass: "quiz-menu--selected",
                     groupsMenuClass: "groups-menu",
                     messagesMenuClass: "messages-menu"
@@ -52,9 +57,9 @@ class Dashboard extends React.Component<Props, State> {
             }
         }
         if (clickedMenu === "js-groups-menu") {
-            if (previousView !== 2) {
+            if (previousView !== "groups") {
                 this.setState({ 
-                    whichView: 2, 
+                    whichView: "groups", 
                     quizMenuClass: "quiz-menu",
                     groupsMenuClass: "groups-menu--selected",
                     messagesMenuClass: "messages-menu"
@@ -62,9 +67,9 @@ class Dashboard extends React.Component<Props, State> {
             }
         }
         if (clickedMenu === "js-messages-menu") {
-            if (previousView !== 3) {
+            if (previousView !== "messages") {
                 this.setState({ 
-                    whichView: 3, 
+                    whichView: "messages", 
                     quizMenuClass: "quiz-menu",
                     groupsMenuClass: "groups-menu",
                     messagesMenuClass: "messages-menu--selected"
@@ -75,13 +80,24 @@ class Dashboard extends React.Component<Props, State> {
 
     goToCreateQuiz(groupId: string) {
         this.setState({
-            whichView: 4,
+            whichView: "createQuiz",
             createQuizGroupId: groupId
         })
     }
 
-    goToDashboard() {
-        this.setState({ whichView: 2 })
+    goToReview(quizId: string) {
+        this.setState({
+            whichView: "reviewQuiz",
+            reviewQuizId: quizId
+        })
+    }
+
+    goToDashboardGroups() {
+        this.setState({ whichView: "groups" })
+    }
+
+    goToDashboardQuizzes() {
+        this.setState({ whichView: "quizzes" })
     }
 
     async logout() {
@@ -125,20 +141,20 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     render() {
-        let { whichView, createQuizGroupId } = this.state
+        let { whichView, createQuizGroupId, reviewQuizId } = this.state
 
-        if (whichView === 1) {
+        if (whichView === "quizzes") {
             return (
                 <div className="dashboard">
                     <div className="logo-beside-title" />
                     <p className="dashboard-title"> My Dashboard </p>
                     {this.renderMenu()}
-                    <Quizzes />
+                    <Quizzes goToReviewQuiz={this.goToReview}/>
                     {this.renderLogout()}
                 </div>
             )
         }
-        else if (whichView === 2) {
+        else if (whichView === "groups") {
             return (
                 <div className="dashboard">
                     <div className="logo-beside-title" />
@@ -149,7 +165,7 @@ class Dashboard extends React.Component<Props, State> {
                 </div>
             )
         }
-        else if (whichView === 3) {
+        else if (whichView === "messages") {
             return (
                 <div className="dashboard">
                     <div className="logo-beside-title" />
@@ -161,13 +177,24 @@ class Dashboard extends React.Component<Props, State> {
             )
         }
 
-        else if (whichView === 4) {
+        else if (whichView === "createQuiz") {
             return (
                 <div className="create-quiz-page">
                     <div className="logo-beside-title" />
                     <p className="create-quiz-title"> Create Quiz </p>
                     <CreateQuiz groupId={createQuizGroupId}/>
-                    <button className="back-to-dash-button" onClick={this.goToDashboard}> Back </button>
+                    <button className="back-to-dash-button" onClick={this.goToDashboardGroups}> Back </button>
+                </div>
+            )
+        }
+
+        else if (whichView === "reviewQuiz") {
+            return (
+                <div className="review-quiz-page">
+                    <div className="logo-beside-title" />
+                    <p className="review-quiz-title"> Quiz Review </p>
+                    <ReviewQuiz quizId={reviewQuizId}/>
+                    <button className="back-to-dash-button" onClick={this.goToDashboardQuizzes}> Back</button>
                 </div>
             )
         }

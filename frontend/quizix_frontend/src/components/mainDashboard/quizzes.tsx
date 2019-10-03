@@ -14,7 +14,9 @@ interface State {
     quizzesLoaded: boolean
     completedQuizzesLoaded: boolean
 }
-interface Props {}
+interface Props {
+    goToReviewQuiz(quizId: string): void
+}
 
 class Quizzes extends React.Component<Props, State> {
 
@@ -27,6 +29,8 @@ class Quizzes extends React.Component<Props, State> {
             quizzesLoaded: false,
             completedQuizzesLoaded: false
         }
+
+        this.goToReviewQuiz = this.goToReviewQuiz.bind(this)
     }
 
     async componentDidMount() {
@@ -51,6 +55,10 @@ class Quizzes extends React.Component<Props, State> {
                 this.setState({ completedQuizzes: [], completedQuizzesLoaded: true })
             }
         }
+    }
+
+    goToReviewQuiz(quizId: string) {
+        this.props.goToReviewQuiz(quizId)
     }
 
     render() {
@@ -85,6 +93,7 @@ class Quizzes extends React.Component<Props, State> {
                                 groupName={compQuiz.group_name}
                                 quizId={compQuiz.quiz_id}
                                 reviewDate={compQuiz.review_date}
+                                goToReviewQuiz={this.goToReviewQuiz}
                             />)
                         :
                         <NoInfoCard infoMessage="No Completed Quizzes"/>
