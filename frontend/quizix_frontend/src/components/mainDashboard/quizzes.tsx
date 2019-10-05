@@ -15,7 +15,7 @@ interface State {
     completedQuizzesLoaded: boolean
 }
 interface Props {
-    goToReviewQuiz(quizId: string): void
+    goToReviewQuiz(quizId: string, marks: string): void
 }
 
 class Quizzes extends React.Component<Props, State> {
@@ -57,8 +57,8 @@ class Quizzes extends React.Component<Props, State> {
         }
     }
 
-    goToReviewQuiz(quizId: string) {
-        this.props.goToReviewQuiz(quizId)
+    goToReviewQuiz(quizId: string, marks: string) {
+        this.props.goToReviewQuiz(quizId, marks)
     }
 
     render() {

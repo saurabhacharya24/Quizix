@@ -1311,6 +1311,23 @@ html, body {
   font-size: 14pt;
 }
 
+.review-quiz-main .question-card .answers-list .answer-incorrect, .review-quiz-main .question-card .answers-list .answer-correct, .review-quiz-main .question-card .answers-list .answer {
+  font-size: 14pt;
+  padding-left: 10px;
+  padding-top: 10px;
+  margin-top: 5px;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+}
+
+.review-quiz-main > :last-child {
+  margin-bottom: 10%;
+}
+
+body {
+  counter-reset: question-counter;
+}
+
 .logo-beside-title {
   background-image: url("images/logo2.png");
   background-size: 80%;
@@ -1333,6 +1350,39 @@ html, body {
   color: white;
   text-align: center;
   animation: fadeIn 0.2s;
+}
+
+.review-quiz-main {
+  margin-top: 3%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.review-quiz-main .quiz-name {
+  font-size: 30pt;
+}
+.review-quiz-main .quiz-marks {
+  font-size: 14pt;
+  margin-top: 2%;
+}
+.review-quiz-main .question-card {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #96a6ff;
+}
+.review-quiz-main .question-card .question {
+  font-size: 18pt;
+}
+.review-quiz-main .question-card .question::before {
+  counter-increment: question-counter;
+  content: "Q" counter(question-counter) ": ";
+}
+.review-quiz-main .question-card .answers-list .answer-correct {
+  background-color: #8ef07a;
+}
+.review-quiz-main .question-card .answers-list .answer-incorrect {
+  background-color: #f78888;
+}
+.review-quiz-main .divider {
+  color: #296ceb;
 }
 
 .back-to-dash-button {

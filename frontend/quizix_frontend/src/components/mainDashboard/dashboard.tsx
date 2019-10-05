@@ -16,6 +16,7 @@ interface State {
     messagesMenuClass: string
     createQuizGroupId: string
     reviewQuizId: string
+    reviewQuizMarks: string
 }
 
 interface Props {}
@@ -31,7 +32,8 @@ class Dashboard extends React.Component<Props, State> {
             groupsMenuClass: "groups-menu",
             messagesMenuClass: "messages-menu",
             createQuizGroupId: "0",
-            reviewQuizId: "0"
+            reviewQuizId: "0",
+            reviewQuizMarks: "0"
         };
 
         this.changeView = this.changeView.bind(this)
@@ -81,14 +83,15 @@ class Dashboard extends React.Component<Props, State> {
     goToCreateQuiz(groupId: string) {
         this.setState({
             whichView: "createQuiz",
-            createQuizGroupId: groupId
+            createQuizGroupId: groupId,
         })
     }
 
-    goToReview(quizId: string) {
+    goToReview(quizId: string, marks: string) {
         this.setState({
             whichView: "reviewQuiz",
-            reviewQuizId: quizId
+            reviewQuizId: quizId,
+            reviewQuizMarks: marks
         })
     }
 
@@ -141,7 +144,7 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     render() {
-        let { whichView, createQuizGroupId, reviewQuizId } = this.state
+        let { whichView, createQuizGroupId, reviewQuizId, reviewQuizMarks } = this.state
 
         if (whichView === "quizzes") {
             return (
@@ -193,7 +196,7 @@ class Dashboard extends React.Component<Props, State> {
                 <div className="review-quiz-page">
                     <div className="logo-beside-title" />
                     <p className="review-quiz-title"> Quiz Review </p>
-                    <ReviewQuiz quizId={reviewQuizId}/>
+                    <ReviewQuiz quizId={reviewQuizId} reviewQuizMarks={reviewQuizMarks}/>
                     <button className="back-to-dash-button" onClick={this.goToDashboardQuizzes}> Back</button>
                 </div>
             )

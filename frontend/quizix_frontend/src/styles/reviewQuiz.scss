@@ -12,6 +12,23 @@
     font-size: 14pt
 }
 
+%default-answer {
+    font-size: 14pt;
+    padding-left: 10px;
+    padding-top: 10px;
+    margin-top: 5px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+}
+
+.review-quiz-main > :last-child {
+    margin-bottom: 10%;
+}
+
+body {
+    counter-reset: question-counter;
+}
+
 .logo-beside-title {
     background-image: url('images/logo2.png');
     background-size: 80%;
@@ -34,6 +51,59 @@
     color: white;
     text-align: center;
     animation: fadeIn 0.2s;
+}
+
+.review-quiz-main {
+    margin-top: 3%;
+    margin-left: 20%;
+    margin-right: 20%;
+
+    .quiz-name {
+        font-size: 30pt;
+    }
+
+    .quiz-marks {
+        font-size: 14pt;
+        margin-top: 2%;
+    }
+
+    .question-card {
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgb(150, 166, 255);
+        // margin-bottom: 7%;
+
+        .question {
+            font-size: 18pt;
+
+            &::before {
+                counter-increment: question-counter;
+                content: "Q" counter(question-counter) ": "
+            }
+        }
+
+        .answers-list {
+            .answer {
+                @extend %default-answer;
+                // border-bottom: 1px solid rgb(150, 166, 255);
+            }
+
+            .answer-correct {
+                @extend %default-answer;
+                background-color: rgb(142, 240, 122);
+                // border-bottom: 1px solid rgb(150, 166, 255);
+            }
+
+            .answer-incorrect {
+                @extend %default-answer;
+                background-color: rgb(247, 136, 136);
+                // border-bottom: 1px solid rgb(150, 166, 255);
+            }
+        }
+    }
+
+    .divider {
+        color: #296ceb;
+    }
 }
 
 .back-to-dash-button {

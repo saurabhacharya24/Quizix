@@ -1,7 +1,4 @@
 import React from 'react'
-import axios from 'axios'
-import getUserId from '../../helpers/cookies'
-import { API_URL } from '../../helpers/apiConsts'
 
 interface State {}
 
@@ -11,7 +8,7 @@ interface Props {
     marks: string
     reviewDate: Date
     quizId: string
-    goToReviewQuiz(quizId: string): void
+    goToReviewQuiz(quizId: string, marks: string): void
 }
 
 class CompletedCard extends React.Component<Props, State> {
@@ -22,18 +19,10 @@ class CompletedCard extends React.Component<Props, State> {
         this.reviewQuiz = this.reviewQuiz.bind(this)
     }
 
-    async reviewQuiz(evt: any) {
+    reviewQuiz(evt: any) {
+        let { marks } = this.props
         let quizId = evt.target.id
-        let userId = getUserId()
-        this.props.goToReviewQuiz(quizId)
-
-        try {
-            let response = await axios.get(API_URL+"/review_quiz?user_id="+userId+"&quiz_id="+quizId)
-            let quizBody = await response.data
-            console.log(quizBody)
-        } catch (error) {
-            console.log(error)
-        }
+        this.props.goToReviewQuiz(quizId, marks)
     }
 
     render() {
