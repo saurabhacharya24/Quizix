@@ -481,7 +481,7 @@ def db_rollback_quiz_creation(quiz_id):
         return error.pgcode
 
 
-def db_get_quiz(quiz_name, group_id):
+def db_get_quiz(quiz_id):
     conn = None
     try:
         conn = connect_to_db()
@@ -489,9 +489,8 @@ def db_get_quiz(quiz_name, group_id):
 
         sql_get_quiz = """select quiz_name, quiz_description, num_of_questions, available_to, quiz_id, review_date
                             from quizzes
-                            where quiz_name = %s
-                            and group_id = %s"""
-        cur.execute(sql_get_quiz, (quiz_name, group_id,))
+                            where quiz_id = %s"""
+        cur.execute(sql_get_quiz, (quiz_id,))
         db_rows = cur.fetchall()
         json_keys = ['quiz_name', 'quiz_desc', 'num_of_questions', 'available_to', 'quiz_id', 'review_date']
 

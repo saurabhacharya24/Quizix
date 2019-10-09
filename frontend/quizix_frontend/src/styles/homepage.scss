@@ -20,6 +20,14 @@
 	transition: background-color 0.1s, color 0.1s;
 }
 
+%info-img-style {
+	width: 90px;
+	height: 100px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	// text-align: center;
+}
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -27,199 +35,294 @@ body {
       sans-serif;
   }
 
-.homepage--main-image {
-    margin: 0;
-    max-width: 100%;
-	background-image: url('images/desk-coffee-blur.jpg');
-	background: blur(4px);
-    position: absolute;
-    background-repeat: no-repeat;
-    background-size: 100%;  
-    width: 100%;
-    height: 750px;
-  }
+.top-part {
+	// position: absolute;
+	top: 0;
+	background-color: grey;
 
-.slogan-main {
-	margin-top: 10%;
-	width: 27%;
-	font-size: 48pt;
-	color: white;
-	margin-left: 10%;
-	position: absolute;
-}
-
-.slogan-para {
-	margin-top: 24%;
-	width: 35%;
-	font-size: 16pt;
-	color: white;
-	margin-left: 10%;
-	position: absolute;
-}
-
-.login-register-box {
-	background-color: rgba($color: #ffffff, $alpha: 0.85);
-	position: absolute;
-	margin-top: 8%;
-	margin-left: 57%;
-	width: 425px;
-	height: 500px;
-	border: 1px solid #afafaf;
-	border-radius: 5px;
-
-	.login-logo {
-		margin-left: 41%;
-		margin-top: -10%;
-		background-image: url('images/logo2.png');
+	.homepage--main-image {
+		margin: 0;
+		max-width: 100%;
+		background-image: url('images/desk-coffee-blur.jpg');
+		background: blur(4px);
+		position: absolute;
 		background-repeat: no-repeat;
-		background-size: 80%;
-		width: 95px;
-		height: 95px;
-		position: relative;
+		background-size: 100%;  
+		width: 100%;
+		height: 750px;
 	}
 
-	.email-text {
-		margin-left: 8%;
-		margin-bottom: 6%;
-		font-size: 16pt;
-	}
-
-	.email-register-text {
-		margin-left: 8%;
-		font-size: 16pt;
-		margin-top: -2%;
-	}
-
-	.email-register-text {
-		margin-top: -2%;
-		margin-left: 8%;
-		font-size: 16pt;
-	}
-
-	.email-input, .email-register-input {
-		@extend %input-style;
-		margin-top: -3%;
-	}
-
-	.password-text {
+	.slogan-main {
 		margin-top: 10%;
-		margin-left: 8%;
-		margin-bottom: 3%;
+		width: 27%;
+		font-size: 48pt;
+		color: white;
+		margin-left: 10%;
+		position: absolute;
+	}
+
+	.slogan-para {
+		margin-top: 24%;
+		width: 35%;
 		font-size: 16pt;
+		color: white;
+		margin-left: 10%;
+		position: absolute;
 	}
 
-	.password-register-text {
-		margin-top: 6%;
-		margin-left: 8%;
-		margin-bottom: 3%;
-		font-size: 16pt;
-	}
+	.login-register-box {
+		background-color: rgba($color: #ffffff, $alpha: 0.85);
+		position: absolute;
+		margin-top: 8%;
+		margin-left: 57%;
+		width: 425px;
+		height: 500px;
+		border: 1px solid #afafaf;
+		border-radius: 5px;
 
-	.password-input {
-		@extend %input-style;
-	}
-
-	.password-register-input {
-		@extend %input-style;
-	}
-
-	.username-register-text {
-		margin-top: 6%;
-		margin-left: 8%;
-		margin-bottom: 3%;
-		font-size: 16pt;
-		// width: 40%;
-
-		.username-rule-text {
-			margin-top: -0.5%;
-			font-size: 10pt;
+		.login-logo {
+			margin-left: 41%;
+			margin-top: -10%;
+			background-image: url('images/logo2.png');
+			background-repeat: no-repeat;
+			background-size: 80%;
+			width: 95px;
+			height: 95px;
+			position: relative;
 		}
-	}
 
-	.username-register-input {
-		@extend %input-style;
-	}
+		.email-text {
+			margin-left: 8%;
+			margin-bottom: 6%;
+			font-size: 16pt;
+		}
 
-	.login-button {
-		@extend %button-style;
-		background-color: #14AB19;
-		border: 1px solid #14AB19;
+		.email-register-text {
+			margin-left: 8%;
+			font-size: 16pt;
+			margin-top: -2%;
+		}
 
-		&:hover {
-			cursor: pointer;
-			color: #14AB19;
-			background-color: white;
+		.email-register-text {
+			margin-top: -2%;
+			margin-left: 8%;
+			font-size: 16pt;
+		}
+
+		.email-input, .email-register-input {
+			@extend %input-style;
+			margin-top: -3%;
+		}
+
+		.password-text {
+			margin-top: 10%;
+			margin-left: 8%;
+			margin-bottom: 3%;
+			font-size: 16pt;
+		}
+
+		.password-register-text {
+			margin-top: 6%;
+			margin-left: 8%;
+			margin-bottom: 3%;
+			font-size: 16pt;
+		}
+
+		.password-input {
+			@extend %input-style;
+		}
+
+		.password-register-input {
+			@extend %input-style;
+		}
+
+		.username-register-text {
+			margin-top: 6%;
+			margin-left: 8%;
+			margin-bottom: 3%;
+			font-size: 16pt;
+			// width: 40%;
+
+			.username-rule-text {
+				margin-top: -0.5%;
+				font-size: 10pt;
+			}
+		}
+
+		.username-register-input {
+			@extend %input-style;
+		}
+
+		.login-button {
+			@extend %button-style;
+			background-color: #14AB19;
 			border: 1px solid #14AB19;
-			border-radius: 3px;
-		}
-	}
-
-	.register-button {
-		@extend %button-style;
-		margin-top: 7%;
-		margin-left: 38%;
-		transition: background-color 0.1s, color 0.1s;
-		background-color: #4151E1;
-		border: 1px solid #4151E1;
-
-		&:hover {
-			cursor: pointer;
-			color: #4151E1;
-			background-color: white;
-			border: 1px solid #4151E1;
-			border-radius: 3px;
-		}
-	}
-
-	.if-register-text {
-		font-size: 12pt;
-		width: 40%;
-		margin-top: 12%;
-		margin-left: 32%;
-		text-align: center;
-
-		.register-toggle {
-			font-size: 12pt;
-			color: #4151E1;
-			display: inline;
 
 			&:hover {
 				cursor: pointer;
-				color: rgb(0, 0, 187);
+				color: #14AB19;
+				background-color: white;
+				border: 1px solid #14AB19;
+				border-radius: 3px;
+			}
+		}
+
+		.register-button {
+			@extend %button-style;
+			margin-top: 7%;
+			margin-left: 38%;
+			transition: background-color 0.1s, color 0.1s;
+			background-color: #4151E1;
+			border: 1px solid #4151E1;
+
+			&:hover {
+				cursor: pointer;
+				color: #4151E1;
+				background-color: white;
+				border: 1px solid #4151E1;
+				border-radius: 3px;
+			}
+		}
+
+		.if-register-text {
+			font-size: 12pt;
+			width: 40%;
+			margin-top: 12%;
+			margin-left: 32%;
+			text-align: center;
+
+			.register-toggle {
+				font-size: 12pt;
+				color: #4151E1;
+				display: inline;
+
+				&:hover {
+					cursor: pointer;
+					color: rgb(0, 0, 187);
+				}
+			}
+		}
+
+		.login-toggle {
+			font-size: 12pt;
+			color: #14AB19;
+			margin-top: 10%;
+			margin-left: 41%;
+			width: 25%;
+
+			&:hover {
+				cursor: pointer;
+				color: rgb(4, 116, 7);
+			}
+		}
+
+		.invalid-login-text {
+			color: rgb(219, 0, 0);
+			position: absolute;
+			margin-left: 30%;
+			animation: fadeOut 2s ease-in;
+		}
+
+		.invalid-reg-text {
+			color: rgb(219, 0, 0);
+			position: absolute;
+			margin-left: 25%;
+			animation: fadeOut 2s ease-in;
+		}
+
+		.invalid-login-text--hidden, .invalid-reg-text--hidden {
+			position: absolute;
+			visibility: hidden;
+		}
+	}
+}
+
+.bottom-part {
+
+	.why-choose-text {
+		font-size: 24pt;
+		margin-left: 540px;
+		margin-right: auto;
+		position: absolute;
+		margin-top: 780px;
+	}
+
+	.bottom-part-info {
+		margin-top: 855px;
+		position: absolute;
+		justify-content: center;
+		text-align: center;
+		display: grid;
+		padding-left: 50px;
+		padding-right: 50px;
+		grid-template-rows: 300px 300px 300px;
+		grid-template-columns: 415px 415px 390px;
+		
+		.info {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+
+			.info-header {
+				font-size: 16pt;
+				color: #484848;
+				margin-top: 20px;
+			}
+
+			.info-text {
+				text-align: center;
+				margin-top: -15px;
+				font-size: 12pt;
+				width: 250px;
+			}
+
+			.img-1 {
+				background-image: url('images/rating.png');
+				@extend %info-img-style;
+			}
+
+			.img-2 {
+				background-image: url('images/network.png');
+				@extend %info-img-style;
+				width: 120px;
+			}
+
+			.img-3 {
+				background-image: url('images/tasks.png');
+				@extend %info-img-style;
+			}
+
+			.img-4 {
+				background-image: url('images/add.png');
+				@extend %info-img-style;
+			}
+
+			.img-5 {
+				background-image: url('images/notification.png');
+				@extend %info-img-style;
+			}
+
+			.img-6 {
+				background-image: url('images/test.png');
+				@extend %info-img-style;
+			}
+
+			.img-7 {
+				background-image: url('images/warning.png');
+				@extend %info-img-style;
 			}
 		}
 	}
 
-	.login-toggle {
-		font-size: 12pt;
-		color: #14AB19;
-		margin-top: 10%;
-		margin-left: 41%;
-		width: 25%;
-
-		&:hover {
-			cursor: pointer;
-			color: rgb(4, 116, 7);
-		}
-	}
-
-	.invalid-login-text {
-		color: rgb(219, 0, 0);
+	.test {
+		height: 80px;
+		width: 100%;
+		text-align: center;
 		position: absolute;
-		margin-left: 30%;
-		animation: fadeOut 2s ease-in;
-	}
-
-	.invalid-reg-text {
-		color: rgb(219, 0, 0);
-		position: absolute;
-		margin-left: 25%;
-		animation: fadeOut 2s ease-in;
-	}
-
-	.invalid-login-text--hidden, .invalid-reg-text--hidden {
-		position: absolute;
-		visibility: hidden;
+		margin-top: 1800px;
+		color: white;
+		background-color: rgb(12, 12, 131);
 	}
 }
 

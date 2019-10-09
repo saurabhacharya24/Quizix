@@ -308,10 +308,9 @@ def quiz():
             return make_response(jsonify('A Quiz with that name already exists.'), 400)
 
     elif request.method == "GET":
-        quiz_name = request.args.get('quiz_name')
-        group_id = request.args.get('group_id')
+        quiz_id = request.args.get('quiz_id')
 
-        quiz = db_get_quiz(quiz_name, group_id)
+        quiz = db_get_quiz(quiz_id)
         return make_response(jsonify(quiz), 200)
 
 
