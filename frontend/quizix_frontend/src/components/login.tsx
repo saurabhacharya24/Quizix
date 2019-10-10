@@ -38,6 +38,7 @@ class LoginAndRegister extends React.Component<Props, State> {
         this.changeRegisterPasswordState = this.changeRegisterPasswordState.bind(this)
         this.loginUser = this.loginUser.bind(this)
         this.registerUser = this.registerUser.bind(this)
+        this.onlyGoToRegister = this.onlyGoToRegister.bind(this)
         this.toggleView = this.toggleView.bind(this)
     }
 
@@ -118,6 +119,23 @@ class LoginAndRegister extends React.Component<Props, State> {
             setTimeout(function() {
                 state.setState({ invalidRegTextClass: "invalid-reg-text--hidden"})
             }, 2000)
+        }
+    }
+
+    onlyGoToRegister() {
+        let { whichView } = this.state
+
+        if (whichView === "login") {
+            this.setState({ whichView: "register" })
+            this.clearState()
+
+            let emailField = (document.getElementById('js-email') as HTMLInputElement)
+            let passwordField = (document.getElementById('js-pass') as HTMLInputElement);
+            let usernameField = (document.getElementById('js-username') as HTMLInputElement);
+
+            emailField.value = '';
+            passwordField.value = '';
+            if (usernameField != null) usernameField.value = '';
         }
     }
 

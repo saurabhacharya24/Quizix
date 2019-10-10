@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import LoginAndRegister from './login'
 import Dashboard from './mainDashboard/dashboard'
 import getUserId from '../helpers/cookies'
@@ -9,13 +9,26 @@ interface Props {}
 
 class Homepage extends React.Component<Props, State> {
 
+    private loginRef: React.RefObject<LoginAndRegister>;
+
     constructor(props: Props){
         super(props)
 
-        this.scrollMe = this.scrollMe.bind(this)
+        this.loginRef = React.createRef()
+        this.scrollTop = this.scrollTop.bind(this)
+        this.scrollBottom = this.scrollBottom.bind(this)
     }
 
-    scrollMe(){
+    scrollTop() {
+        let topPart = (document.getElementById('js-top-part') as HTMLDivElement)
+        topPart.scrollIntoView()
+        
+        if (this.loginRef.current !== null) {
+            this.loginRef.current.onlyGoToRegister()
+        }
+    }
+
+    scrollBottom() {
         let bottomPart = (document.getElementById('js-why-choose') as HTMLParagraphElement)
         bottomPart.scrollIntoView()
     }
@@ -23,9 +36,9 @@ class Homepage extends React.Component<Props, State> {
     renderHomepage() {
         return (
             <div className="homepage">
-                <div className="top-part">
+                <div id="js-top-part" className="top-part">
                     <div className="homepage--main-image" title="Quizix homepage image"/>
-                    <LoginAndRegister />
+                    <LoginAndRegister ref={this.loginRef}/>
                     <div className="slogan-main"> All your quizzes, In one place </div>
                     <p className="slogan-para"> 
                         Quizix description and stuff
@@ -34,7 +47,7 @@ class Homepage extends React.Component<Props, State> {
                         et dolore magna aliqua. Ut enim ad minim veniam, 
                         quis nostrud exercitation ullamco laboris nisi ut aliquip.
                     </p>
-                    <button className="scroll-to-bottom" onClick={this.scrollMe}> Read More! </button>
+                    <p className="scroll-to-bottom" onClick={this.scrollBottom}> Read More! </p>
                 </div>
                 <div className="bottom-part">
                     <p id="js-why-choose" className="why-choose-text"> Why Choose Quizix? </p>
@@ -107,7 +120,10 @@ class Homepage extends React.Component<Props, State> {
                         </div>
                         <div />
                     </div>
-                    <div className="test">
+                    <div className="sign-up-bottom">
+                        <p className="sign-up-text" onClick={this.scrollTop}> Sign Up Today! </p>
+                    </div>
+                    <div className="footer">
                         <p> Footer </p>
                     </div>
                 </div>
