@@ -9,13 +9,24 @@ interface Props {}
 
 class Homepage extends React.Component<Props, State> {
 
+    constructor(props: Props){
+        super(props)
+
+        this.scrollMe = this.scrollMe.bind(this)
+    }
+
+    scrollMe(){
+        let bottomPart = (document.getElementById('js-why-choose') as HTMLParagraphElement)
+        bottomPart.scrollIntoView()
+    }
+
     renderHomepage() {
         return (
             <div className="homepage">
                 <div className="top-part">
                     <div className="homepage--main-image" title="Quizix homepage image"/>
                     <LoginAndRegister />
-                    <div className="slogan-main"> A Slogan, Dis is Slogan</div>
+                    <div className="slogan-main"> All your quizzes, In one place </div>
                     <p className="slogan-para"> 
                         Quizix description and stuff
                         Lorem ipsum dolor sit amet, consectetur adipiscing 
@@ -23,9 +34,10 @@ class Homepage extends React.Component<Props, State> {
                         et dolore magna aliqua. Ut enim ad minim veniam, 
                         quis nostrud exercitation ullamco laboris nisi ut aliquip.
                     </p>
+                    <button className="scroll-to-bottom" onClick={this.scrollMe}> Read More! </button>
                 </div>
                 <div className="bottom-part">
-                    <p className="why-choose-text"> Why Choose Quizix? </p>
+                    <p id="js-why-choose" className="why-choose-text"> Why Choose Quizix? </p>
                     <div className="bottom-part-info">
                         <div className="info">
                             <div className="img-1" title="img1" />
