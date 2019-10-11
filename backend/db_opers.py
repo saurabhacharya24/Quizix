@@ -514,7 +514,7 @@ def db_quiz_list(user_id):
         cur = conn.cursor()
 
         time_now = get_current_time_object()
-        sql_quiz_list = """select q.quiz_name, q.quiz_id, g.group_name, q.available_to
+        sql_quiz_list = """select q.quiz_name, q.quiz_description, q.quiz_id, g.group_name, q.available_to
                             from quizzes q, quiz_groups g
                             where q.group_id in (select group_id from group_memberships where user_id = %s)
                             and q.quiz_id not in (select quiz_id from completed_quizzes where user_id = %s)
@@ -525,7 +525,7 @@ def db_quiz_list(user_id):
         cur.execute(sql_quiz_list, (user_id, user_id, time_now, time_now,))
         quiz_list = cur.fetchall()
 
-        json_keys = ['quiz_name', 'quiz_id', 'group_name', 'available_to']
+        json_keys = ['quiz_name', 'quiz_desc', 'quiz_id', 'group_name', 'available_to']
         quiz_list = convert_to_json(json_keys, quiz_list)
 
         cur.close()

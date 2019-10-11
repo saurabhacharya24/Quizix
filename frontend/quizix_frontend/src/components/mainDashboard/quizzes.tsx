@@ -6,6 +6,7 @@ import getUserId from '../../helpers/cookies'
 import QuizCard from '../cards/quizCard';
 import CompletedCard from '../cards/completedCard'
 import NoInfoCard from '../cards/noInfoCard'
+import AttemptQuizModal from '../modals/attemptQuizInit'
 import { API_URL, headerConfig } from '../../helpers/apiConsts'
 
 interface State {
@@ -13,6 +14,7 @@ interface State {
     completedQuizzes: Array<ICompleted>
     quizzesLoaded: boolean
     completedQuizzesLoaded: boolean
+    attemptQuizModalState: string
 }
 interface Props {
     goToReviewQuiz(quizId: string, marks: string): void
@@ -27,10 +29,12 @@ class Quizzes extends React.Component<Props, State> {
             quizzes: [],
             completedQuizzes: [],
             quizzesLoaded: false,
-            completedQuizzesLoaded: false
+            completedQuizzesLoaded: false,
+            attemptQuizModalState: ""
         }
 
         this.goToReviewQuiz = this.goToReviewQuiz.bind(this)
+        this.toggleAttemptQuizModalState = this.toggleAttemptQuizModalState.bind(this)
     }
 
     async componentDidMount() {
@@ -61,8 +65,12 @@ class Quizzes extends React.Component<Props, State> {
         this.props.goToReviewQuiz(quizId, marks)
     }
 
+    toggleAttemptQuizModalState(quizName: string) {
+        this.setState({ attemptQuizModalState: quizName })
+     }
+
     render() {
-        let { quizzes, quizzesLoaded, completedQuizzes, completedQuizzesLoaded } = this.state
+        let { quizzes, quizzesLoaded, completedQuizzes, completedQuizzesLoaded, attemptQuizModalState } = this.state
 
         return (
             quizzesLoaded || completedQuizzesLoaded ?
@@ -71,13 +79,24 @@ class Quizzes extends React.Component<Props, State> {
                 <div className="quizzes">
                     {quizzes.length !== 0 ?
                         quizzes.map((quiz: IQuizzes) =>
-                            <QuizCard 
-                                key={quiz.quiz_id}
-                                availableTo={quiz.available_to} 
-                                quizName={quiz.quiz_name}
-                                groupName={quiz.group_name}
-                                quizId={quiz.quiz_id}
-                            />)
+                            <div>
+                                <QuizCard
+                                    key={quiz.quiz_id}
+                                    availableTo={quiz.available_to} 
+                                    quizName={quiz.quiz_name}
+                                    groupName={quiz.group_name}
+                                    quizId={quiz.quiz_id}
+                                    toggleAttemptQuizModal={this.toggleAttemptQuizModalState}
+                                />
+                                <AttemptQuizModal
+                                    quizName={quiz.quiz_name}
+                                    quizDesc={quiz.quiz_desc}
+                                    quizId={quiz.quiz_id}
+                                    showState={attemptQuizModalState}
+                                    toggleShowState={this.toggleAttemptQuizModalState}
+                                    availableTo={quiz.available_to}
+                                />
+                                </div>)
                     :
                         <NoInfoCard infoMessage="No Quizzes due, Yay!"/>
                     }

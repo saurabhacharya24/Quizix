@@ -363,13 +363,26 @@ body {
 	}
 
 	.footer {
-		height: 80px;
+		height: 130px;
 		width: 100%;
 		text-align: center;
 		position: absolute;
 		margin-top: 2000px;
 		color: white;
-		background-color: rgb(12, 12, 131);
+		background-color: rgb(15, 15, 90);
+
+		.creator {
+			text-align: right;
+			margin-right: 5%;
+			margin-top: 35px;
+		}
+
+		.github-link {
+			float: right;
+			margin-right: 5%;
+			color: rgb(155, 155, 155);
+			text-decoration: none;
+		}
 	}
 }
 

@@ -1,15 +1,15 @@
 import React from 'react'
-import axios from 'axios'
 import { quizTimeRemaining } from '../../helpers/dateOperations'
-import { API_URL } from '../../helpers/apiConsts'
 
-interface State {}
+interface State {
+}
 
 interface Props {
     availableTo: Date
     groupName: string
     quizName: string
     quizId: string
+    toggleAttemptQuizModal(quizName: string): void
 }
 
 class QuizCard extends React.Component<Props, State> {
@@ -17,7 +17,8 @@ class QuizCard extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
 
-        // this.goToQuiz = this.goToQuiz.bind(this)
+        this.state = { attemptQuizModalState: false }
+        this.toggleAttemptQuizModalState = this.toggleAttemptQuizModalState.bind(this)
     }
 
     // async goToQuiz() {
@@ -31,6 +32,9 @@ class QuizCard extends React.Component<Props, State> {
     //         console.log(error)
     //     }
     // }
+    toggleAttemptQuizModalState(){
+        this.props.toggleAttemptQuizModal(this.props.quizName)
+    }
 
     render() {
         let { quizName, groupName, availableTo, quizId } = this.props
@@ -44,7 +48,7 @@ class QuizCard extends React.Component<Props, State> {
         } 
 
         return (
-            <div className={quizClassName} id={quizId}>
+            <div className={quizClassName} id={quizId} onClick={this.toggleAttemptQuizModalState}>
                 <p className="quiz-name">{ trimmedQuiz }</p>
                 <p className="quiz-group">{ trimmedGroup }</p>
                 <p className="quiz-available-to">{ timeLeft }</p>

@@ -276,6 +276,89 @@
             }
         }
     }
+
+    .attempt-quiz-box {
+        @extend %box-default;
+        margin-left: 25%;
+        height: 50%;
+        min-height: 45%;
+        width: 50%;
+
+        .quiz-info {
+        
+            .quiz-name {
+                text-align: center;
+                margin-left: 25px;
+                margin-top: 20px;
+                width: 100%;
+                font-size: 20pt;
+                color: black;
+            }
+
+            .quiz-desc {
+                text-align: center;
+                width: 100%;
+                // margin-left: 10%;
+                font-size: 14pt;
+                color: black;
+            }
+
+            .num-of-questions {
+                text-align: center;
+                width: 100%;
+                // margin-left: 10%;
+                font-size: 14pt;
+                color: black;
+
+                p {
+                    display: inline;
+                    font-weight: bold;
+                }
+            }
+            
+            .available-to {
+                text-align: center;
+                width: 100%;
+                // margin-left: 10%;
+                font-size: 14pt;
+                color: black;
+
+                p {
+                    display: inline;
+                    font-weight: bold;
+                }
+            }
+
+            .start-quiz {
+                cursor: pointer;
+                margin-top: 20px;
+                font-size: 14pt;
+                width: 120px;
+                height: 40px;
+                background-color: #1DB500;
+                color: white;
+                border: 1px solid #1DB500;
+                transition: background-color 0.1s, color 0.1s;
+
+                &:hover {
+                    color: #1DB500;
+                    background-color: white;
+                }
+            }
+        }
+
+        .close-modal {
+            cursor: pointer;
+            float: right;
+            width: 30px;
+            font-size: 18pt;
+            color: grey;
+
+            &:hover {
+                color: black;
+            }
+        }
+    }
 }
 
 @keyframes zoomform {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import LoginAndRegister from './login'
 import Dashboard from './mainDashboard/dashboard'
 import getUserId from '../helpers/cookies'
@@ -124,7 +124,8 @@ class Homepage extends React.Component<Props, State> {
                         <p className="sign-up-text" onClick={this.scrollTop}> Sign Up Today! </p>
                     </div>
                     <div className="footer">
-                        <p> Footer </p>
+                        <p className="creator"> Made by Saurabh Acharya </p>
+                        <a href="https://github.com/saurabhacharya24" className="github-link"> GitHub: saurabhacharya24 </a>
                     </div>
                 </div>
             </div>

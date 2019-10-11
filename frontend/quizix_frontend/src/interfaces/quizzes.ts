@@ -3,6 +3,8 @@ export interface IQuizzes {
     group_name: string
     quiz_id: string
     quiz_name: string
+    quiz_desc: string
+    num_of_questions: number
 }
 
 export interface ICompleted {
