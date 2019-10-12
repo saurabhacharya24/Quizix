@@ -16,7 +16,9 @@ interface State {
     completedQuizzesLoaded: boolean
     attemptQuizModalState: string
 }
+
 interface Props {
+    goToAttemptQuiz(quizId: string): void
     goToReviewQuiz(quizId: string, marks: string): void
 }
 
@@ -34,6 +36,7 @@ class Quizzes extends React.Component<Props, State> {
         }
 
         this.goToReviewQuiz = this.goToReviewQuiz.bind(this)
+        this.goToAttemptQuiz = this.goToAttemptQuiz.bind(this)
         this.toggleAttemptQuizModalState = this.toggleAttemptQuizModalState.bind(this)
     }
 
@@ -63,6 +66,10 @@ class Quizzes extends React.Component<Props, State> {
 
     goToReviewQuiz(quizId: string, marks: string) {
         this.props.goToReviewQuiz(quizId, marks)
+    }
+
+    goToAttemptQuiz(quizId: string) { 
+        this.props.goToAttemptQuiz(quizId)
     }
 
     toggleAttemptQuizModalState(quizName: string) {
@@ -95,6 +102,7 @@ class Quizzes extends React.Component<Props, State> {
                                     showState={attemptQuizModalState}
                                     toggleShowState={this.toggleAttemptQuizModalState}
                                     availableTo={quiz.available_to}
+                                    goToAttemptQuiz={this.goToAttemptQuiz}
                                 />
                                 </div>)
                     :

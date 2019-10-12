@@ -7,6 +7,7 @@ import getUserId from '../../helpers/cookies'
 import { API_URL, headerConfig } from '../../helpers/apiConsts'
 import CreateQuiz from '../quizPages/createQuiz'
 import ReviewQuiz from '../quizPages/reviewQuiz'
+import AttemptQuiz from '../quizPages/attemptQuiz'
 
 
 interface State {
@@ -17,6 +18,7 @@ interface State {
     createQuizGroupId: string
     reviewQuizId: string
     reviewQuizMarks: string
+    attemptQuizId: string
 }
 
 interface Props {}
@@ -33,14 +35,17 @@ class Dashboard extends React.Component<Props, State> {
             messagesMenuClass: "messages-menu",
             createQuizGroupId: "0",
             reviewQuizId: "0",
-            reviewQuizMarks: "0"
+            reviewQuizMarks: "0",
+            attemptQuizId: "0"
         };
 
         this.changeView = this.changeView.bind(this)
         this.goToReview = this.goToReview.bind(this)
         this.goToCreateQuiz = this.goToCreateQuiz.bind(this)
+        this.goToAttemptQuiz = this.goToAttemptQuiz.bind(this)
         this.goToDashboardGroups = this.goToDashboardGroups.bind(this)
         this.goToDashboardQuizzes = this.goToDashboardQuizzes.bind(this)
+        this.goToDashboardConfirmFirst = this.goToDashboardConfirmFirst.bind(this)
         this.logout = this.logout.bind(this)
     }
 
@@ -87,6 +92,13 @@ class Dashboard extends React.Component<Props, State> {
         })
     }
 
+    goToAttemptQuiz(quizId: string) {
+        this.setState({
+            whichView: "attemptQuiz",
+            attemptQuizId: quizId
+        })
+    }
+
     goToReview(quizId: string, marks: string) {
         this.setState({
             whichView: "reviewQuiz",
@@ -101,6 +113,12 @@ class Dashboard extends React.Component<Props, State> {
 
     goToDashboardQuizzes() {
         this.setState({ whichView: "quizzes" })
+    }
+
+    goToDashboardConfirmFirst() {
+        if (window.confirm("Do you want to exit this quiz? Your answers for this attempt will not be saved.")) {
+            this.setState({ whichView: "quizzes" })
+        }
     }
 
     async logout() {
@@ -144,7 +162,9 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     render() {
-        let { whichView, createQuizGroupId, reviewQuizId, reviewQuizMarks } = this.state
+        let { whichView, createQuizGroupId, reviewQuizId, reviewQuizMarks, attemptQuizId } = this.state
+
+        let quizName = attemptQuizId.split(":")[0]
 
         if (whichView === "quizzes") {
             return (
@@ -152,7 +172,10 @@ class Dashboard extends React.Component<Props, State> {
                     <div className="logo-beside-title" />
                     <p className="dashboard-title"> My Dashboard </p>
                     {this.renderMenu()}
-                    <Quizzes goToReviewQuiz={this.goToReview}/>
+                    <Quizzes 
+                        goToReviewQuiz={this.goToReview}
+                        goToAttemptQuiz={this.goToAttemptQuiz}
+                    />
                     {this.renderLogout()}
                 </div>
             )
@@ -198,6 +221,17 @@ class Dashboard extends React.Component<Props, State> {
                     <p className="review-quiz-title"> Quiz Review </p>
                     <ReviewQuiz quizId={reviewQuizId} reviewQuizMarks={reviewQuizMarks}/>
                     <button className="back-to-dash-button" onClick={this.goToDashboardQuizzes}> Back</button>
+                </div>
+            )
+        }
+
+        else if (whichView === "attemptQuiz") {
+            return (
+                <div className="attempt-quiz-page">
+                    <div className="logo-beside-title" />
+                    <p className="review-quiz-title"> {quizName} </p>
+                    <AttemptQuiz quizId={attemptQuizId} />
+                    <button className="back-to-dash-button" onClick={this.goToDashboardConfirmFirst}> Back </button>
                 </div>
             )
         }

@@ -13,6 +13,7 @@ interface Props {
     availableTo: Date
     showState: string
     toggleShowState(quizName: string): void
+    goToAttemptQuiz(quizId: string): void
 }
 
 class AttemptQuizModal extends React.Component<Props, State> {
@@ -23,6 +24,7 @@ class AttemptQuizModal extends React.Component<Props, State> {
         this.state = { numOfQuestions: 0 }
         this.toggleShowStateLocal = this.toggleShowStateLocal.bind(this)
         this.closeAttemptQuizModal = this.closeAttemptQuizModal.bind(this)
+        this.goToAttemptQuiz = this.goToAttemptQuiz.bind(this)
     }
 
     async componentDidMount() {
@@ -45,6 +47,12 @@ class AttemptQuizModal extends React.Component<Props, State> {
         this.props.toggleShowState("")
     }
 
+    goToAttemptQuiz() {
+        let { quizId } = this.props
+        this.closeAttemptQuizModal()
+        this.props.goToAttemptQuiz(quizId)
+    }
+
     render() {
         let { quizName, quizDesc, quizId, availableTo, showState } = this.props 
         let { numOfQuestions } = this.state
@@ -61,7 +69,7 @@ class AttemptQuizModal extends React.Component<Props, State> {
                             <p className="quiz-desc"> {quizDesc} </p>
                             <p className="num-of-questions"> Number of questions: <p> {numOfQuestions} </p></p>
                             <p className="available-to"> Available Till: <p> {trimmedAvailable} </p></p>
-                            <button className="start-quiz" id={quizId}> Start! </button>
+                            <button className="start-quiz" id={quizId} onClick={this.goToAttemptQuiz}> Start! </button>
                         </div>
                     </div>
                 </div>
