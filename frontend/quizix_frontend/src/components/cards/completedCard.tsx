@@ -39,8 +39,6 @@ class CompletedCard extends React.Component<Props, State> {
                 <p className="completed-name">{ trimmedQuiz }</p>
                 <p className="completed-group">{ trimmedGroupName }</p>
                 <p className="completed-marks"> Marks: { marks } </p>
-                {/* Would MARKS also be shown after review date?*/}
-                {/* CHECK REVIEWDATE TO SEE IF IT'S AFTER CURRENT DATE/TIME */}
                 {currTime >= reviewTime ?
                     <button className="review-quiz" id={quizId} onClick={this.reviewQuiz}> Review </button>
                     :

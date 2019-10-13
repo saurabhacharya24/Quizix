@@ -36,7 +36,9 @@ body {
 
     .question-card {
         padding-bottom: 15px;
+        padding-left: 10px;
         border-bottom: 1px solid rgb(150, 166, 255);
+        border-left: 1px solid rgb(150, 166, 255);
         // margin-bottom: 7%;
 
         .question {
@@ -68,8 +70,23 @@ body {
             }
         }
     }
+}
 
-    .divider {
-        color: #296ceb;
+.submit-quiz {
+    cursor: pointer;
+    margin-bottom: 25px;
+    margin-top: 50px;
+    font-size: 12pt;
+    float: right;
+    width: 130px;
+    height: 40px;
+    color: #1DB500;
+    background-color: white;
+    border: 1px solid #1DB500;
+    transition: background-color 0.2s, color 0.2s;
+
+    &:hover {
+        color: white;
+        background-color: #1DB500;
     }
 }

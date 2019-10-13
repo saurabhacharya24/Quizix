@@ -23,15 +23,23 @@ class AttemptQuiz extends React.Component<Props, State> {
         }
 
         this.changeSelectedAnswers = this.changeSelectedAnswers.bind(this)
+        this.submitQuiz = this.submitQuiz.bind(this)
     }
 
     async componentDidMount() {
         let { quizId } = this.props
+        let { selectedAnswers } = this.state
 
         try {
             let response = await axios.get(API_URL+"/questions?quiz_id="+quizId)
-            let data = await response.data
-            this.setState({ questions: data })
+            let qs = await response.data
+            this.setState({ questions: qs })
+
+            qs.forEach((q: any) => {
+                selectedAnswers.push("a0")
+            })
+
+            this.setState({ selectedAnswers: selectedAnswers })
         } catch (error) {
             alert("Couldn't load quiz questions, please go to dashboard and try again or contact admin.")
         }
@@ -41,6 +49,59 @@ class AttemptQuiz extends React.Component<Props, State> {
         let { selectedAnswers } = this.state
         selectedAnswers[qId] = aId
         this.setState({ selectedAnswers: selectedAnswers })
+    }
+
+    submitQuiz() {
+        let { quizId } = this.props
+        let { selectedAnswers } = this.state
+        let allAnswered: boolean = true
+        let ansCount = 1
+        let errorString = ""
+
+        let userAnswersArray: any = []
+
+        selectedAnswers.forEach((a: any) => {
+            if (a === "a0") {
+                errorString += `Question ${ansCount}, `
+                allAnswered = false
+            }
+            ansCount++
+        })
+
+        if (!allAnswered) {
+            if (window.confirm(`You haven't answered ${errorString}are you sure you want to submit anyway?`)) {
+
+                selectedAnswers.forEach((a: any) => {
+                    userAnswersArray.push(
+                        { "answer": a } 
+                    )
+                })
+        
+                let body = {
+                    "quiz_id": quizId,
+                    "review_date": null,
+                    user_answers: userAnswersArray
+                }
+        
+                console.log(body)
+            }
+        }
+
+        else {
+            selectedAnswers.forEach((a: any) => {
+                userAnswersArray.push(
+                    { "answer": a } 
+                )
+            })
+
+            let body = {
+                "quiz_id": quizId,
+                "review_date": null,
+                user_answers: userAnswersArray
+            }
+
+            console.log(body)
+        }
     }
 
     render() {
@@ -60,6 +121,7 @@ class AttemptQuiz extends React.Component<Props, State> {
                         />
                     )
                 })}
+                <button className="submit-quiz" onClick={this.submitQuiz}> Submit </button>
             </div>
         )
     }
