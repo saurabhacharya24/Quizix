@@ -56,13 +56,13 @@ class ReviewQuiz extends React.Component<Props, State> {
                 <hr className="divider" />
                 {questions.map((q: any) => {
                     return (
-                        <div> 
+                        // <div> 
                             <ReviewQuestionCard 
                                 question={q}
                                 userAnswer={q.user_answer}
                                 correctAnswer={q.correct_answer}
                             />
-                        </div>
+                        /* </div> */
                     )
                 })}
             </div>

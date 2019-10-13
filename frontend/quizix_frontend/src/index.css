@@ -1503,7 +1503,7 @@ html, body {
   font-size: 14pt;
 }
 
-.review-quiz-main .question-card .answers-list .answer-incorrect, .review-quiz-main .question-card .answers-list .answer-correct, .review-quiz-main .question-card .answers-list .answer {
+.attempt-quiz-main .question-card .answers-list .answer-selected, .attempt-quiz-main .question-card .answers-list .answer, .review-quiz-main .question-card .answers-list .answer-incorrect, .review-quiz-main .question-card .answers-list .answer-correct, .review-quiz-main .question-card .answers-list .answer {
   font-size: 14pt;
   padding-left: 10px;
   padding-top: 10px;
@@ -1621,6 +1621,69 @@ body {
   to {
     opacity: 1;
   }
+}
+.create-quiz-main .quiz-name-box .quiz-name-input, .create-quiz-main .quiz-desc-box .quiz-desc-input, .create-quiz-main .start-date-box .react-datepicker-wrapper .start-date-input, .create-quiz-main .end-date-box .react-datepicker-wrapper .end-date-input, .create-quiz-main .review-date-box .react-datepicker-wrapper .review-date-input {
+  width: 35%;
+  max-width: 50%;
+  margin-left: 10px;
+  margin-top: 1.5%;
+  height: 25px;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: 2px solid #4e4ed3;
+  padding-left: 1%;
+  font-size: 14pt;
+}
+
+.attempt-quiz-main .question-card .answers-list .answer-selected, .attempt-quiz-main .question-card .answers-list .answer, .review-quiz-main .question-card .answers-list .answer, .review-quiz-main .question-card .answers-list .answer-correct, .review-quiz-main .question-card .answers-list .answer-incorrect {
+  font-size: 14pt;
+  padding-left: 10px;
+  padding-top: 10px;
+  margin-top: 5px;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+}
+
+.attempt-quiz-main > :last-child {
+  margin-bottom: 10%;
+}
+
+body {
+  counter-reset: question-counter;
+}
+
+.attempt-quiz-main {
+  margin-top: 3%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.attempt-quiz-main .question-card {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #96a6ff;
+}
+.attempt-quiz-main .question-card .question {
+  font-size: 18pt;
+}
+.attempt-quiz-main .question-card .question::before {
+  counter-increment: question-counter;
+  content: "Q" counter(question-counter) ": ";
+}
+.attempt-quiz-main .question-card .answers-list .answer {
+  cursor: pointer;
+  border: 1px solid #f1f1f1;
+  transition: background-color 0.1s;
+}
+.attempt-quiz-main .question-card .answers-list .answer:hover {
+  background-color: #a9c4f5;
+}
+.attempt-quiz-main .question-card .answers-list .answer-selected {
+  border: 1px solid #f1f1f1;
+  background-color: #1da81d;
+  color: white;
+}
+.attempt-quiz-main .divider {
+  color: #296ceb;
 }
 
 /*# sourceMappingURL=index.css.map */

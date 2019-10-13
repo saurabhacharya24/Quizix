@@ -1,9 +1,11 @@
 import React from 'react'
 import axios from 'axios'
 import { API_URL } from '../../helpers/apiConsts'
+import AttemptQuestionCard from '../cards/attemptQuestionCard'
 
 interface State {
     questions: Array<any>
+    selectedAnswers: Array<any>
 }
 
 interface Props {
@@ -15,7 +17,12 @@ class AttemptQuiz extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
 
-        this.state = { questions: [] }
+        this.state = {
+            questions: [],
+            selectedAnswers: []
+        }
+
+        this.changeSelectedAnswers = this.changeSelectedAnswers.bind(this)
     }
 
     async componentDidMount() {
@@ -30,9 +37,30 @@ class AttemptQuiz extends React.Component<Props, State> {
         }
     }
 
+    changeSelectedAnswers(qId: number, aId: string) {
+        let { selectedAnswers } = this.state
+        selectedAnswers[qId] = aId
+        this.setState({ selectedAnswers: selectedAnswers })
+    }
+
     render() {
+        let { questions, selectedAnswers } = this.state
+        let qCount = 0
+
         return (
-            <p> QuizId - {this.props.quizId} </p>
+            <div className="attempt-quiz-main">
+                {questions.map((q: any) => {
+                    let selAns = selectedAnswers[qCount]
+                    return (
+                        <AttemptQuestionCard
+                            question={q}
+                            qCount={qCount++}
+                            selAns={selAns}
+                            changeSelectedAnswers={this.changeSelectedAnswers}
+                        />
+                    )
+                })}
+            </div>
         )
     }
 }
