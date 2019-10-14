@@ -9,6 +9,7 @@ interface Props {
     groupDesc: string, 
     groupId: number,
     timestamp: Date
+    refresh(): void
 }
 
 class InviteCard extends React.Component<Props, State> {
@@ -30,10 +31,11 @@ class InviteCard extends React.Component<Props, State> {
 
         try {
             await axios.post(API_URL+"/accept_invite?user_id="+userId, body, headerConfig)
-            window.location.reload()
         } catch (error) {
             alert("Couldn't accept invite, please try again later.")
         }
+
+        this.props.refresh()
     }
 
     async declineInvite() {
@@ -42,10 +44,11 @@ class InviteCard extends React.Component<Props, State> {
 
         try {
             await axios.delete(API_URL+"/delete_invite?group_id="+groupId+"&user_id="+userId, headerConfig)
-            window.location.reload()
         } catch (error) {
             alert("Couldn't delete invite, please try again later.")
         }
+
+        this.props.refresh()
     }
 
     render() {

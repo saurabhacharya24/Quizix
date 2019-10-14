@@ -9,6 +9,7 @@ interface Props {
     timestamp: Date
     userDName: string
     userEmail: string
+    refresh(): void
 }
 
 class RequestCard extends React.Component<Props, State> {
@@ -29,10 +30,11 @@ class RequestCard extends React.Component<Props, State> {
 
         try {
             axios.post(API_URL+"/accept_request", body, headerConfig)
-            window.location.reload()
         } catch (error) {
             alert("Couldn't accept request, please try again later.")
         }
+
+        this.props.refresh()
     }
 
     async declineInvite() {
@@ -41,10 +43,11 @@ class RequestCard extends React.Component<Props, State> {
         try {
             axios.delete(API_URL+"/delete_request?email="
                                 +userEmail+"&group_id="+groupId, headerConfig)
-            window.location.reload()
         } catch (error) {
             alert("Couldn't delete request, please try again later.")
         }
+
+        this.props.refresh()
     }
 
     render() {

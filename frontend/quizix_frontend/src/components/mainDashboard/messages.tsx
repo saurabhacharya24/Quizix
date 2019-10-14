@@ -27,9 +27,15 @@ class Messages extends React.Component<Props, State> {
             requests: [],
             requestsLoaded: false
         }
+
+        this.getInvitesAndRequests = this.getInvitesAndRequests.bind(this)
     }
 
     async componentDidMount() {
+        this.getInvitesAndRequests()
+    }
+
+    async getInvitesAndRequests() {
         let userId = getUserId()
 
         try {
@@ -67,6 +73,7 @@ class Messages extends React.Component<Props, State> {
                                 groupDesc={invite.group_desc}
                                 groupId={invite.group_id}
                                 timestamp={invite.timestamp}
+                                refresh={this.getInvitesAndRequests}
                             />)
                     : 
                         <NoInfoCard infoMessage="No Invites Found" />
@@ -82,6 +89,7 @@ class Messages extends React.Component<Props, State> {
                             timestamp={request.timestamp}
                             userDName={request.user_dname}
                             userEmail={request.user_email}
+                            refresh={this.getInvitesAndRequests}
                         />)
                     :
                     <NoInfoCard infoMessage="No Requests Found" />
