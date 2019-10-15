@@ -1510,6 +1510,7 @@ html, body {
   margin-top: 5px;
   padding-bottom: 10px;
   margin-bottom: 0px;
+  margin-left: 10px;
 }
 
 .review-quiz-main > :last-child {
@@ -1559,19 +1560,40 @@ body {
 .review-quiz-main .question-card {
   padding-bottom: 15px;
   border-bottom: 1px solid #96a6ff;
+  border-bottom: 1px solid #96a6ff;
+  border-left: 1px solid #96a6ff;
+  margin-bottom: 8%;
 }
 .review-quiz-main .question-card .question {
   font-size: 18pt;
+  margin-left: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #96a6ff;
 }
 .review-quiz-main .question-card .question::before {
   counter-increment: question-counter;
   content: "Q" counter(question-counter) ": ";
 }
+.review-quiz-main .question-card .answers-list {
+  counter-reset: answer-counter;
+}
+.review-quiz-main .question-card .answers-list .answer::before {
+  counter-increment: answer-counter;
+  content: counter(answer-counter) ") ";
+}
 .review-quiz-main .question-card .answers-list .answer-correct {
   background-color: #8ef07a;
 }
+.review-quiz-main .question-card .answers-list .answer-correct::before {
+  counter-increment: answer-counter;
+  content: counter(answer-counter) ") ";
+}
 .review-quiz-main .question-card .answers-list .answer-incorrect {
   background-color: #f78888;
+}
+.review-quiz-main .question-card .answers-list .answer-incorrect::before {
+  counter-increment: answer-counter;
+  content: counter(answer-counter) ") ";
 }
 .review-quiz-main .divider {
   color: #296ceb;
@@ -1663,13 +1685,19 @@ body {
   padding-left: 10px;
   border-bottom: 1px solid #96a6ff;
   border-left: 1px solid #96a6ff;
+  margin-bottom: 8%;
 }
 .attempt-quiz-main .question-card .question {
   font-size: 18pt;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #96a6ff;
 }
 .attempt-quiz-main .question-card .question::before {
   counter-increment: question-counter;
   content: "Q" counter(question-counter) ": ";
+}
+.attempt-quiz-main .question-card .answers-list {
+  counter-reset: answer-counter;
 }
 .attempt-quiz-main .question-card .answers-list .answer {
   cursor: pointer;
@@ -1679,10 +1707,18 @@ body {
 .attempt-quiz-main .question-card .answers-list .answer:hover {
   background-color: #a9c4f5;
 }
+.attempt-quiz-main .question-card .answers-list .answer::before {
+  counter-increment: answer-counter;
+  content: counter(answer-counter) ") ";
+}
 .attempt-quiz-main .question-card .answers-list .answer-selected {
   border: 1px solid #f1f1f1;
   background-color: #1da81d;
   color: white;
+}
+.attempt-quiz-main .question-card .answers-list .answer-selected::before {
+  counter-increment: answer-counter;
+  content: counter(answer-counter) ") ";
 }
 
 .submit-quiz {

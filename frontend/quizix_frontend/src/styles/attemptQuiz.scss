@@ -39,10 +39,12 @@ body {
         padding-left: 10px;
         border-bottom: 1px solid rgb(150, 166, 255);
         border-left: 1px solid rgb(150, 166, 255);
-        // margin-bottom: 7%;
+        margin-bottom: 8%;
 
         .question {
             font-size: 18pt;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgb(150, 166, 255);
 
             &::before {
                 counter-increment: question-counter;
@@ -51,6 +53,8 @@ body {
         }
 
         .answers-list {
+            counter-reset: answer-counter;
+
             .answer {
                 cursor: pointer;
                 @extend %default-answer;
@@ -60,6 +64,11 @@ body {
                 &:hover {
                     background-color: #a9c4f5;
                 }
+
+                &::before {
+                    counter-increment: answer-counter;
+                    content: counter(answer-counter) ") "
+                }
             }
 
             .answer-selected {
@@ -67,6 +76,11 @@ body {
                 border: 1px solid #f1f1f1;
                 background-color: rgb(29, 168, 29);
                 color: white;
+
+                &::before {
+                    counter-increment: answer-counter;
+                    content: counter(answer-counter) ") "
+                }
             }
         }
     }
