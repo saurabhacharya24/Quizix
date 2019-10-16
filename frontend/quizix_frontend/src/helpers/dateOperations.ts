@@ -23,6 +23,31 @@ export function quizTimeRemaining(availableTo: Date): string {
     return "N/A"
 }
 
+export function reviewTimeRemaining(reviewDate: Date): string {
+
+    let reviewTime = new Date(reviewDate).getTime()
+    let currTime = new Date().getTime()
+
+    let minsLeft = Math.floor(Math.abs((reviewTime - currTime) / 60000) - 600)
+    let hours = Math.floor(Math.abs(reviewTime - currTime) / 36e5 - 10)
+
+    if (hours >= 24) {
+        let days = Math.floor(hours / 24)
+        let daysText = days === 1 ? " day " : " days"
+        return days.toString() + daysText
+    }
+    else if (hours < 24 && hours >= 1) {
+        let hourText = hours === 1 ? " hour " : " hours"
+        return hours.toString() + hourText
+    }
+    else if (hours < 1) {
+        let minsText = minsLeft === 1 ? " min " : " mins"
+        return minsLeft.toString() + minsText
+    }
+
+    return "N/A"
+}
+
 export function formatDateTime(dateTime: Date): string {
     let day = dateTime.getDate().toString()
     let month = (dateTime.getMonth()+1).toString()

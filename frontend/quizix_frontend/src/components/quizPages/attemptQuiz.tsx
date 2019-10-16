@@ -1,7 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import { API_URL } from '../../helpers/apiConsts'
+import { API_URL, headerConfig } from '../../helpers/apiConsts'
 import AttemptQuestionCard from '../cards/attemptQuestionCard'
+import getUserId from '../../helpers/cookies'
 
 interface State {
     questions: Array<any>
@@ -51,7 +52,8 @@ class AttemptQuiz extends React.Component<Props, State> {
         this.setState({ selectedAnswers: selectedAnswers })
     }
 
-    submitQuiz() {
+    async submitQuiz() {
+        let userId = getUserId()
         let { quizId } = this.props
         let { selectedAnswers } = this.state
         let allAnswered: boolean = true
@@ -83,7 +85,12 @@ class AttemptQuiz extends React.Component<Props, State> {
                     user_answers: userAnswersArray
                 }
         
-                console.log(body)
+                try {
+                    await axios.post(API_URL+"/submit_quiz?user_id="+userId, body, headerConfig)
+                    window.location.reload()
+                } catch (error) {
+                    alert(error.response.data)
+                }
             }
         }
 
@@ -100,7 +107,12 @@ class AttemptQuiz extends React.Component<Props, State> {
                 user_answers: userAnswersArray
             }
 
-            console.log(body)
+            try {
+                await axios.post(API_URL+"/submit_quiz?user_id="+userId, body, headerConfig)
+                window.location.reload()
+            } catch (error) {
+                alert(error.response.data)
+            }
         }
     }
 

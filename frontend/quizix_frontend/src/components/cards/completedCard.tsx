@@ -1,4 +1,5 @@
 import React from 'react'
+import { reviewTimeRemaining } from '../../helpers/dateOperations'
 
 interface State {}
 
@@ -32,6 +33,7 @@ class CompletedCard extends React.Component<Props, State> {
 
         let currTime = new Date().getTime() + (10 * 60 * 60 * 1000)
         let reviewTime = new Date(reviewDate).getTime()
+        let reviewTimeLeft = reviewTimeRemaining(reviewDate)
         
         
         return (
@@ -42,7 +44,7 @@ class CompletedCard extends React.Component<Props, State> {
                 {currTime >= reviewTime ?
                     <button className="review-quiz" id={quizId} onClick={this.reviewQuiz}> Review </button>
                     :
-                    null
+                    <p className="review-quiz-time-left"> (You can review this quiz after {reviewTimeLeft}) </p>
                 }
             </div>
         )
