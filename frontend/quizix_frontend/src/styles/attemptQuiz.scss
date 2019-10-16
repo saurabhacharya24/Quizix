@@ -104,3 +104,22 @@ body {
         background-color: #1DB500;
     }
 }
+
+.back-to-dash-button {
+    cursor: pointer;
+    position: fixed;
+    font-size: 14pt;
+    color: rgb(41, 108, 235);
+    left: 25px;
+    bottom: 3.5%;
+    width: 5%;
+    height: 40px;
+    // border-radius: 4px;
+    border: 1px solid rgb(41, 108, 235);
+    transition: background-color 0.1s, color 0.1s;
+
+    &:hover {
+        background-color: rgb(41, 108, 235);
+        color: white;
+    }
+}

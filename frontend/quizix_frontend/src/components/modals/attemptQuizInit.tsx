@@ -69,6 +69,7 @@ class AttemptQuizModal extends React.Component<Props, State> {
                             <p className="quiz-desc"> {quizDesc} </p>
                             <p className="num-of-questions"> Number of questions: <p> {numOfQuestions} </p></p>
                             <p className="available-to"> Available Till: <p> {trimmedAvailable} </p></p>
+                            <p className="attempts-allowed"> Number of attempts allowed: <p> 1</p></p>
                             <button className="start-quiz" id={quizId} onClick={this.goToAttemptQuiz}> Start! </button>
                         </div>
                     </div>

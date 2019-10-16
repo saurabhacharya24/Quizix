@@ -583,14 +583,12 @@ html, body {
   height: 30px;
   background-color: white;
   border: 1px solid #4cdd2f;
-  border-radius: 2px;
   position: relative;
   font-size: 12pt;
   transition: background-color 0.15s, color 0.15s;
 }
 .completed-quizzes .completed-card-info .review-quiz:hover {
   background-color: #4cdd2f;
-  border-radius: 2px;
   border: 1px solid white;
   color: white;
 }
@@ -629,7 +627,6 @@ html, body {
   max-height: 40px;
   margin-right: 2%;
   background-color: white;
-  border-radius: 3px;
   font-size: 14pt;
   transition: background-color 0.1s, color 0.1s;
 }
@@ -729,7 +726,6 @@ html, body {
   color: white;
   background-color: #1DB500;
   border: 1px solid #1DB500;
-  border-radius: 3px;
   font-size: 14pt;
   transition: background-color 0.1s, color 0.1s;
 }
@@ -743,7 +739,6 @@ html, body {
 .search-groups-init-button {
   margin-top: 3%;
   cursor: pointer;
-  border-radius: 3px;
   background-color: white;
   color: #296ceb;
   border: 2px solid #296ceb;
@@ -831,13 +826,11 @@ html, body {
   color: orange;
   background-color: white;
   border: 1px solid orange;
-  border-radius: 3px;
   font-size: 14pt;
   transition: background-color 0.1s, color 0.1s;
 }
 .modal .invite-user-box .invite-submit-button:hover {
   cursor: pointer;
-  border: 1px solid white;
   background-color: orange;
   color: white;
 }
@@ -906,13 +899,11 @@ html, body {
   color: orange;
   background-color: white;
   border: 1px solid orange;
-  border-radius: 3px;
   font-size: 14pt;
   transition: background-color 0.1s, color 0.1s;
 }
 .modal .create-group-box .create-group-submit-button:hover {
   cursor: pointer;
-  border: 1px solid white;
   background-color: orange;
   color: white;
 }
@@ -994,7 +985,6 @@ html, body {
   margin-right: 3%;
   float: right;
   background-color: white;
-  border-radius: 3px;
   font-size: 14pt;
   transition: background-color 0.1s, color 0.1s;
   color: #1DB500;
@@ -1015,8 +1005,8 @@ html, body {
 }
 .modal .attempt-quiz-box {
   margin-left: 25%;
-  height: 50%;
-  min-height: 45%;
+  height: 60%;
+  min-height: 50%;
   width: 50%;
 }
 .modal .attempt-quiz-box .quiz-info .quiz-name {
@@ -1050,6 +1040,16 @@ html, body {
   color: black;
 }
 .modal .attempt-quiz-box .quiz-info .available-to p {
+  display: inline;
+  font-weight: bold;
+}
+.modal .attempt-quiz-box .quiz-info .attempts-allowed {
+  text-align: center;
+  width: 100%;
+  font-size: 14pt;
+  color: black;
+}
+.modal .attempt-quiz-box .quiz-info .attempts-allowed p {
   display: inline;
   font-weight: bold;
 }
@@ -1091,7 +1091,6 @@ html, body {
   height: 40px;
   margin-right: 2%;
   background-color: white;
-  border-radius: 3px;
   font-size: 14pt;
   cursor: pointer;
   float: right;
@@ -1106,7 +1105,6 @@ html, body {
   height: 40px;
   margin-right: 2%;
   background-color: white;
-  border-radius: 3px;
   font-size: 14pt;
   cursor: pointer;
   float: right;
@@ -1167,10 +1165,12 @@ html, body {
   max-width: 50%;
 }
 .invites .invite-card-info .accept-invite-button:hover {
+  border: 1px solid white;
   background-color: #1DB500;
   color: white;
 }
 .invites .invite-card-info .decline-invite-button:hover {
+  border: 1px solid white;
   background-color: red;
   color: white;
 }
@@ -1222,10 +1222,12 @@ html, body {
   max-width: 50%;
 }
 .requests .request-card-info .accept-request-button:hover {
+  border: 1px solid white;
   background-color: #1DB500;
   color: white;
 }
 .requests .request-card-info .decline-request-button:hover {
+  border: 1px solid white;
   background-color: red;
   color: white;
 }
@@ -1453,7 +1455,6 @@ html, body {
   bottom: 3.5%;
   width: 5%;
   height: 40px;
-  border-radius: 4px;
   border: 1px solid #296ceb;
   transition: background-color 0.1s, color 0.1s;
 }
@@ -1608,7 +1609,6 @@ body {
   bottom: 3.5%;
   width: 5%;
   height: 40px;
-  border-radius: 4px;
   border: 1px solid #296ceb;
   transition: background-color 0.1s, color 0.1s;
 }
@@ -1737,6 +1737,23 @@ body {
 .submit-quiz:hover {
   color: white;
   background-color: #1DB500;
+}
+
+.back-to-dash-button {
+  cursor: pointer;
+  position: fixed;
+  font-size: 14pt;
+  color: #296ceb;
+  left: 25px;
+  bottom: 3.5%;
+  width: 5%;
+  height: 40px;
+  border: 1px solid #296ceb;
+  transition: background-color 0.1s, color 0.1s;
+}
+.back-to-dash-button:hover {
+  background-color: #296ceb;
+  color: white;
 }
 
 /*# sourceMappingURL=index.css.map */

@@ -68,13 +68,13 @@
             color: orange;
             background-color: white;
             border: 1px solid orange;
-            border-radius: 3px;
+            // border-radius: 3px;
             font-size: 14pt;
             transition: background-color 0.1s, color 0.1s;
 
             &:hover {
                 cursor: pointer;
-                border: 1px solid white;
+                // border: 1px solid white;
                 background-color: orange;
                 color: white;
             }
@@ -153,13 +153,13 @@
             color: orange;
             background-color: white;
             border: 1px solid orange;
-            border-radius: 3px;
+            // border-radius: 3px;
             font-size: 14pt;
             transition: background-color 0.1s, color 0.1s;
 
             &:hover {
                 cursor: pointer;
-                border: 1px solid white;
+                // border: 1px solid white;
                 background-color: orange;
                 color: white;
             }
@@ -253,7 +253,7 @@
                 margin-right: 3%;
                 float: right;
                 background-color: white;
-                border-radius: 3px;
+                // border-radius: 3px;
                 font-size: 14pt;
                 transition: background-color 0.1s, color 0.1s;
                 color: #1DB500;
@@ -280,8 +280,8 @@
     .attempt-quiz-box {
         @extend %box-default;
         margin-left: 25%;
-        height: 50%;
-        min-height: 45%;
+        height: 60%;
+        min-height: 50%;
         width: 50%;
 
         .quiz-info {
@@ -317,6 +317,19 @@
             }
             
             .available-to {
+                text-align: center;
+                width: 100%;
+                // margin-left: 10%;
+                font-size: 14pt;
+                color: black;
+
+                p {
+                    display: inline;
+                    font-weight: bold;
+                }
+            }
+
+            .attempts-allowed {
                 text-align: center;
                 width: 100%;
                 // margin-left: 10%;
