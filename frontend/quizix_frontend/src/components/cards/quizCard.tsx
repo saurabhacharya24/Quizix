@@ -40,11 +40,12 @@ class QuizCard extends React.Component<Props, State> {
         let { quizName, groupName, availableTo, quizId } = this.props
         let trimmedQuiz = quizName.length > 25 ? quizName.slice(0,25) + "..." : quizName
         let trimmedGroup = groupName.length > 25 ? groupName.slice(0,15) + "..." : groupName
-        let timeLeft = quizTimeRemaining(availableTo)
+        let timeLeft = quizTimeRemaining(availableTo) + " left"
 
         let quizClassName = "quiz-card-info"
         if (timeLeft.includes("mins")) {
             quizClassName = "quiz-card-info--urgent"
+            timeLeft += "!"
         } 
 
         return (

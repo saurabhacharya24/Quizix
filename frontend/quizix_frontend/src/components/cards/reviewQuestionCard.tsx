@@ -23,6 +23,11 @@ class ReviewQuestionCard extends React.Component<Props, State> {
 
         return (
             <div className="question-card">
+                {userAnswer === "a0" ?
+                    <p className="if-not-attempted"> This question was not attempted! </p>
+                    :
+                    null
+                }
                 <p className="question"> {question.ques} </p>
                 <div className="answers-list">
                     {answers.map((ans: any) => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { reviewTimeRemaining } from '../../helpers/dateOperations'
+import { quizTimeRemaining } from '../../helpers/dateOperations'
 
 interface State {}
 
@@ -31,10 +31,9 @@ class CompletedCard extends React.Component<Props, State> {
         let trimmedQuiz = quizName.length > 25 ? quizName.slice(0,25) + "..." : quizName
         let trimmedGroupName = groupName.length > 25 ? groupName.slice(0,15) + "..." : groupName
 
-        let currTime = new Date().getTime() + (10 * 60 * 60 * 1000)
+        let currTime = new Date().getTime() + (11 * 60 * 60 * 1000)
         let reviewTime = new Date(reviewDate).getTime()
-        let reviewTimeLeft = reviewTimeRemaining(reviewDate)
-        
+        let reviewTimeLeft = quizTimeRemaining(reviewDate)
         
         return (
             <div className="completed-card-info">

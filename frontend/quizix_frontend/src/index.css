@@ -1565,6 +1565,7 @@ body {
 .review-quiz-main .quiz-marks {
   font-size: 14pt;
   margin-top: 2%;
+  font-weight: bold;
 }
 .review-quiz-main .question-card {
   padding-bottom: 15px;
@@ -1572,6 +1573,11 @@ body {
   border-bottom: 1px solid #96a6ff;
   border-left: 1px solid #96a6ff;
   margin-bottom: 8%;
+}
+.review-quiz-main .question-card .if-not-attempted {
+  margin-left: 10px;
+  font-size: 12pt;
+  color: #eb9800;
 }
 .review-quiz-main .question-card .question {
   font-size: 18pt;

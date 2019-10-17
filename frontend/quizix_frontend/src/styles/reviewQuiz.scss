@@ -66,6 +66,7 @@ body {
     .quiz-marks {
         font-size: 14pt;
         margin-top: 2%;
+        font-weight: bold;
     }
 
     .question-card {
@@ -75,6 +76,12 @@ body {
         border-left: 1px solid rgb(150, 166, 255);
         margin-bottom: 8%;
         // margin-bottom: 7%;
+
+        .if-not-attempted {
+            margin-left: 10px;
+            font-size: 12pt;
+            color: rgb(235, 152, 0);
+        }
 
         .question {
             font-size: 18pt;
