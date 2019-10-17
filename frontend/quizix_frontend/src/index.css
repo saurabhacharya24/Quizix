@@ -579,7 +579,7 @@ html, body {
   vertical-align: top;
   margin-top: 8px;
   margin-right: 10px;
-  color: #4cdd2f;
+  color: #2baf11;
   height: 30px;
   background-color: white;
   border: 1px solid #4cdd2f;
@@ -1576,8 +1576,11 @@ body {
 }
 .review-quiz-main .question-card .if-not-attempted {
   margin-left: 10px;
+  padding: 5px;
   font-size: 12pt;
-  color: #eb9800;
+  width: 30%;
+  background-color: #f8ab1c;
+  color: white;
 }
 .review-quiz-main .question-card .question {
   font-size: 18pt;
