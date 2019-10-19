@@ -41,11 +41,10 @@ class Homepage extends React.Component<Props, State> {
                     <LoginAndRegister ref={this.loginRef}/>
                     <div className="slogan-main"> All your quizzes, In one place </div>
                     <p className="slogan-para"> 
-                        Quizix description and stuff
-                        Lorem ipsum dolor sit amet, consectetur adipiscing 
-                        elit, sed do eiusmod tempor incididunt ut labore 
-                        et dolore magna aliqua. Ut enim ad minim veniam, 
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip.
+                        Quizix allows you to create quizzes, take and review quizzes
+                        manage groups, and so much more - all in one place, so that
+                        you have a seamless experience anytime, anywhere.<br />
+                        Sign up today!
                     </p>
                     <p className="scroll-to-bottom" onClick={this.scrollBottom}> Read More! </p>
                 </div>

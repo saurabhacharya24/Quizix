@@ -1600,14 +1600,16 @@ body {
   content: counter(answer-counter) ") ";
 }
 .review-quiz-main .question-card .answers-list .answer-correct {
-  background-color: #8ef07a;
+  background-color: #1da81d;
+  color: white;
 }
 .review-quiz-main .question-card .answers-list .answer-correct::before {
   counter-increment: answer-counter;
   content: counter(answer-counter) ") ";
 }
 .review-quiz-main .question-card .answers-list .answer-incorrect {
-  background-color: #f78888;
+  background-color: #e63838;
+  color: white;
 }
 .review-quiz-main .question-card .answers-list .answer-incorrect::before {
   counter-increment: answer-counter;
