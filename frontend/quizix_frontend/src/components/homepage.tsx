@@ -124,7 +124,9 @@ class Homepage extends React.Component<Props, State> {
                     </div>
                     <div className="footer">
                         <p className="creator"> Made by Saurabh Acharya </p>
-                        <a href="https://github.com/saurabhacharya24" className="github-link"> GitHub: saurabhacharya24 </a>
+                        <a href="https://github.com/saurabhacharya24" className="github-link" rel="noopener noreferrer" target="_blank">
+                            GitHub: saurabhacharya24
+                        </a>
                     </div>
                 </div>
             </div>
