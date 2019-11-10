@@ -83,49 +83,57 @@ class Quizzes extends React.Component<Props, State> {
             quizzesLoaded || completedQuizzesLoaded ?
             <div>
                 <p className="upcoming-quizzes-text"> Upcoming Quizzes </p>
-                <div className="quizzes">
-                    {quizzes.length !== 0 ?
-                        quizzes.map((quiz: IQuizzes) =>
-                            <div>
-                                <QuizCard
-                                    key={quiz.quiz_id}
-                                    availableTo={quiz.available_to} 
-                                    quizName={quiz.quiz_name}
-                                    groupName={quiz.group_name}
-                                    quizId={quiz.quiz_id}
-                                    toggleAttemptQuizModal={this.toggleAttemptQuizModalState}
-                                />
-                                <AttemptQuizModal
-                                    quizName={quiz.quiz_name}
-                                    quizDesc={quiz.quiz_desc}
-                                    quizId={quiz.quiz_id}
-                                    showState={attemptQuizModalState}
-                                    toggleShowState={this.toggleAttemptQuizModalState}
-                                    availableTo={quiz.available_to}
-                                    goToAttemptQuiz={this.goToAttemptQuiz}
-                                />
-                                </div>)
-                    :
-                        <NoInfoCard infoMessage="No Quizzes due, Yay!"/>
-                    }
-                </div>
-                <p className="completed-quizzes-text"> Completed Quizzes </p>
-                <div className="completed-quizzes">
-                    {completedQuizzes.length !== 0 ?
-                        completedQuizzes.map((compQuiz: ICompleted) => 
-                            <CompletedCard
-                                key={compQuiz.quiz_id}
-                                marks={compQuiz.marks}
-                                quizName={compQuiz.quiz_name}
-                                groupName={compQuiz.group_name}
-                                quizId={compQuiz.quiz_id}
-                                reviewDate={compQuiz.review_date}
-                                goToReviewQuiz={this.goToReviewQuiz}
-                            />)
+                {quizzesLoaded ?
+                    <div className="quizzes">
+                        {quizzes.length !== 0 ?
+                            quizzes.map((quiz: IQuizzes) =>
+                                <div>
+                                    <QuizCard
+                                        key={quiz.quiz_id}
+                                        availableTo={quiz.available_to} 
+                                        quizName={quiz.quiz_name}
+                                        groupName={quiz.group_name}
+                                        quizId={quiz.quiz_id}
+                                        toggleAttemptQuizModal={this.toggleAttemptQuizModalState}
+                                    />
+                                    <AttemptQuizModal
+                                        quizName={quiz.quiz_name}
+                                        quizDesc={quiz.quiz_desc}
+                                        quizId={quiz.quiz_id}
+                                        showState={attemptQuizModalState}
+                                        toggleShowState={this.toggleAttemptQuizModalState}
+                                        availableTo={quiz.available_to}
+                                        goToAttemptQuiz={this.goToAttemptQuiz}
+                                    />
+                                    </div>)
                         :
-                        <NoInfoCard infoMessage="No Completed Quizzes"/>
-                    }
-                </div>
+                            <NoInfoCard infoMessage="No Quizzes due, Yay!"/>
+                        }
+                    </div>
+                :
+                    <div className="loading" />
+                }
+                <p className="completed-quizzes-text"> Completed Quizzes </p>
+                {completedQuizzesLoaded ?
+                    <div className="completed-quizzes">
+                        {completedQuizzes.length !== 0 ?
+                            completedQuizzes.map((compQuiz: ICompleted) => 
+                                <CompletedCard
+                                    key={compQuiz.quiz_id}
+                                    marks={compQuiz.marks}
+                                    quizName={compQuiz.quiz_name}
+                                    groupName={compQuiz.group_name}
+                                    quizId={compQuiz.quiz_id}
+                                    reviewDate={compQuiz.review_date}
+                                    goToReviewQuiz={this.goToReviewQuiz}
+                                />)
+                            :
+                            <NoInfoCard infoMessage="No Completed Quizzes"/>
+                        }
+                    </div>
+                :
+                    <div className="loading" />
+                }
             </div>
             :
             null

@@ -386,6 +386,31 @@ body {
 	}
 }
 
+.loading {
+    height: 40vh;  
+    position: absolute;
+    animation: 1s linear loading infinite;
+    border: solid 3px rgb(218, 215, 215);
+    border-bottom-color: rgb(90, 147, 231);
+    border-radius: 50%;
+    content: "";
+    height: 60px;
+    width: 60px;
+    margin-top: 5%;
+    left: 50%;
+    position: absolute;
+    transform: translate3d(-50%, -50%, 0);
+}
+
+@keyframes loading {
+    0% {
+        transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
+    100% {
+         transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
+}
+
 @keyframes fadeOut {
 	0% {opacity: 1}
 	90% {opacity: 1}
