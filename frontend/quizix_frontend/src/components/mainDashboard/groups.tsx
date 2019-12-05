@@ -7,6 +7,7 @@ import getUserId from '../../helpers/cookies'
 import { API_URL, headerConfig } from '../../helpers/apiConsts'
 import GroupCreateModal from '../modals/groupCreateModal'
 import SearchGroupsModal from '../modals/searchGroupModal'
+import NoInfoCard from '../cards/noInfoCard'
 
 
 interface State {
@@ -89,18 +90,22 @@ class Groups extends React.Component<Props, State> {
                 <p className="groups-text"> My Groups </p>
                 <button className="create-group-button" onClick={this.toggleCreateGroupModalState}> Create Group </button>
                 <div className="groups">
-                    {groups.map((group: IGroups) => 
-                        <GroupCard
-                            groupName={group.group_name}
-                            groupDesc={group.group_desc}
-                            groupId={group.group_id}
-                            isAdmin={group.is_admin}
-                            numOfMembers={group.num_of_members}
-                            goToCreateQuiz={this.goToCreateQuiz}
-                            key={group.group_id}
-                        />
-                    )}
-                    <GroupCreateModal 
+                    {groups.length !== 0 ?
+                        groups.map((group: IGroups) => 
+                            <GroupCard
+                                groupName={group.group_name}
+                                groupDesc={group.group_desc}
+                                groupId={group.group_id}
+                                isAdmin={group.is_admin}
+                                numOfMembers={group.num_of_members}
+                                goToCreateQuiz={this.goToCreateQuiz}
+                                key={group.group_id}
+                            />
+                        )
+                        :
+                            <NoInfoCard infoMessage="You don't have any groups right now" />
+                        }
+                        <GroupCreateModal 
                         showState={createGroupModalShow}
                         toggleShowState={this.toggleCreateGroupModalState}
                         />
