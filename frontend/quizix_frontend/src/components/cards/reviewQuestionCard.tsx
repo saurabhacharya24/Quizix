@@ -19,7 +19,7 @@ class ReviewQuestionCard extends React.Component<Props, State> {
         let answersObject = question.answers
         let answers = Object.values(answersObject)
         let currAnsCount = 1
-        console.log(answers)
+        // console.log(answers)
 
         return (
             <div className="question-card">
