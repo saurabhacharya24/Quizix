@@ -13,3 +13,6 @@ database=quizix
 user=YOUR_USER_NAME
 password=YOUR_PASSWORD
 ```
+
+- To run the backend server, go to `backend/` and type `python server.py` in the console.
+- To start the application, go to `frontend/quizix_frontend` and type `npm start` in the console.
