@@ -253,8 +253,13 @@ class CreateQuiz extends React.Component<Props, State> {
         }
 
         try {
-            axios.post(API_URL+"/quiz", quizBody, headerConfig)
-            alert("Success!")
+            if (quizBody.quiz[0].quiz_name.length === 0 || quizBody.quiz[0].quiz_desc.length === 0) {
+                alert("Quiz name or description is empty.")
+            }
+            else {
+                axios.post(API_URL+"/quiz", quizBody, headerConfig)
+                alert("Success!")
+            }
         } catch (error) {
             alert(error)
         }
@@ -265,11 +270,11 @@ class CreateQuiz extends React.Component<Props, State> {
             <div>
                 <div className="quiz-name-box">
                     <p className="quiz-name"> Quiz Name: </p>
-                    <input className="quiz-name-input" onChange={this.changeQuizNameState} />
+                    <input className="quiz-name-input" onChange={this.changeQuizNameState} required/>
                 </div>
                 <div className="quiz-desc-box">
                     <p className="quiz-desc"> Quiz Description: </p>
-                    <input className="quiz-desc-input" onChange={this.changeQuizDescState} /> 
+                    <input className="quiz-desc-input" onChange={this.changeQuizDescState} required/> 
                 </div>
             </div>
         )
